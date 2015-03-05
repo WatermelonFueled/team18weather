@@ -7,6 +7,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * This class handles all communication with the online weather services
@@ -14,36 +18,40 @@ import java.util.logging.Logger;
  * as needed
  * @author David Park
  */
-
 public class DataRequester {
     
+    // url segments for request
+    // NOTE: may be better having less concat vs longer strings
     private String OWMAddress = "http://api.openweathermap.org/data/2.5/";
     private String OWMLocal = "weather?units=metric&id=";
     private String OWMShort = "forecast?units=metric&id=";
     private String OWMLong = "forecast/daily?cnt=7&units=metric&id=";
     //private String MarsAddress = 
     
-    private JSONParser parser;
-    
-    
+    /**
+     * Constructor for DataRequestor
+     */
     public DataRequester(){
-        parser = new JSONParser();
+        //
     }
 
+    /**
+     * request method performs request for specified city (id) and populate
+     * appropriate data
+     * @param weatherData to insert values in; can be local, long or short term
+     * @param id of location (city)
+     */
     public void request(WeatherData weatherData, String id){
         String requestURL = this.concatURL(weatherData, id);
         
         String response;
         try {
             response = this.sendRequest(requestURL);
-            
             this.parseResponse(weatherData, response);
             
         } catch (IOException | ParseException ex) {
             Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
         
         
     }
@@ -56,14 +64,16 @@ public class DataRequester {
      * @throws IOException 
      */
     private String sendRequest(String request) throws MalformedURLException, IOException{
+        final int CONNECTION_TIMEOUT_SECONDS = 10;
         URL requestURL = new URL(request);
         HttpURLConnection connection = (HttpURLConnection) requestURL.openConnection();
+        connection.setConnectTimeout(CONNECTION_TIMEOUT_SECONDS*1000);
         
         int responseCode = connection.getResponseCode();
         // check if there was a client error during the request
-        if (responseCode > 400){
-            // (action to take with error)
-            
+        if (responseCode > 400 || responseCode == -1){
+            // (action to take with http error)
+            throw new IOException("HTTP error. Response code: "+responseCode);
         }
         
         // store the response from the web service in a StringBuilder
@@ -108,7 +118,15 @@ public class DataRequester {
         return resultURL;
     }
     
-    private void parseResponse(WeatherData weatherData, String response){
+    /**
+     * parseResponse parses the response from the weather services by calling
+     * the appropriate parsing method matching the type of weatherData
+     * @param weatherData data object to be updated
+     * @param response from the web service
+     * @throws ParseException 
+     */
+    private void parseResponse(WeatherData weatherData, String response) throws ParseException{
+        JSONParser parser = new JSONParser();
         // create JSONObject of response
         JSONObject responseJSON = (JSONObject) parser.parse(response);
         
@@ -132,22 +150,68 @@ public class DataRequester {
         }// end switch    
     }
     
+    /**
+     * parseLocal populates the fields of weatherData; appropriate for local
+     * @param weatherData data object to put in new data
+     * @param response The JSONObject with response from OpenWeatherMap
+     */
     private void parseLocal(LocalWeatherData weatherData, JSONObject response){
         JSONObject responseMain = (JSONObject) response.get("main");
         JSONObject responseWind = (JSONObject) response.get("wind");
         JSONObject responseSys = (JSONObject) response.get("sys");
-        JSONObject responseWeather = (JSONObject) response.get("weather");
+        JSONArray responseWeatherArr = (JSONArray) response.get("weather");
+        JSONObject responseWeather = (JSONObject) responseWeatherArr.get(0);
         
-        weatherData.setTemperature((String) responseMain.get("temp"));
-        weatherData.setWindSpeed((String) responseWind.get("speed"));
-        weatherData.setWihdDirection((String) responseWind.get("deg"));
-        weatherData.setSkyCondition((String) responseWeather.get("id"));
-        // should we get more than the condition id?
-        weatherData.setAirPressure((String) responseMain.get("pressure"));
-        weatherData.setMinTemperature((String) responseMain.get("temp_min"));
-        weatherData.setMaxTemperature((String) responseMain.get("temp_max"));
-        weatherData.setTimeSunrise((String) responseSys.get("sunrise"));
-        weatherData.setTimeSunset((String) responseSys.get("sunset"));
-        weatherData.setHumidity((String) responseMain.get("humidity"));
+        weatherData.setTemperature(responseMain.get("temp").toString());
+        weatherData.setWindSpeed(responseWind.get("speed").toString());
+        weatherData.setWindDirection(responseWind.get("deg").toString());
+        weatherData.setAirPressure(responseMain.get("pressure").toString());
+        weatherData.setMinTemperature(responseMain.get("temp_min").toString());
+        weatherData.setMaxTemperature(responseMain.get("temp_max").toString());
+        weatherData.setTimeSunrise(responseSys.get("sunrise").toString());
+        weatherData.setTimeSunset(responseSys.get("sunset").toString());
+        weatherData.setHumidity(responseMain.get("humidity").toString());
+        
+        weatherData.setSkyCondition(responseWeather.get("id"));
+        // possibly add description as well
+        //weatherData.setDescription(responseWeather.get("description"));
+    }
+    
+    /**
+     * 
+     * @param weatherData
+     * @param response 
+     */
+    private void parseShort(ShortTermData weatherData, JSONObject response){
+        JSONArray list = (JSONArray) response.get("list");
+        JSONObject weatherTimeslot;
+        
+        for (int i=0; i<9; i++){
+            weatherTimeslot = (JSONObject) list.get(i);
+            
+            //set temperature in array
+            //weatherTimeslot.get("main").get("temp").toString()
+            //set sky condition in  array
+            //weatherTimeslot.get("weather").get(0).get("id")
+        }
+    }
+    
+    /**
+     * 
+     * @param weatherData
+     * @param response 
+     */
+    private void parseLong(LongTermData weatherData, JSONObject response){
+        JSONArray list = (JSONArray) response.get("list");
+        JSONObject weatherDay;
+        
+        for (int i=0; i < 7; i++){
+            weatherDay = (JSONObject) list.get(i);
+            
+            //set temperature in array
+            //weatherTimeslot.get("main").get("temp").toString()
+            //set sky condition in  array
+            //weatherTimeslot.get("weather").get(0).get("id")
+        }
     }
 }

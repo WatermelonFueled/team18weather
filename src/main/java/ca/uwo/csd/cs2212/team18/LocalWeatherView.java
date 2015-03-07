@@ -81,7 +81,7 @@ public class LocalWeatherView extends JFrame {
 		lblskypic.setHorizontalAlignment(JLabel.CENTER);
 		lblskypic.setForeground(Color.WHITE);
 
-		JLabel lblairp = new JLabel("Air Pressure: "localWeatherData.getAirPressure());
+		JLabel lblairp = new JLabel("Air Pressure: "+localWeatherData.getAirPressure());
 		lblairp.setHorizontalAlignment(JLabel.CENTER);
 		lblairp.setForeground(Color.WHITE);
 
@@ -89,7 +89,7 @@ public class LocalWeatherView extends JFrame {
 		lblhumidity.setHorizontalAlignment(JLabel.CENTER);
 		lblhumidity.setForeground(Color.WHITE);
 
-		JLabel lblwind = new JLabel("Wind Speed and Direction: " + localWeatherData.getWindSpeed() + localWeatherData,getWindDirection());
+		JLabel lblwind = new JLabel("Wind Speed and Direction: " + localWeatherData.getWindSpeed() + localWeatherData.getWindDirection());
 		lblwind.setHorizontalAlignment(JLabel.CENTER);
 		lblwind.setForeground(Color.WHITE);
 

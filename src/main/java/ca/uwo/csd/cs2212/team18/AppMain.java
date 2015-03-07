@@ -11,7 +11,7 @@ public class AppMain {
             // initialize objects
             
             LocalWeatherData localData = new LocalWeatherData();
-            DataRequester dataRequester = new dataRequester(localData);
+            DataRequester dataRequester = new DataRequester(localData);
             LocalWeatherView localView = new LocalWeatherView(localData, dataRequester);
             SelectionPage selectionPage = new SelectionPage(localView);
 	    selectionPage.setVisible(true);

@@ -124,11 +124,10 @@ public class SelectionPage extends JFrame{
 						out.println(lblText.getText().toString());
 						out.close();
 					} catch (IOException f) {}
-
-					lblText.setText("-->");		//For testing purposes only
-					/*
-					 * run DataRequestor/Local Weather View
-					 */
+					
+					//lblText.setText("-->");		//For testing purposes only
+					LocalWeatherView lwv = new LocalWeatherView();
+					lwv.setVisible(true);
 				}
 			}
 		});      

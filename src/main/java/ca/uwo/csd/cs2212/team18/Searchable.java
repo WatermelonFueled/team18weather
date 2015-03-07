@@ -1,10 +1,11 @@
+package ca.uwo.csd.cs2212.team18;
 import java.util.Collection;
 
 /**
- * Interface to search an underlying inventory of items and return a collection of found items. 
- * @author G. Cope
+ * Interface to search an inventory of items and return a collection of 
+ * found items. 
  *
- * @param <E> The type of items to be found.
+ * @param <E> The type of items to be found
  * @param <V> The type of items to be searched
  */
 

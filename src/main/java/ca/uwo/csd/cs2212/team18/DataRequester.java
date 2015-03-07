@@ -116,7 +116,7 @@ public class DataRequester {
         localData.setTimeSunset(responseSys.get("sunset").toString());
         localData.setHumidity(responseMain.get("humidity").toString());
         
-        localData.setSkyCondition(responseWeather.get("id"));
+        localData.setSkyCondition(responseWeather.get("id").toString());
         // possibly add description as well
         //localData.setDescription(responseWeather.get("description"));
     }

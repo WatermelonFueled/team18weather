@@ -49,7 +49,7 @@ public class DataRequester {
             // parse response
             JSONObject responseJSON = (JSONObject) parser.parse(response);
             parseLocal(responseJSON);
-        } catch (IOException ex) {
+        } catch (IOException |ParseException ex) {
             Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
         }            
     }

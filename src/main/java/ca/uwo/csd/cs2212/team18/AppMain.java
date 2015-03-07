@@ -4,12 +4,6 @@ import org.apache.logging.log4j.Logger;
 
 public class AppMain {
 
-    
-    SelectionPage selectionPage = new SelectionPage();
-    DataRequester dataRequester = new dataRequester();
-    LocalWeatherData localData = new LocalWeatherData();
-
-    
     static Logger logger = LogManager.getLogger(AppMain.class.getName());	
     public static void main (String [] args) {
             logger.info("This is Team 18's Weather App");

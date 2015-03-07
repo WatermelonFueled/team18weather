@@ -1,3 +1,4 @@
+package ca.uwo.csd.cs2212.team18;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -5,10 +6,9 @@ import java.util.List;
 
 /**
  * Implementation of the Searchable interface that searches a List of String objects. 
- * This implementation searches only the beginning of the words, and is not be optimized
- * for very large Lists. 
- * @author G. Cope
+ * @author DianaGodoy
  *
+ * Code adapted from {@link http://www.algosome.com/articles/java-jcombobox-autocomplete.html Source Code}
  */
 
 public class StringSearchable implements Searchable<String,String>{
@@ -24,6 +24,15 @@ public class StringSearchable implements Searchable<String,String>{
 	}
 
 	@Override
+	/**
+	 * Searches the entered string in the array of terms regardless
+	 * of upper/lower case and returns the matching values. This is 
+	 * used for displaying  drop down menu of only the valid cities
+	 * according to characters typed.
+	 * 
+	 * @param value The String to search.
+	 * @return founds The Collection of Strings matching the search value.
+	 */
 	public Collection<String> search(String value) {
 		//value.toLowerCase();
 		List<String> founds = new ArrayList<String>();

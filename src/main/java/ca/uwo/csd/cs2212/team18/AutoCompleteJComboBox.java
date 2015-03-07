@@ -1,3 +1,5 @@
+package ca.uwo.csd.cs2212.team18;
+
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -14,10 +16,11 @@ import javax.swing.text.JTextComponent;
 
 
 /**
- * JComboBox with an autocomplete drop down menu. This class is hard-coded for String objects, but can be
- * altered into a generic form to allow for any searchable item. 
- * @author G. Cope
+ * JComboBox with an autocomplete drop down menu. This class is hard-coded for String objects. 
  *
+ * @author DianaGodoy
+ *
+ * Code adapted from {@link http://www.algosome.com/articles/java-jcombobox-autocomplete.html Source Code}
  */
 
 public class AutoCompleteJComboBox extends JComboBox{
@@ -57,8 +60,6 @@ public class AutoCompleteJComboBox extends JComboBox{
 					//and JComboBox will result in an IllegalStateException due to editing 
 					//the component when it is locked. 
 					SwingUtilities.invokeLater(new Runnable(){
-
-						@Override
 
 						public void run() {
 							List<String> founds = new ArrayList<String>(searchable.search(tc.getText()));

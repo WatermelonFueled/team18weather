@@ -19,41 +19,45 @@ import org.json.simple.parser.ParseException;
  * @author David Park
  */
 public class DataRequester {
+    private LocalWeatherData localData;
+    //private ShortTermData shortData;
+    //private LongTermData longData;
     
-    // url segments for request
-    // NOTE: may be better having less concat vs longer strings
-    private String OWMAddress = "http://api.openweathermap.org/data/2.5/";
-    private String OWMLocal = "weather?units=metric&id=";
-    private String OWMShort = "forecast?units=metric&id=";
-    private String OWMLong = "forecast/daily?cnt=7&units=metric&id=";
+    // url for request
+    private String OWMLocal = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=";
+    //private String OWMShort = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=";
+    //private String OWMLong = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=";
     //private String MarsAddress = 
     
+    private JSONParser parser;
+    
     /**
-     * Constructor for DataRequestor
+     * Constructor for DataRequester
+     * @param localData LocalWeatherData object
      */
-    public DataRequester(){
-        //
+    DataRequester(LocalWeatherData localData){
+        this.localData = localData;
+        parser = new JSONParser();
     }
 
     /**
-     * request method performs request for specified city (id) and populate
-     * appropriate data
-     * @param weatherData to insert values in; can be local, long or short term
-     * @param id of location (city)
+     * requestLocal method requests for the local forecast info and updates
+     * the localData object with new values
+     * @param id city id as string
      */
-    public void request(WeatherData weatherData, String id){
-        String requestURL = this.concatURL(weatherData, id);
+    public void requestLocal(String id){
+        // build the request string
+        String requestURL = OWMLocal.concat(id);
         
-        String response;
         try {
-            response = this.sendRequest(requestURL);
-            this.parseResponse(weatherData, response);
-            
+            // send request to web service
+            String response = this.sendRequest(requestURL);
+            // parse response
+            JSONObject responseJSON = (JSONObject) parser.parse(response);
+            parseLocal(responseJSON);
         } catch (IOException | ParseException ex) {
             Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        }            
     }
     
     /**
@@ -91,90 +95,31 @@ public class DataRequester {
         return response.toString();
     }
     
-    
-    private String concatURL(WeatherData weatherData, String id){
-        String resultURL = OWMAddress;
-        
-        Class dataType = weatherData.getClass();
-        switch (dataType){
-            case LocalWeatherData.class:
-                // create URL for local forecast
-                resultURL = resultURL.concat(OWMLocal).concat(id);
-                break;
-            case ShortTermData.class:
-                // create URL for short term forecast
-                resultURL = resultURL.concat(OWMShort).concat(id);
-                break;
-            case LongTermData.class:
-                // create URL for long term forecast
-                resultURL = resultURL.concat(OWMLong).concat(id);
-                break;
-            default:
-                // error, currently causes method to return null
-                resultURL = null;
-                break;
-        }// end switch
-        
-        return resultURL;
-    }
-    
     /**
-     * parseResponse parses the response from the weather services by calling
-     * the appropriate parsing method matching the type of weatherData
-     * @param weatherData data object to be updated
-     * @param response from the web service
-     * @throws ParseException 
-     */
-    private void parseResponse(WeatherData weatherData, String response) throws ParseException{
-        JSONParser parser = new JSONParser();
-        // create JSONObject of response
-        JSONObject responseJSON = (JSONObject) parser.parse(response);
-        
-        Class dataType = weatherData.getClass();
-        switch (dataType){
-            case LocalWeatherData.class:
-                // parse for local forecast
-                this.parseLocal(weatherData, responseJSON);
-                break;
-            case ShortTermData.class:
-                // parse for short term forecast
-                
-                break;
-            case LongTermData.class:
-                // parse for long term forecast
-                
-                break;
-            default:
-                // error
-                break;
-        }// end switch    
-    }
-    
-    /**
-     * parseLocal populates the fields of weatherData; appropriate for local
-     * @param weatherData data object to put in new data
+     * parseLocal populates the fields of localData with new results
      * @param response The JSONObject with response from OpenWeatherMap
      */
-    private void parseLocal(LocalWeatherData weatherData, JSONObject response){
+    private void parseLocal(JSONObject response){
         JSONObject responseMain = (JSONObject) response.get("main");
         JSONObject responseWind = (JSONObject) response.get("wind");
         JSONObject responseSys = (JSONObject) response.get("sys");
         JSONArray responseWeatherArr = (JSONArray) response.get("weather");
         JSONObject responseWeather = (JSONObject) responseWeatherArr.get(0);
         
-        weatherData.setTemperature(responseMain.get("temp").toString());
-        weatherData.setWindSpeed(responseWind.get("speed").toString());
-        weatherData.setWindDirection(responseWind.get("deg").toString());
-        weatherData.setAirPressure(responseMain.get("pressure").toString());
-        weatherData.setMinTemperature(responseMain.get("temp_min").toString());
-        weatherData.setMaxTemperature(responseMain.get("temp_max").toString());
-        weatherData.setTimeSunrise(responseSys.get("sunrise").toString());
-        weatherData.setTimeSunset(responseSys.get("sunset").toString());
-        weatherData.setHumidity(responseMain.get("humidity").toString());
+        // update values
+        localData.setTemperature(responseMain.get("temp").toString());
+        localData.setWindSpeed(responseWind.get("speed").toString());
+        localData.setWindDirection(responseWind.get("deg").toString());
+        localData.setAirPressure(responseMain.get("pressure").toString());
+        localData.setMinTemperature(responseMain.get("temp_min").toString());
+        localData.setMaxTemperature(responseMain.get("temp_max").toString());
+        localData.setTimeSunrise(responseSys.get("sunrise").toString());
+        localData.setTimeSunset(responseSys.get("sunset").toString());
+        localData.setHumidity(responseMain.get("humidity").toString());
         
-        weatherData.setSkyCondition(responseWeather.get("id"));
+        localData.setSkyCondition(responseWeather.get("id"));
         // possibly add description as well
-        //weatherData.setDescription(responseWeather.get("description"));
+        //localData.setDescription(responseWeather.get("description"));
     }
     
     /**
@@ -182,6 +127,7 @@ public class DataRequester {
      * @param weatherData
      * @param response 
      */
+    /*
     private void parseShort(ShortTermData weatherData, JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
         JSONObject weatherTimeslot;
@@ -195,12 +141,14 @@ public class DataRequester {
             //weatherTimeslot.get("weather").get(0).get("id")
         }
     }
+    */
     
     /**
      * 
      * @param weatherData
      * @param response 
      */
+    /*
     private void parseLong(LongTermData weatherData, JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
         JSONObject weatherDay;
@@ -214,4 +162,5 @@ public class DataRequester {
             //weatherTimeslot.get("weather").get(0).get("id")
         }
     }
+    */
 }

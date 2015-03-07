@@ -9,5 +9,13 @@ public class AppMain {
 		logger.warn("Hello Maven/log4j World");
 		logger.info("This is Team 18's Weather App");
 		logger.trace("Exiting main");
-	}
+        
+        SwingUtilities.invokeLater(new Runnable() {
+        @Override
+            public void run() {
+                SelectionPage sp = new SelectionPage();
+                sp.setVisible(true);
+            }
+        });
+    }
 }

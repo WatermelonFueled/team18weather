@@ -81,35 +81,35 @@ public class LocalWeatherView extends JFrame {
 		lblskypic.setHorizontalAlignment(JLabel.CENTER);
 		lblskypic.setForeground(Color.WHITE);
 
-		JLabel lblairp = new JLabel("Air Pressure: ");
+		JLabel lblairp = new JLabel("Air Pressure: "localWeatherData.getAirPressure());
 		lblairp.setHorizontalAlignment(JLabel.CENTER);
 		lblairp.setForeground(Color.WHITE);
 
-		JLabel lblhumidity = new JLabel("Humidity: ");
+		JLabel lblhumidity = new JLabel("Humidity: " + localWeatherData.getHumidity());
 		lblhumidity.setHorizontalAlignment(JLabel.CENTER);
 		lblhumidity.setForeground(Color.WHITE);
 
-		JLabel lblwind = new JLabel("Wind Speed and Direction: ");
+		JLabel lblwind = new JLabel("Wind Speed and Direction: " + localWeatherData.getWindSpeed() + localWeatherData,getWindDirection());
 		lblwind.setHorizontalAlignment(JLabel.CENTER);
 		lblwind.setForeground(Color.WHITE);
 
-		JLabel lblskyc = new JLabel("Sky Condition: ");
+		JLabel lblskyc = new JLabel("Sky Condition: " + localWeatherData.getSkyCondition());
 		lblskyc.setHorizontalAlignment(JLabel.CENTER);
 		lblskyc.setForeground(Color.WHITE);
 
-		JLabel lblmintemp = new JLabel("Minimum Temperature: ");
+		JLabel lblmintemp = new JLabel("Minimum Temperature: " + localWeatherData.getMinTemperature());
 		lblmintemp.setHorizontalAlignment(JLabel.CENTER);
 		lblmintemp.setForeground(Color.WHITE);
 
-		JLabel lblmaxtemp = new JLabel("Maximum Temperature: ");
+		JLabel lblmaxtemp = new JLabel("Maximum Temperature: " + localWeatherData.getMaxTemperature());
 		lblmaxtemp.setHorizontalAlignment(JLabel.CENTER);
 		lblmaxtemp.setForeground(Color.WHITE);
 
-		JLabel lblsunrise = new JLabel("Sunrise: ");
+		JLabel lblsunrise = new JLabel("Sunrise: " + localWeatherData.getTimeSunrise());
 		lblsunrise.setHorizontalAlignment(JLabel.CENTER);
 		lblsunrise.setForeground(Color.WHITE);
 
-		JLabel lblsunset = new JLabel("Sunset: ");
+		JLabel lblsunset = new JLabel("Sunset: " + localWeatherData.getTimeSunset());
 		lblsunset.setHorizontalAlignment(JLabel.CENTER);
 		lblsunset.setForeground(Color.WHITE);
 

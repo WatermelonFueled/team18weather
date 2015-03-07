@@ -30,7 +30,7 @@ public class SelectionPage extends JFrame{
 	 * interface. Window is not visible by default.
 	 */
 	public SelectionPage(LocalWeatherView localWeatherView) {
-            this.localWeatherView = localWeatherView
+            this.localWeatherView = localWeatherView;
             this.initUI();
 	}
 
@@ -129,8 +129,7 @@ public class SelectionPage extends JFrame{
 					} catch (IOException f) {}
 					
 					//lblText.setText("-->");		//For testing purposes only
-					LocalWeatherView lwv = new LocalWeatherView();
-					lwv.setVisible(true);
+					localWeatherView.setVisible(true);
 				}
 			}
 		});      

@@ -9,10 +9,12 @@ public class AppMain {
             logger.info("This is Team 18's Weather App");
 
             // initialize objects
-            SelectionPage selectionPage = new SelectionPage();
+            
+            LocalWeatherData localData = new LocalWeatherData();
+            DataRequester dataRequester = new dataRequester(localData);
+            LocalWeatherView localView = new LocalWeatherView(localData, dataRequester);
+            SelectionPage selectionPage = new SelectionPage(localView);
 	    selectionPage.setVisible(true);
-            //DataRequester dataRequester = new dataRequester();
-            //LocalWeatherData localData = new LocalWeatherData();
             //search
 
             //request data

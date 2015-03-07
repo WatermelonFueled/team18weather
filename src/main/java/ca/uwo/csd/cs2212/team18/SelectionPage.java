@@ -23,12 +23,15 @@ public class SelectionPage extends JFrame{
 	 */
 	private static final long serialVersionUID = -5681712855274371085L;
 
+        private LocalWeatherView localWeatherView;
+        
 	/**
 	 * Creates a new SelectionPage and initializes the user 
 	 * interface. Window is not visible by default.
 	 */
-	public SelectionPage() {
-		this.initUI();
+	public SelectionPage(LocalWeatherView localWeatherView) {
+            this.localWeatherView = localWeatherView
+            this.initUI();
 	}
 
 	/**

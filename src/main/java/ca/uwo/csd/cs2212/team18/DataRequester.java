@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
+import org.json.simple.parser.ParseException;
 
 /**
  * This class handles all communication with the online weather services
@@ -49,9 +49,11 @@ public class DataRequester {
             // parse response
             JSONObject responseJSON = (JSONObject) parser.parse(response);
             parseLocal(responseJSON);
-        } catch (IOException |ParseException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
-        }            
+        } catch (ParseException ex)  {
+            //
+        }
     }
     
     //request short

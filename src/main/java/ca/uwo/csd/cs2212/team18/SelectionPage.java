@@ -126,16 +126,20 @@ public class SelectionPage extends JPanel {
                     } catch (IOException f) {
                     }
 
-                    localWeatherView.setVisible(true);
+                    //dataRequester.requestLocal(   );
 					//lblText.setText("-->");		//For testing purposes only
                     //LocalWeatherView lwv = new LocalWeatherView();
                     //lwv.setVisible(true);
                 }
-
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
                 // TESTING TESTING TESTING
                 dataRequester.requestLocal("2172797");
                 localWeatherView.setCityName("Cairns");
-
+                localWeatherView.setLabels();
+                lblText.setText("TESTING TESTING TESTING");
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
             }
         });
 

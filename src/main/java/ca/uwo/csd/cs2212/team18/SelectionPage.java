@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -43,6 +45,8 @@ public class SelectionPage extends JPanel {
         try {
             locationList(locList);
         } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         
@@ -169,16 +173,18 @@ public class SelectionPage extends JPanel {
      * @param locList to populate with city info
      * @throws FileNotFoundException 
      */
-    private void locationList(ArrayList<String> locList) throws FileNotFoundException{
+    private void locationList(ArrayList<String> locList) throws FileNotFoundException, IOException{
         //Get file from resources folder
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("unorderedList.txt").getFile());
+        InputStream input = getClass().getClassLoader().getResourceAsStream("unorderedList.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        //File file = new File(classLoader.getResource("file/unorderedList.txt").getFile());
 
-        Scanner s = new Scanner(file);
-        while (s.hasNext()){
-            locList.add(s.nextLine());
+        //Scanner s = new Scanner(file);
+        String line;
+        while ((line = reader.readLine()) != null){
+            locList.add(line);
         }
-        s.close();
+        reader.close();
     }
     
 

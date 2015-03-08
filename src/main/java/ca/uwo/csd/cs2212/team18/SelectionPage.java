@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
+
 import javax.swing.*;
 
 /**
@@ -17,21 +18,17 @@ import javax.swing.*;
  */
 
 public class SelectionPage extends JFrame{
-	
-	/**
-	 * Auto-generated serial version value
-	 */
+
 	private static final long serialVersionUID = -5681712855274371085L;
 
-        private LocalWeatherView localWeatherView;
-        
 	/**
 	 * Creates a new SelectionPage and initializes the user 
 	 * interface. Window is not visible by default.
+	 * @throws UnsupportedEncodingException 
+	 * @throws FileNotFoundException 
 	 */
-	public SelectionPage(LocalWeatherView localWeatherView) {
-            this.localWeatherView = localWeatherView;
-            this.initUI();
+	public SelectionPage() throws FileNotFoundException, UnsupportedEncodingException {
+		this.initUI();
 	}
 
 	/**
@@ -39,9 +36,19 @@ public class SelectionPage extends JFrame{
 	 * This includes a JComboBox, JButton, multiple JRadioButtons 
 	 * and multiple JLabels into the appropriate panels and adds 
 	 * them to the current frame. 
+	 * @throws UnsupportedEncodingException 
+	 * @throws FileNotFoundException 
 	 */
-	private void initUI() {
+	private void initUI() throws FileNotFoundException, UnsupportedEncodingException {
 		
+		/**
+		 * testing to see where .txt files get saved into in mvn package
+		 */
+		PrintWriter writer = new PrintWriter("test.txt", "UTF-8");
+        writer.println("The first line");
+        writer.println("The second line");
+        writer.close();
+        
 		//Get data for comboBox
 		final ArrayList<String> locList = new ArrayList<String>();
 		try{
@@ -128,8 +135,9 @@ public class SelectionPage extends JFrame{
 						out.close();
 					} catch (IOException f) {}
 					
-					//lblText.setText("-->");		//For testing purposes only
-					localWeatherView.setVisible(true);
+					lblText.setText("-->");		//For testing purposes only
+					//LocalWeatherView lwv = new LocalWeatherView();
+					//lwv.setVisible(true);
 				}
 			}
 		});      

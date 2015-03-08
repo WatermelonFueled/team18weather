@@ -5,192 +5,261 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class LocalWeatherView extends JFrame {
+public class LocalWeatherView extends JPanel {
 
-	private static final long serialVersionUID = -5393294539017896082L;
+    private static final long serialVersionUID = -5393294539017896082L;
 //	private JTextField lblTemp;
-	private JLabel lblText;
-	
-        private LocalWeatherData localWeatherData;
+    private JLabel lblText;
+
+    private LocalWeatherData localWeatherData;
+    private String cityName;
+
+    public LocalWeatherView(LocalWeatherData localWeatherData) {
+        this.localWeatherData = localWeatherData;
+        this.initUI();
+    }
+
+    private void initUI() {
+
+        JLabel lblCity = new JLabel(cityName,JLabel.CENTER);
+        lblCity.setForeground(Color.BLACK);
+
+        JLabel lblTemp = new JLabel("Current Temperature: " + localWeatherData.getTemperature(),JLabel.CENTER);
+        lblTemp.setForeground(Color.BLACK);
+
+        JLabel lblskypic = new JLabel("PICTURE OF CURRENT WEATHER",JLabel.CENTER);
+        lblskypic.setForeground(Color.BLACK);
+
+        JLabel lblairp = new JLabel("Air Pressure: " + localWeatherData.getAirPressure(),JLabel.CENTER);
+        lblairp.setForeground(Color.BLACK);
+
+        JLabel lblhumidity = new JLabel("Humidity: " + localWeatherData.getHumidity(),JLabel.CENTER);
+        lblhumidity.setForeground(Color.BLACK);
+
+        JLabel lblwind = new JLabel("Wind Speed and Direction: " + localWeatherData.getWindSpeed() + " " + localWeatherData.getWindDirection(),JLabel.CENTER);
+        lblwind.setForeground(Color.BLACK);
+
+        JLabel lblskyc = new JLabel("Sky Condition: " + localWeatherData.getSkyCondition(),JLabel.CENTER);
+        lblskyc.setForeground(Color.BLACK);
+
+        JLabel lblmintemp = new JLabel("Minimum Temperature: " + localWeatherData.getMinTemperature(),JLabel.CENTER);
+        lblmintemp.setForeground(Color.BLACK);
+
+        JLabel lblmaxtemp = new JLabel("Maximum Temperature: " + localWeatherData.getMaxTemperature(),JLabel.CENTER);
+        lblmaxtemp.setForeground(Color.BLACK);
+
+        JLabel lblsunrise = new JLabel("Sunrise: " + localWeatherData.getTimeSunrise(),JLabel.CENTER);
+        lblsunrise.setForeground(Color.BLACK);
+
+        JLabel lblsunset = new JLabel("Sunset: " + localWeatherData.getTimeSunset(),JLabel.CENTER);
+        lblsunset.setForeground(Color.BLACK);
         
-        private String cityName;
+        GroupLayout layout = new GroupLayout(this);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblTemp)
+                                        .addComponent(lblskyc)
+                                        .addComponent(lblmaxtemp)
+                                        .addComponent(lblmintemp)
+                                        .addComponent(lblsunrise)
+                                        .addComponent(lblsunset)
+                                        .addComponent(lblairp)
+                                        .addComponent(lblhumidity)
+                                        .addComponent(lblwind)
+                                )
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblmaxtemp)
+                                                .addComponent(lblmintemp)
+                                        )
+                                )
+                        //.addComponent(txtLocation)
+                        //)
+                        )
+                )
+        );
+						//.addComponent(lblText)
+        //	)
+        //	.addComponent(btnSearch) ); 
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTemp)
+                //.addComponent(lblmaxtemp)
+                //.addComponent(lblsunrise)
+                //.addComponent(lblsunset)
+
+                //.addComponent(txtLocation)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblskyc)
+                                .addComponent(lblmaxtemp)
+                                .addComponent(lblmintemp)
+                                .addComponent(lblsunrise)
+                                .addComponent(lblsunset)
+                                .addComponent(lblairp)
+                                .addComponent(lblhumidity)
+                                .addComponent(lblwind)
+                        )
+                //.addComponent(lblText)
+                //	.addComponent(btnSearch) 
+                )
+        );
         
-	public LocalWeatherView(LocalWeatherData localWeatherData) {
-            this.localWeatherData = localWeatherData;
-            //this.initUI();
-	}
-	
-	public void initUI() {
-	
-		/*
-	    Color steelBlue = new Color(70, 130, 180);
-		Color steelBlue1 = new Color(99, 184, 255);
-		Color steelBlue2 = new Color(92, 172, 238);
-		Color steelBlue3 = new Color(79, 148, 205);
-		*/
-		
-		this.setTitle("CS 2212 - Weather App"); 
-		this.setSize(500, 650);
-		this.setBackground(Color.BLACK);
-		this.setForeground(Color.WHITE);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		
-		//JPanel pnlWest = new JPanel(); 
-		//pnlWest.setBackground(steelBlue1); 
-		//pnlWest.setPreferredSize(new Dimension(100,200));
-		
-		JPanel pnlEast = new JPanel(); 
-		pnlEast.setBackground(getBackground()); 
-		pnlEast.setPreferredSize(new Dimension(100,200));
-		
-		JPanel pnlNorth = new JPanel(); 
-		pnlNorth.setBackground(getBackground()); 
-		pnlNorth.setPreferredSize(new Dimension(300,50));
-		lblText = new JLabel("Current Location Goes Here");
-		pnlNorth.add(lblText);	
-		
-		JPanel pnlSouth = new JPanel(); 
-		pnlSouth.setBackground(getBackground()); 
-		pnlSouth.setPreferredSize(new Dimension(300,25));
-		lblText = new JLabel("Last Update Goes Here");
-		pnlSouth.add(lblText);		
-		
-		this.setLayout(new BorderLayout()); 
-		this.add(this.createForm(), BorderLayout.CENTER);
-		
-		this.add(pnlEast, BorderLayout.EAST);
-		//this.add(pnlWest, BorderLayout.WEST);
-		this.add(pnlNorth, BorderLayout.NORTH);
-		this.add(pnlSouth, BorderLayout.SOUTH);
-		
-	}
-	
-	private JPanel createForm() {
-		//Color steelBlue1 = new Color(99, 184, 255);
+        this.setLayout(layout);
+        
+        /*
+        JPanel pnlEast = new JPanel();
+        pnlEast.setBackground(getBackground());
+        pnlEast.setPreferredSize(new Dimension(100, 200));
 
-		JPanel panel = new JPanel();
-		panel.setBackground(getBackground());
-		
-                JLabel lblCity = new JLabel(cityName);
-		lblCity.setHorizontalAlignment(JLabel.CENTER);
-		lblCity.setForeground(Color.WHITE);
-                
-		JLabel lblTemp = new JLabel("Current Temperature: " + localWeatherData.getTemperature());
-		lblTemp.setHorizontalAlignment(JLabel.CENTER);
-		lblTemp.setForeground(Color.WHITE);
-		
-		JLabel lblskypic = new JLabel("PICTURE OF CURRENT WEATHER");
-		lblskypic.setHorizontalAlignment(JLabel.CENTER);
-		lblskypic.setForeground(Color.WHITE);
+        JPanel pnlNorth = new JPanel();
+        pnlNorth.setBackground(getBackground());
+        pnlNorth.setPreferredSize(new Dimension(300, 50));
+        lblText = new JLabel("Current Location Goes Here");
+        pnlNorth.add(lblText);
 
-		JLabel lblairp = new JLabel("Air Pressure: "+localWeatherData.getAirPressure());
-		lblairp.setHorizontalAlignment(JLabel.CENTER);
-		lblairp.setForeground(Color.WHITE);
+        JPanel pnlSouth = new JPanel();
+        pnlSouth.setBackground(getBackground());
+        pnlSouth.setPreferredSize(new Dimension(300, 25));
+        lblText = new JLabel("Last Update Goes Here");
+        pnlSouth.add(lblText);
 
-		JLabel lblhumidity = new JLabel("Humidity: " + localWeatherData.getHumidity());
-		lblhumidity.setHorizontalAlignment(JLabel.CENTER);
-		lblhumidity.setForeground(Color.WHITE);
+        this.setLayout(new BorderLayout());
+        this.add(this.createForm(), BorderLayout.CENTER);
 
-		JLabel lblwind = new JLabel("Wind Speed and Direction: " + localWeatherData.getWindSpeed() + localWeatherData.getWindDirection());
-		lblwind.setHorizontalAlignment(JLabel.CENTER);
-		lblwind.setForeground(Color.WHITE);
+        this.add(pnlEast, BorderLayout.EAST);
+        //this.add(pnlWest, BorderLayout.WEST);
+        this.add(pnlNorth, BorderLayout.NORTH);
+        this.add(pnlSouth, BorderLayout.SOUTH);
+        */
+    }
+    
+    /*
+    private JPanel createForm() {
+        //Color steelBlue1 = new Color(99, 184, 255);
 
-		JLabel lblskyc = new JLabel("Sky Condition: " + localWeatherData.getSkyCondition());
-		lblskyc.setHorizontalAlignment(JLabel.CENTER);
-		lblskyc.setForeground(Color.WHITE);
+        JPanel panel = new JPanel();
+        panel.setBackground(getBackground());
 
-		JLabel lblmintemp = new JLabel("Minimum Temperature: " + localWeatherData.getMinTemperature());
-		lblmintemp.setHorizontalAlignment(JLabel.CENTER);
-		lblmintemp.setForeground(Color.WHITE);
+        JLabel lblCity = new JLabel(cityName);
+        lblCity.setHorizontalAlignment(JLabel.CENTER);
+        lblCity.setForeground(Color.WHITE);
 
-		JLabel lblmaxtemp = new JLabel("Maximum Temperature: " + localWeatherData.getMaxTemperature());
-		lblmaxtemp.setHorizontalAlignment(JLabel.CENTER);
-		lblmaxtemp.setForeground(Color.WHITE);
+        JLabel lblTemp = new JLabel("Current Temperature: " + localWeatherData.getTemperature());
+        lblTemp.setHorizontalAlignment(JLabel.CENTER);
+        lblTemp.setForeground(Color.WHITE);
 
-		JLabel lblsunrise = new JLabel("Sunrise: " + localWeatherData.getTimeSunrise());
-		lblsunrise.setHorizontalAlignment(JLabel.CENTER);
-		lblsunrise.setForeground(Color.WHITE);
+        JLabel lblskypic = new JLabel("PICTURE OF CURRENT WEATHER");
+        lblskypic.setHorizontalAlignment(JLabel.CENTER);
+        lblskypic.setForeground(Color.WHITE);
 
-		JLabel lblsunset = new JLabel("Sunset: " + localWeatherData.getTimeSunset());
-		lblsunset.setHorizontalAlignment(JLabel.CENTER);
-		lblsunset.setForeground(Color.WHITE);
+        JLabel lblairp = new JLabel("Air Pressure: " + localWeatherData.getAirPressure());
+        lblairp.setHorizontalAlignment(JLabel.CENTER);
+        lblairp.setForeground(Color.WHITE);
 
-		
+        JLabel lblhumidity = new JLabel("Humidity: " + localWeatherData.getHumidity());
+        lblhumidity.setHorizontalAlignment(JLabel.CENTER);
+        lblhumidity.setForeground(Color.WHITE);
+
+        JLabel lblwind = new JLabel("Wind Speed and Direction: " + localWeatherData.getWindSpeed() + localWeatherData.getWindDirection());
+        lblwind.setHorizontalAlignment(JLabel.CENTER);
+        lblwind.setForeground(Color.WHITE);
+
+        JLabel lblskyc = new JLabel("Sky Condition: " + localWeatherData.getSkyCondition());
+        lblskyc.setHorizontalAlignment(JLabel.CENTER);
+        lblskyc.setForeground(Color.WHITE);
+
+        JLabel lblmintemp = new JLabel("Minimum Temperature: " + localWeatherData.getMinTemperature());
+        lblmintemp.setHorizontalAlignment(JLabel.CENTER);
+        lblmintemp.setForeground(Color.WHITE);
+
+        JLabel lblmaxtemp = new JLabel("Maximum Temperature: " + localWeatherData.getMaxTemperature());
+        lblmaxtemp.setHorizontalAlignment(JLabel.CENTER);
+        lblmaxtemp.setForeground(Color.WHITE);
+
+        JLabel lblsunrise = new JLabel("Sunrise: " + localWeatherData.getTimeSunrise());
+        lblsunrise.setHorizontalAlignment(JLabel.CENTER);
+        lblsunrise.setForeground(Color.WHITE);
+
+        JLabel lblsunset = new JLabel("Sunset: " + localWeatherData.getTimeSunset());
+        lblsunset.setHorizontalAlignment(JLabel.CENTER);
+        lblsunset.setForeground(Color.WHITE);
+
 		//txtLocation = new JTextField();
-		
 		//lblText = new JLabel();
-		//JButton btnSearch = new JButton("Search");
-		
+        //JButton btnSearch = new JButton("Search");
 		//btnSearch.addActionListener(new ActionListener() {
-			//@Override
-			//public void actionPerformed(ActionEvent event) {
-				//String msg = "Selected: " + txtLocation.getText();
-				//lblText.setText(msg);
-			//}
-		//});
-		
-		GroupLayout layout = new GroupLayout(panel); 
-		layout.setAutoCreateGaps(true); 
-		layout.setAutoCreateContainerGaps(true); 
-		layout.setHorizontalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING) 
-						.addGroup(layout.createSequentialGroup()
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING) 
-										.addComponent(lblTemp)
-										.addComponent(lblskyc)
-										.addComponent(lblmaxtemp)
-										.addComponent(lblmintemp)
-										.addComponent(lblsunrise)
-										.addComponent(lblsunset)
-										.addComponent(lblairp)
-										.addComponent(lblhumidity)
-										.addComponent(lblwind)
-								)
-				
-								.addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING) 
-									.addGroup(layout.createSequentialGroup()
-											.addComponent(lblmaxtemp)
-											.addComponent(lblmintemp)
-											)
-											)
-										//.addComponent(txtLocation)
-								//)
-								)
-								)
-					);
+        //@Override
+        //public void actionPerformed(ActionEvent event) {
+        //String msg = "Selected: " + txtLocation.getText();
+        //lblText.setText(msg);
+        //}
+        //});
+        GroupLayout layout = new GroupLayout(panel);
+        layout.setAutoCreateGaps(true);
+        layout.setAutoCreateContainerGaps(true);
+        layout.setHorizontalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblTemp)
+                                        .addComponent(lblskyc)
+                                        .addComponent(lblmaxtemp)
+                                        .addComponent(lblmintemp)
+                                        .addComponent(lblsunrise)
+                                        .addComponent(lblsunset)
+                                        .addComponent(lblairp)
+                                        .addComponent(lblhumidity)
+                                        .addComponent(lblwind)
+                                )
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblmaxtemp)
+                                                .addComponent(lblmintemp)
+                                        )
+                                )
+                        //.addComponent(txtLocation)
+                        //)
+                        )
+                )
+        );
 						//.addComponent(lblText)
-			//	)
-			//	.addComponent(btnSearch) ); 
-		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE) 
-						.addComponent(lblTemp)
-						//.addComponent(lblmaxtemp)
-						//.addComponent(lblsunrise)
-						//.addComponent(lblsunset)
+        //	)
+        //	.addComponent(btnSearch) ); 
+        layout.setVerticalGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTemp)
+                //.addComponent(lblmaxtemp)
+                //.addComponent(lblsunrise)
+                //.addComponent(lblsunset)
 
-						//.addComponent(txtLocation)
-				) 
-				.addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(lblskyc)
-								.addComponent(lblmaxtemp)
-								.addComponent(lblmintemp)
-								.addComponent(lblsunrise)
-								.addComponent(lblsunset)
-								.addComponent(lblairp)
-								.addComponent(lblhumidity)
-								.addComponent(lblwind)
-								)
-						//.addComponent(lblText)
-					//	.addComponent(btnSearch) 
-				)
-		);
-		
-		panel.setLayout(layout);
-		return panel;
-	}
+                //.addComponent(txtLocation)
+                )
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblskyc)
+                                .addComponent(lblmaxtemp)
+                                .addComponent(lblmintemp)
+                                .addComponent(lblsunrise)
+                                .addComponent(lblsunset)
+                                .addComponent(lblairp)
+                                .addComponent(lblhumidity)
+                                .addComponent(lblwind)
+                        )
+                //.addComponent(lblText)
+                //	.addComponent(btnSearch) 
+                )
+        );
+
+        panel.setLayout(layout);
+        return panel;
+    }
+    */
 
     public String getCityName() {
         return cityName;
@@ -198,6 +267,6 @@ public class LocalWeatherView extends JFrame {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }   
-        
+    }
+
 }

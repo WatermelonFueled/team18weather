@@ -37,10 +37,15 @@ public class SelectionPage extends JFrame{
 	 * them to the current frame. 
 	 */
 	private void initUI() {
+		
+		//Get file from resources folder
+      		ClassLoader classLoader = getClass().getClassLoader();
+      		File file = new File(classLoader.getResource("unorderedList.txt").getFile());
+ 
 		//Get data for comboBox
 		final ArrayList<String> locList = new ArrayList<String>();
 		try{
-			Scanner s = new Scanner(new File("orderedList.txt"));
+			Scanner s = new Scanner(file);
 			while (s.hasNext()){
 				locList.add(s.nextLine());
 			}

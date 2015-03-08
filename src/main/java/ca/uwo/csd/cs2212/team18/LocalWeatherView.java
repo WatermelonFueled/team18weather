@@ -198,15 +198,6 @@ public class LocalWeatherView extends JFrame {
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
-        
+    }   
         
 }

@@ -24,10 +24,8 @@ public class SelectionPage extends JFrame{
 	/**
 	 * Creates a new SelectionPage and initializes the user 
 	 * interface. Window is not visible by default.
-	 * @throws UnsupportedEncodingException 
-	 * @throws FileNotFoundException 
 	 */
-	public SelectionPage(LocalWeatherView localWeatherView) throws FileNotFoundException, UnsupportedEncodingException {
+	public SelectionPage(LocalWeatherView localWeatherView) {
 		this.localWeatherView = localWeatherView;
 		this.initUI();
 	}
@@ -37,19 +35,8 @@ public class SelectionPage extends JFrame{
 	 * This includes a JComboBox, JButton, multiple JRadioButtons 
 	 * and multiple JLabels into the appropriate panels and adds 
 	 * them to the current frame. 
-	 * @throws UnsupportedEncodingException 
-	 * @throws FileNotFoundException 
 	 */
-	private void initUI() throws FileNotFoundException, UnsupportedEncodingException {
-		
-		/**
-		 * testing to see where .txt files get saved into in mvn package
-		 */
-		PrintWriter writer = new PrintWriter("test.txt", "UTF-8");
-        writer.println("The first line");
-        writer.println("The second line");
-        writer.close();
-        
+	private void initUI() {
 		//Get data for comboBox
 		final ArrayList<String> locList = new ArrayList<String>();
 		try{

@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-
 import javax.swing.*;
 
 /**
@@ -20,14 +19,16 @@ import javax.swing.*;
 public class SelectionPage extends JFrame{
 
 	private static final long serialVersionUID = -5681712855274371085L;
-
+	private LocalWeatherView localWeatherView;
+	
 	/**
 	 * Creates a new SelectionPage and initializes the user 
 	 * interface. Window is not visible by default.
 	 * @throws UnsupportedEncodingException 
 	 * @throws FileNotFoundException 
 	 */
-	public SelectionPage() throws FileNotFoundException, UnsupportedEncodingException {
+	public SelectionPage(LocalWeatherView localWeatherView) throws FileNotFoundException, UnsupportedEncodingException {
+		this.localWeatherView = localWeatherView;
 		this.initUI();
 	}
 
@@ -135,7 +136,8 @@ public class SelectionPage extends JFrame{
 						out.close();
 					} catch (IOException f) {}
 					
-					lblText.setText("-->");		//For testing purposes only
+					localWeatherView.setVisible(true);
+					//lblText.setText("-->");		//For testing purposes only
 					//LocalWeatherView lwv = new LocalWeatherView();
 					//lwv.setVisible(true);
 				}

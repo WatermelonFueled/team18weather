@@ -12,18 +12,15 @@ public class LocalWeatherView extends JFrame {
 	private JLabel lblText;
 	
         private LocalWeatherData localWeatherData;
-        private DataRequester dataRequester;
         
         private String cityName;
-        private String cityId;
         
-	public LocalWeatherView(LocalWeatherData localWeatherData, DataRequester dataRequester) {
+	public LocalWeatherView(LocalWeatherData localWeatherData) {
             this.localWeatherData = localWeatherData;
-            this.dataRequester = dataRequester;
-            this.initUI();
+            //this.initUI();
 	}
 	
-	private void initUI() {
+	public void initUI() {
 	
 		/*
 	    Color steelBlue = new Color(70, 130, 180);
@@ -76,6 +73,10 @@ public class LocalWeatherView extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(getBackground());
 		
+                JLabel lblCity = new JLabel(cityName);
+		lblCity.setHorizontalAlignment(JLabel.CENTER);
+		lblCity.setForeground(Color.WHITE);
+                
 		JLabel lblTemp = new JLabel("Current Temperature: " + localWeatherData.getTemperature());
 		lblTemp.setHorizontalAlignment(JLabel.CENTER);
 		lblTemp.setForeground(Color.WHITE);

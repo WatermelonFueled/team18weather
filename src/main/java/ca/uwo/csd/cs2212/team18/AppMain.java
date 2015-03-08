@@ -13,8 +13,8 @@ public class AppMain {
             
             LocalWeatherData localData = new LocalWeatherData();
             DataRequester dataRequester = new DataRequester(localData);
-            LocalWeatherView localView = new LocalWeatherView(localData, dataRequester);
-            SelectionPage selectionPage = new SelectionPage(localView);
+            LocalWeatherView localView = new LocalWeatherView(localData);
+            SelectionPage selectionPage = new SelectionPage(localView, dataRequester);
 	    selectionPage.setVisible(true);
             //search
 

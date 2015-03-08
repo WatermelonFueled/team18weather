@@ -19,14 +19,18 @@ import javax.swing.*;
 public class SelectionPage extends JFrame{
 
 	private static final long serialVersionUID = -5681712855274371085L;
-	private LocalWeatherView localWeatherView;
+	private DataRequester dataRequester;
+        private LocalWeatherView localWeatherView;
+        
 	
+        
 	/**
 	 * Creates a new SelectionPage and initializes the user 
 	 * interface. Window is not visible by default.
 	 */
-	public SelectionPage(LocalWeatherView localWeatherView) {
+	public SelectionPage(LocalWeatherView localWeatherView, DataRequester dataRequester) {
 		this.localWeatherView = localWeatherView;
+                this.dataRequester = dataRequester;
 		this.initUI();
 	}
 
@@ -128,11 +132,20 @@ public class SelectionPage extends JFrame{
 						out.close();
 					} catch (IOException f) {}
 					
+                                        
+                                        
 					localWeatherView.setVisible(true);
 					//lblText.setText("-->");		//For testing purposes only
 					//LocalWeatherView lwv = new LocalWeatherView();
 					//lwv.setVisible(true);
 				}
+                                
+                                // TESTING TESTING TESTING
+                                dataRequester.requestLocal("2172797");
+                                localWeatherView.setCityName("Cairns");
+                                localWeatherView.initUI();
+                                localWeatherView.setVisible(true);
+                                
 			}
 		});      
 

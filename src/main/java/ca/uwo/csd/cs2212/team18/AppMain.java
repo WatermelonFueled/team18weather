@@ -1,4 +1,5 @@
 package ca.uwo.csd.cs2212.team18;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

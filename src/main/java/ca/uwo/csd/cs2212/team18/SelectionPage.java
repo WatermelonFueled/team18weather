@@ -17,21 +17,17 @@ import javax.swing.*;
  */
 
 public class SelectionPage extends JFrame{
-	
-	/**
-	 * Auto-generated serial version value
-	 */
-	private static final long serialVersionUID = -5681712855274371085L;
 
-        private LocalWeatherView localWeatherView;
-        
+	private static final long serialVersionUID = -5681712855274371085L;
+	private LocalWeatherView localWeatherView;
+	
 	/**
 	 * Creates a new SelectionPage and initializes the user 
 	 * interface. Window is not visible by default.
 	 */
 	public SelectionPage(LocalWeatherView localWeatherView) {
-            this.localWeatherView = localWeatherView;
-            this.initUI();
+		this.localWeatherView = localWeatherView;
+		this.initUI();
 	}
 
 	/**
@@ -42,10 +38,14 @@ public class SelectionPage extends JFrame{
 	 */
 	private void initUI() {
 		
+		//Get file from resources folder
+      		ClassLoader classLoader = getClass().getClassLoader();
+      		File file = new File(classLoader.getResource("unorderedList.txt").getFile());
+ 
 		//Get data for comboBox
 		final ArrayList<String> locList = new ArrayList<String>();
 		try{
-			Scanner s = new Scanner(new File("orderedList.txt"));
+			Scanner s = new Scanner(file);
 			while (s.hasNext()){
 				locList.add(s.nextLine());
 			}
@@ -128,8 +128,10 @@ public class SelectionPage extends JFrame{
 						out.close();
 					} catch (IOException f) {}
 					
-					//lblText.setText("-->");		//For testing purposes only
 					localWeatherView.setVisible(true);
+					//lblText.setText("-->");		//For testing purposes only
+					//LocalWeatherView lwv = new LocalWeatherView();
+					//lwv.setVisible(true);
 				}
 			}
 		});      

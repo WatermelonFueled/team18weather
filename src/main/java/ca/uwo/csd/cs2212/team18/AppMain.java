@@ -1,4 +1,6 @@
 package ca.uwo.csd.cs2212.team18;
+import java.io.PrintWriter;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,6 +10,10 @@ public class AppMain {
     public static void main (String [] args) {
             logger.info("This is Team 18's Weather App");
 
+            PrintWriter writer = new PrintWriter("test.txt", "UTF-8");
+            writer.println("The first line");
+            writer.println("The second line");
+            writer.close();
             // initialize objects
             
             LocalWeatherData localData = new LocalWeatherData();

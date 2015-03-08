@@ -7,9 +7,17 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
-
+/**
+ * Creates the tabbed panel to switch between the various views
+ * @author DaParkVid
+ */
 public class TabbedViews extends JPanel{
     
+    /**
+     * Constructor for TabbedViews
+     * @param selectionView
+     * @param localView 
+     */
     public TabbedViews(SelectionPage selectionView, LocalWeatherView localView){
         super(new GridLayout(1,1));
         

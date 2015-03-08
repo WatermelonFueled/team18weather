@@ -29,13 +29,9 @@ public class SelectionPage extends JPanel {
     public SelectionPage(LocalWeatherView localWeatherView, DataRequester dataRequester) {
         this.localWeatherView = localWeatherView;
         this.dataRequester = dataRequester;
-        this.initUI();
-
-        
+        this.initUI(); 
     }
 
-
-    
     /**
      * Initializes a window with all necessary components. This includes a
      * JComboBox, JButton, multiple JRadioButtons and multiple JLabels into the
@@ -168,7 +164,11 @@ public class SelectionPage extends JPanel {
         paneSouth.add(GWButton);
     }
     
-    
+    /**
+     * reads from city list and places information in the Array List
+     * @param locList to populate with city info
+     * @throws FileNotFoundException 
+     */
     private void locationList(ArrayList<String> locList) throws FileNotFoundException{
         //Get file from resources folder
         ClassLoader classLoader = getClass().getClassLoader();

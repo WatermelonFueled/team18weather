@@ -8,7 +8,8 @@ import javax.swing.*;
 public class LocalWeatherView extends JPanel {
 
     private static final long serialVersionUID = -5393294539017896082L;
-//	private JTextField lblTemp;
+    
+    //weather info labels
     private JLabel lblCity;
     private JLabel lblTemperature;
     private JLabel lblSkyPicture;
@@ -22,18 +23,24 @@ public class LocalWeatherView extends JPanel {
     private JLabel lblSunrise;
     private JLabel lblSunset;
     
-    private Color labelColor = Color.BLACK;
+    final private Color labelColor = Color.BLACK;
     
     private LocalWeatherData localWeatherData;
     private String cityName;
 
+    /**
+     * Constructor for LocalWeatherView
+     * @param localWeatherData 
+     */
     public LocalWeatherView(LocalWeatherData localWeatherData) {
         this.localWeatherData = localWeatherData;
         this.initUI();
     }
 
-
-    
+    /**
+     * initializes the view panel
+     * currently aligns data labels in a vertical column
+     */
     private void initUI() {
         
         initLabels();
@@ -125,8 +132,10 @@ public class LocalWeatherView extends JPanel {
         */
     }
 
-
-    public void initLabels(){
+    /**
+     * Initializes the data labels and sets their colour
+     */
+    private void initLabels(){
         lblCity = new JLabel("No city",JLabel.CENTER);
         lblTemperature = new JLabel("Current Temperature: ",JLabel.CENTER);
         lblSkyPicture = new JLabel("PICTURE OF CURRENT WEATHER",JLabel.CENTER);

@@ -175,7 +175,7 @@ public class SelectionPage extends JPanel {
      */
     private void locationList(ArrayList<String> locList) throws FileNotFoundException, IOException{
         //Get file from resources folder
-        InputStream input = getClass().getClassLoader().getResourceAsStream("unorderedList.txt");
+        InputStream input = getClass().getClassLoader().getResourceAsStream("cityList.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         //File file = new File(classLoader.getResource("file/unorderedList.txt").getFile());
 

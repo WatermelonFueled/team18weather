@@ -14,6 +14,9 @@ public class LocalWeatherView extends JFrame {
         private LocalWeatherData localWeatherData;
         private DataRequester dataRequester;
         
+        private String cityName;
+        private String cityId;
+        
 	public LocalWeatherView(LocalWeatherData localWeatherData, DataRequester dataRequester) {
             this.localWeatherData = localWeatherData;
             this.dataRequester = dataRequester;
@@ -187,4 +190,22 @@ public class LocalWeatherView extends JFrame {
 		panel.setLayout(layout);
 		return panel;
 	}
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+        
+        
 }

@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -125,21 +123,15 @@ public class SelectionPage extends JPanel {
                         out.close();
                     } catch (IOException f) {
                     }
-
-                    //dataRequester.requestLocal(   );
-					//lblText.setText("-->");		//For testing purposes only
-                    //LocalWeatherView lwv = new LocalWeatherView();
-                    //lwv.setVisible(true);
+                    
+                    String city = combo.getSelectedItem().toString();
+                    String cityName = city.substring(0, city.indexOf('['));
+                    String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
+                    
+                    dataRequester.requestLocal(cityId);
+                    localWeatherView.setCityName(cityName);
+                    localWeatherView.setLabels();
                 }
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-                // TESTING TESTING TESTING
-                dataRequester.requestLocal("2172797");
-                localWeatherView.setCityName("Cairns");
-                localWeatherView.setLabels();
-                lblText.setText("TESTING TESTING TESTING");
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
             }
         });
 

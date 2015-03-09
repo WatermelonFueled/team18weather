@@ -27,14 +27,9 @@ public class TabbedViews extends JPanel{
         tabbedPane.addTab("Local Forecast", localView);
         tabbedPane.setMnemonicAt(0,KeyEvent.VK_1);
         
-        //test dummy tab
-        JComponent panel2 = new JPanel();
-        tabbedPane.addTab("dummy tab",panel2);
-        tabbedPane.setMnemonicAt(1,KeyEvent.VK_2);
-        
         //selection tab
         tabbedPane.addTab("Preferences", selectionView);
-        tabbedPane.setMnemonicAt(2,KeyEvent.VK_3);
+        tabbedPane.setMnemonicAt(1,KeyEvent.VK_2);
         
         add(tabbedPane);
     }

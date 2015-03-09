@@ -122,8 +122,8 @@ public class DataRequester {
         //localData.setDescription(responseWeather.get("description"));
         
         // sunrise and sunset, convert from UTC to human readable
-        long sunriseUTC = Long.parseLong(responseSys.get("sunrise").toString());
-        long sunsetUTC = Long.parseLong(responseSys.get("sunset").toString());
+        long sunriseUTC = Long.parseLong(responseSys.get("sunrise").toString()+"000");
+        long sunsetUTC = Long.parseLong(responseSys.get("sunset").toString()+"000");
         Date sunrise = new Date(sunriseUTC);
         Date sunset = new Date(sunsetUTC);
         SimpleDateFormat format = new SimpleDateFormat("h:mm a");

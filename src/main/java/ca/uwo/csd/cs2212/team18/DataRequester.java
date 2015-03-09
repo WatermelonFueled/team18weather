@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -114,13 +116,19 @@ public class DataRequester {
         localData.setAirPressure(responseMain.get("pressure").toString());
         localData.setMinTemperature(responseMain.get("temp_min").toString());
         localData.setMaxTemperature(responseMain.get("temp_max").toString());
-        localData.setTimeSunrise(responseSys.get("sunrise").toString());
-        localData.setTimeSunset(responseSys.get("sunset").toString());
         localData.setHumidity(responseMain.get("humidity").toString());
-        
         localData.setSkyCondition(responseWeather.get("id").toString());
         // possibly add description as well
         //localData.setDescription(responseWeather.get("description"));
+        
+        // sunrise and sunset, convert from UTC to human readable
+        long sunriseUTC = Long.parseLong(responseSys.get("sunrise").toString());
+        long sunsetUTC = Long.parseLong(responseSys.get("sunset").toString());
+        Date sunrise = new Date(sunriseUTC);
+        Date sunset = new Date(sunsetUTC);
+        SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+        localData.setTimeSunrise(format.format(sunrise));
+        localData.setTimeSunset(format.format(sunset));
     }
     
     /**

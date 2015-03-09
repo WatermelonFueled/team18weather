@@ -177,9 +177,7 @@ public class SelectionPage extends JPanel {
         //Get file from resources folder
         InputStream input = getClass().getClassLoader().getResourceAsStream("cityList.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        //File file = new File(classLoader.getResource("file/unorderedList.txt").getFile());
 
-        //Scanner s = new Scanner(file);
         String line;
         while ((line = reader.readLine()) != null){
             locList.add(line);

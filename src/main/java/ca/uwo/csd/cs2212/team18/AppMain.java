@@ -20,7 +20,9 @@ public class AppMain{
         // data
         logger.info("Initializing weather data components");
         LocalWeatherData localData = new LocalWeatherData();
-        DataRequester dataRequester = new DataRequester(localData);
+        ShortTermData shortTermData = new ShortTermData();
+        LongTermData longTermData = new LongTermData();
+        DataRequester dataRequester = new DataRequester(localData,shortTermData,longTermData);
         logger.info("End of weather data components");
         
         // views

@@ -23,16 +23,18 @@ import org.json.simple.parser.ParseException;
  */
 public class DataRequester {
     private LocalWeatherData localData;
-    //private ShortTermData shortData;
-    //private LongTermData longData;
+    private ShortTermData shortTermData;
+    private LongTermData longTermData;
     private JSONParser parser;
     
     /**
      * Constructor for DataRequester
      * @param localData LocalWeatherData object
      */
-    DataRequester(LocalWeatherData localData){
+    DataRequester(LocalWeatherData localData, ShortTermData shortTermData, LongTermData longTermData){
         this.localData = localData;
+        this.shortTermData = shortTermData;
+        this.longTermData = longTermData;
         parser = new JSONParser();
     }
 
@@ -42,27 +44,45 @@ public class DataRequester {
      * @param id city id as string
      */
     public void requestLocal(String id){
-        // build the request string
         String requestURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=" + id;
         
-        try {
-            // send request to web service
-            String response = this.sendRequest(requestURL);
-            // parse response
-            JSONObject responseJSON = (JSONObject) parser.parse(response);
+        JSONObject responseJSON = request(requestURL);
+        if (responseJSON != null){
             parseLocal(responseJSON);
-        } catch (IOException ex) {
-            Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex)  {
-            //
         }
     }
     
-    //request short
-    //"http://api.openweathermap.org/data/2.5/forecast?units=metric&id="
-    //request long
-    //"http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id="
+    public void requestShort(String id){
+        String requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + id;
+        
+        JSONObject responseJSON = request(requestURL);
+        if (responseJSON != null){
+            parseShort(responseJSON);
+        }
+    }
     
+    public void requestLong(String id){
+        String requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=" + id;
+        
+        JSONObject responseJSON = request(requestURL);
+        if (responseJSON != null){
+            parseLong(responseJSON);
+        }
+    }
+    
+    private JSONObject request(String request){
+        JSONObject responseJSON = null;
+        try{
+            String response = this.sendRequest(request); //send to web service
+            responseJSON = (JSONObject) parser.parse(response); //response as JSONObject
+        } catch (IOException ex){
+            Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex){
+            Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return responseJSON;
+    }
+
     /**
      * Sends the request using HttpURLConnection and returns the response
      * @param request the request to be sent (the url)
@@ -117,18 +137,11 @@ public class DataRequester {
         localData.setMinTemperature(responseMain.get("temp_min").toString());
         localData.setMaxTemperature(responseMain.get("temp_max").toString());
         localData.setHumidity(responseMain.get("humidity").toString());
-        localData.setSkyCondition(responseWeather.get("id").toString());
-        // possibly add description as well
-        //localData.setDescription(responseWeather.get("description"));
-        
-        // sunrise and sunset, convert from UTC to human readable
-        long sunriseUTC = Long.parseLong(responseSys.get("sunrise").toString()+"000");
-        long sunsetUTC = Long.parseLong(responseSys.get("sunset").toString()+"000");
-        Date sunrise = new Date(sunriseUTC);
-        Date sunset = new Date(sunsetUTC);
-        SimpleDateFormat format = new SimpleDateFormat("h:mm a");
-        localData.setTimeSunrise(format.format(sunrise));
-        localData.setTimeSunset(format.format(sunset));
+        localData.setSkyCondition(responseWeather.get("id").toString()); 
+        String sunrise = responseSys.get("sunrise").toString();
+        String sunset = responseSys.get("sunset").toString();
+        localData.setTimeSunrise(convertUTCtoReadable(sunrise));
+        localData.setTimeSunset(convertUTCtoReadable(sunset));
     }
     
     /**
@@ -136,40 +149,54 @@ public class DataRequester {
      * @param weatherData
      * @param response 
      */
-    /*
-    private void parseShort(ShortTermData weatherData, JSONObject response){
+    private void parseShort(JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
         JSONObject weatherTimeslot;
+        String[] temperature = shortTermData.getTemperature();
+        String[] skyCondition = shortTermData.getSkyCondition();
         
         for (int i=0; i<9; i++){
             weatherTimeslot = (JSONObject) list.get(i);
             
             //set temperature in array
-            //weatherTimeslot.get("main").get("temp").toString()
+            temperature[i] = ((JSONObject)weatherTimeslot.get("main")).get("temp").toString();
             //set sky condition in  array
-            //weatherTimeslot.get("weather").get(0).get("id")
+            skyCondition[i] = ((JSONObject)((JSONArray)weatherTimeslot.get("weather")).get(0)).get("id").toString();
         }
     }
-    */
     
     /**
      * 
      * @param weatherData
      * @param response 
      */
-    /*
-    private void parseLong(LongTermData weatherData, JSONObject response){
+    private void parseLong(JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
         JSONObject weatherDay;
+        String[] temperatureMin = longTermData.getTemperatureMin();
+        String[] temperatureMax = longTermData.getTemperatureMax();
+        String[] skyCondition = longTermData.getSkyCondition();
         
         for (int i=0; i < 7; i++){
             weatherDay = (JSONObject) list.get(i);
             
             //set temperature in array
-            //weatherTimeslot.get("main").get("temp").toString()
+            temperatureMin[i] = ((JSONObject)weatherDay.get("main")).get("temp_min").toString();
+            temperatureMax[i] = ((JSONObject)weatherDay.get("main")).get("temp_max").toString();
             //set sky condition in  array
-            //weatherTimeslot.get("weather").get(0).get("id")
+            skyCondition[i] = ((JSONObject)((JSONArray)weatherDay.get("weather")).get(0)).get("id").toString();
         }
     }
-    */
+
+    /**
+     * 
+     * @param utc
+     * @return 
+     */
+    private String convertUTCtoReadable(String utc){
+        utc = utc+"000";
+        Date date = new Date(utc);
+        SimpleDateFormat format = new SimpleDateFormat("h:mm a");
+        return format.format(date);
+    }    
 }

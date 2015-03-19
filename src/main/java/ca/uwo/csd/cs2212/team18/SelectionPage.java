@@ -131,7 +131,7 @@ public class SelectionPage extends JPanel {
                     //updates local, short term, long term data for selected city
                     dataRequester.requestLocal(cityId);
                     dataRequester.requestShort(cityId);
-                    //dataRequester.requestLong(cityId);
+                    dataRequester.requestLong(cityId);
                     localWeatherView.setCityName(cityName);
                     localWeatherView.setLabels();
                 }

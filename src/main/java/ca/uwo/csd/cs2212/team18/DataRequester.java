@@ -181,8 +181,8 @@ public class DataRequester {
             weatherDay = (JSONObject) list.get(i);
             
             //set temperature in array
-            temperatureMin[i] = ((JSONObject)weatherDay.get("temp")).get("temp_min").toString();
-            temperatureMax[i] = ((JSONObject)weatherDay.get("temp")).get("temp_max").toString();
+            temperatureMin[i] = ((JSONObject)weatherDay.get("temp")).get("min").toString();
+            temperatureMax[i] = ((JSONObject)weatherDay.get("temp")).get("max").toString();
             //set sky condition in  array
             skyCondition[i] = ((JSONObject)((JSONArray)weatherDay.get("weather")).get(0)).get("id").toString();
         }

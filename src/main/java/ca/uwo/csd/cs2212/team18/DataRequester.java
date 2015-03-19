@@ -181,8 +181,8 @@ public class DataRequester {
             weatherDay = (JSONObject) list.get(i);
             
             //set temperature in array
-            temperatureMin[i] = ((JSONObject)weatherDay.get("main")).get("temp_min").toString();
-            temperatureMax[i] = ((JSONObject)weatherDay.get("main")).get("temp_max").toString();
+            temperatureMin[i] = ((JSONObject)weatherDay.get("temp")).get("temp_min").toString();
+            temperatureMax[i] = ((JSONObject)weatherDay.get("temp")).get("temp_max").toString();
             //set sky condition in  array
             skyCondition[i] = ((JSONObject)((JSONArray)weatherDay.get("weather")).get(0)).get("id").toString();
         }
@@ -195,7 +195,7 @@ public class DataRequester {
      */
     private String convertUTCtoReadable(String utc){
         utc = utc+"000";
-        Date date = new Date(utc);
+        Date date = new Date(Long.parseLong(utc,10));
         SimpleDateFormat format = new SimpleDateFormat("h:mm a");
         return format.format(date);
     }    

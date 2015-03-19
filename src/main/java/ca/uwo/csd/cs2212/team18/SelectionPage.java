@@ -128,7 +128,10 @@ public class SelectionPage extends JPanel {
                     String cityName = city.substring(0, city.indexOf('['));
                     String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
                     
+                    //updates local, short term, long term data for selected city
                     dataRequester.requestLocal(cityId);
+                    dataRequester.requestShort(cityId);
+                    //dataRequester.requestLong(cityId);
                     localWeatherView.setCityName(cityName);
                     localWeatherView.setLabels();
                 }

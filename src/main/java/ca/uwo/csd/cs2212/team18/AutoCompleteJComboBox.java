@@ -42,15 +42,12 @@ public class AutoCompleteJComboBox extends JComboBox{
 			final JTextComponent tc = (JTextComponent)c;
 			tc.getDocument().addDocumentListener(new DocumentListener(){
 
-				@Override
 				public void changedUpdate(DocumentEvent arg0) {}
 
-				@Override
 				public void insertUpdate(DocumentEvent arg0) {
 					update();
 				}
 
-				@Override
 				public void removeUpdate(DocumentEvent arg0) {
 					update();
 				}
@@ -90,7 +87,6 @@ public class AutoCompleteJComboBox extends JComboBox{
 			//and the menu disappears. To account for this, whenever the focus
 			//is gained by the JTextComponent and it has searchable values, we show the popup.
 			tc.addFocusListener(new FocusListener(){
-				@Override
 				public void focusGained(FocusEvent arg0) {
 					if ( tc.getText().length() > 0 ){
 						//setPopupVisible(true);
@@ -98,7 +94,6 @@ public class AutoCompleteJComboBox extends JComboBox{
 					}
 				}
 
-				@Override
 				public void focusLost(FocusEvent arg0) {						
 				}
 			});

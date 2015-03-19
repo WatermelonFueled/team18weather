@@ -23,7 +23,6 @@ public class StringSearchable implements Searchable<String,String>{
 		this.terms.addAll(terms);
 	}
 
-	@Override
 	/**
 	 * Searches the entered string in the array of terms regardless
 	 * of upper/lower case and returns the matching values. This is 

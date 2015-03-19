@@ -137,7 +137,13 @@ public class DataRequester {
         localData.setMinTemperature(responseMain.get("temp_min").toString());
         localData.setMaxTemperature(responseMain.get("temp_max").toString());
         localData.setHumidity(responseMain.get("humidity").toString());
-        localData.setSkyCondition(responseWeather.get("id").toString()); 
+        
+        /////
+        //Diana Testing icon and descriptions
+        localData.setSkyCondition(responseWeather.get("description").toString());
+        localData.setSkyIcon(responseWeather.get("icon").toString());
+        /////
+        
         String sunrise = responseSys.get("sunrise").toString();
         String sunset = responseSys.get("sunset").toString();
         localData.setTimeSunrise(convertUTCtoReadable(sunrise));

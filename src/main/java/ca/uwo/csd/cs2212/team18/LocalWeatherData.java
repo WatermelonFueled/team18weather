@@ -15,6 +15,7 @@ public class LocalWeatherData {
 	private String maxTemperature;
 	private String timeSunrise;
 	private String timeSunset;
+	private String skyIcon;
 	
 	/**
 	 * constructor
@@ -66,7 +67,9 @@ public class LocalWeatherData {
 	}
 
 	public void setWindDirection(String windDirection) {
-		this.windDirection = windDirection;
+		int degree = Integer.parseInt(windDirection);
+		String directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"};
+	    this.windDirection = directions[ (int)Math.round((  ((double)degree % 360) / 45)) ];
 	}
 
 	/**
@@ -166,6 +169,17 @@ public class LocalWeatherData {
 	public void setTimeSunset(String timeSunset) {
 		this.timeSunset = timeSunset;
 	}
+
+	
+	public void setSkyIcon(String skyIconNum) {
+		this.skyIcon = skyIconNum;
+		
+	}
+	
+	public String getSkyIcon(){
+		return skyIcon;
+	}
+	
 			
 	
 

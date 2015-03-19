@@ -19,8 +19,7 @@ public class LocalWeatherView extends JPanel {
     private JLabel lblTemperature;
     private JLabel lblAirPressure;
     private JLabel lblHumidity;
-    private JLabel lblWindSpeed;
-    private JLabel lblWindDirection;
+    private JLabel lblWind;
     private JLabel lblSkyCondition;
     private JLabel lblMinTemperature;
     private JLabel lblMaxTemperature;
@@ -31,11 +30,13 @@ public class LocalWeatherView extends JPanel {
     
     private LocalWeatherData localWeatherData;
     private String cityName;
-    private JPanel panel;
+    private JPanel topPanel;
     private JLabel lblWeatherUpdate;
     private JLabel lblWeatherReportFor;
     private JLabel lblWeatherIcon;
     private JLabel lblIcon;
+    private JPanel rightPanel;
+    private JPanel leftPanel;
 
     /**
      * Constructor for LocalWeatherView
@@ -56,8 +57,8 @@ public class LocalWeatherView extends JPanel {
         
         initLabels();
         
-        panel = new JPanel();
-        panel.setBackground(Color.WHITE);
+        topPanel = new JPanel();
+        topPanel.setBackground(Color.WHITE);
         
         lblWeatherUpdate = new JLabel("Weather Update");
         lblWeatherUpdate.setFont(new Font("Monaco", Font.BOLD, 16));
@@ -74,115 +75,160 @@ public class LocalWeatherView extends JPanel {
         Image image = ImageIO.read(url);
         lblIcon = new JLabel(new ImageIcon(image));
         
-        GroupLayout gl_panel = new GroupLayout(panel);
-        gl_panel.setHorizontalGroup(
-        	gl_panel.createParallelGroup(Alignment.TRAILING)
-        		.addGroup(gl_panel.createSequentialGroup()
+        GroupLayout gl_topPanel = new GroupLayout(topPanel);
+        gl_topPanel.setHorizontalGroup(
+        	gl_topPanel.createParallelGroup(Alignment.TRAILING)
+        		.addGroup(gl_topPanel.createSequentialGroup()
         			.addContainerGap()
         			.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-        				.addGroup(gl_panel.createSequentialGroup()
+        			.addGroup(gl_topPanel.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_topPanel.createSequentialGroup()
         					.addGap(34)
         					.addComponent(lblWeatherReportFor)
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(lblCity))
-        				.addGroup(gl_panel.createSequentialGroup()
+        				.addGroup(gl_topPanel.createSequentialGroup()
         					.addGap(18)
         					.addComponent(lblWeatherUpdate)))
         			.addGap(127))
         );
-        gl_panel.setVerticalGroup(
-        	gl_panel.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_panel.createSequentialGroup()
+        gl_topPanel.setVerticalGroup(
+        	gl_topPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_topPanel.createSequentialGroup()
         			.addGap(6)
-        			.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+        			.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(gl_panel.createSequentialGroup()
+        				.addGroup(gl_topPanel.createSequentialGroup()
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(lblWeatherUpdate)
         					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+        					.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
         						.addComponent(lblWeatherReportFor)
         						.addComponent(lblCity))
         					.addGap(52))))
         );
-        panel.setLayout(gl_panel);
+        topPanel.setLayout(gl_topPanel);
+        
+        rightPanel = new JPanel();
+        
+        leftPanel = new JPanel();
         
         lblWeatherIcon = new JLabel("Weather Icon");
         lblWeatherIcon.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTemperature = new JLabel("<<TEMP>>",JLabel.CENTER);
+        lblTemperature.setFont(new Font("Monaco", Font.BOLD, 21));
+        lblTemperature.setForeground(labelColor);
+        lblMaxTemperature = new JLabel("High:",JLabel.CENTER);
+        lblMaxTemperature.setFont(new Font("Monaco", Font.BOLD, 13));
+        lblMaxTemperature.setForeground(Color.RED);
+        lblMinTemperature = new JLabel("Low:",JLabel.CENTER);
+        lblMinTemperature.setFont(new Font("Monaco", Font.BOLD, 13));
+        lblMinTemperature.setForeground(Color.BLUE);
+        lblSunrise = new JLabel("Sunrise: ",SwingConstants.LEFT);
+        lblSunrise.setFont(new Font("Monaco", Font.PLAIN, 11));
+        lblSunrise.setForeground(labelColor);
+        lblSunset = new JLabel("Sunset: ",SwingConstants.LEFT);
+        lblSunset.setFont(new Font("Monaco", Font.PLAIN, 11));
+        lblSunset.setForeground(labelColor); 
+        GroupLayout gl_leftPanel = new GroupLayout(leftPanel);
+        gl_leftPanel.setHorizontalGroup(
+        	gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_leftPanel.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblTemperature, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+        				.addComponent(lblWeatherIcon, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+        				.addGroup(Alignment.TRAILING, gl_leftPanel.createSequentialGroup()
+        					.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblMaxTemperature, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblSunrise, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+        					.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        						.addGroup(gl_leftPanel.createSequentialGroup()
+        							.addGap(34)
+        							.addComponent(lblMinTemperature, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(gl_leftPanel.createSequentialGroup()
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(lblSunset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+        			.addContainerGap())
+        );
+        gl_leftPanel.setVerticalGroup(
+        	gl_leftPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_leftPanel.createSequentialGroup()
+        			.addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(lblTemperature)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(gl_leftPanel.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblMaxTemperature)
+        				.addComponent(lblMinTemperature))
+        			.addGap(18)
+        			.addGroup(gl_leftPanel.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblSunrise)
+        				.addComponent(lblSunset))
+        			.addContainerGap(33, Short.MAX_VALUE))
+        );
+        leftPanel.setLayout(gl_leftPanel);
+        lblHumidity = new JLabel("Humidity: ",SwingConstants.LEADING);
+        lblHumidity.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblHumidity.setForeground(labelColor);
+        lblSkyCondition = new JLabel("Sky Condition: ",JLabel.CENTER);
+        lblSkyCondition.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+        lblSkyCondition.setForeground(labelColor);
+        lblAirPressure = new JLabel("Air Pressure: ",SwingConstants.LEADING);
+        lblAirPressure.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblAirPressure.setForeground(labelColor);
+        lblWind = new JLabel("Wind: ",SwingConstants.LEADING);
+        lblWind.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblWind.setForeground(labelColor);
+        GroupLayout gl_rightPanel = new GroupLayout(rightPanel);
+        gl_rightPanel.setHorizontalGroup(
+        	gl_rightPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_rightPanel.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(gl_rightPanel.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblSkyCondition)
+        				.addComponent(lblAirPressure, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        				.addComponent(lblHumidity, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+        				.addComponent(lblWind, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+        			.addGap(30))
+        );
+        gl_rightPanel.setVerticalGroup(
+        	gl_rightPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_rightPanel.createSequentialGroup()
+        			.addGap(8)
+        			.addComponent(lblSkyCondition)
+        			.addGap(31)
+        			.addComponent(lblHumidity)
+        			.addGap(33)
+        			.addComponent(lblAirPressure)
+        			.addGap(37)
+        			.addComponent(lblWind)
+        			.addContainerGap(83, Short.MAX_VALUE))
+        );
+        rightPanel.setLayout(gl_rightPanel);
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
+        			.addGap(6)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 439, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(16)
-        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        								.addGroup(groupLayout.createSequentialGroup()
-        									.addComponent(lblMaxTemperature, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-        									.addGap(18)
-        									.addComponent(lblMinTemperature, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-        									.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE))
-        								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-        									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        										.addComponent(lblTemperature, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-        										.addGroup(groupLayout.createSequentialGroup()
-        											.addComponent(lblSunrise, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-        											.addGap(18)
-        											.addComponent(lblSunset, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
-        									.addGap(22))))
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(34)
-        							.addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)))
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(60)
-        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(lblHumidity)
-        								.addGroup(groupLayout.createSequentialGroup()
-        									.addComponent(lblWindSpeed)
-        									.addGap(14)
-        									.addComponent(lblWindDirection))
-        								.addComponent(lblAirPressure)))
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGap(32)
-        							.addComponent(lblSkyCondition)))))
-        			.addGap(5))
+        					.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+        					.addGap(42)
+        					.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(150))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(panel, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(52)
-        					.addComponent(lblSkyCondition)
-        					.addGap(18)
-        					.addComponent(lblHumidity))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(18)
-        					.addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(lblAirPressure)
-        						.addComponent(lblTemperature))))
-        			.addGap(21)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(lblWindSpeed)
-        				.addComponent(lblWindDirection)
-        				.addComponent(lblMaxTemperature)
-        				.addComponent(lblMinTemperature))
+        			.addGap(6)
+        			.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
         			.addGap(18)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(lblSunrise)
-        				.addComponent(lblSunset))
-        			.addGap(121))
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap())
         );
         setLayout(groupLayout);
     }
@@ -191,59 +237,29 @@ public class LocalWeatherView extends JPanel {
      * Initializes the data labels and sets their colour
      */
     private void initLabels(){
-        lblTemperature = new JLabel("<<TEMP>>",JLabel.CENTER);
-        lblTemperature.setFont(new Font("Lucida Grande", Font.BOLD, 21));
-        lblAirPressure = new JLabel("Air Pressure: ",JLabel.CENTER);
-        lblHumidity = new JLabel("Humidity: ",JLabel.CENTER);
-        lblWindSpeed = new JLabel("Wind Speed: ",JLabel.CENTER);
-        lblWindDirection = new JLabel("direction",JLabel.CENTER);
-        lblSkyCondition = new JLabel("Sky Condition: ",JLabel.CENTER);
-        lblSkyCondition.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-        lblMinTemperature = new JLabel("Low:",JLabel.CENTER);
-        lblMinTemperature.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        lblMaxTemperature = new JLabel("High:",JLabel.CENTER);
-        lblMaxTemperature.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-        lblSunrise = new JLabel("Sunrise: ",JLabel.CENTER);
-        lblSunrise.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-        lblSunset = new JLabel("Sunset: ",JLabel.CENTER);
-        lblSunset.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
-        lblTemperature.setForeground(labelColor);
-        lblAirPressure.setForeground(labelColor);
-        lblHumidity.setForeground(labelColor);
-        lblWindSpeed.setForeground(labelColor);
-        lblWindDirection.setForeground(labelColor);
-        lblSkyCondition.setForeground(labelColor);
-        lblMinTemperature.setForeground(Color.BLUE);
-        lblMaxTemperature.setForeground(Color.RED);
-        lblSunrise.setForeground(labelColor);
-        lblSunset.setForeground(labelColor); 
     }
     
     /**
      * updates the text labels for various information
      */
     public void setLabels(){
+    	//Figure out how to determine whether C or F selected
+    	String currentTempValue = "C";
+    	
         lblCity.setText(cityName);
-        lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4));
-        lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure());
-        lblHumidity.setText("Humidity: " + localWeatherData.getHumidity());
-        lblWindSpeed.setText("Wind Speed: " + localWeatherData.getWindSpeed());
-        lblMinTemperature.setText(localWeatherData.getMinTemperature());
-        lblMaxTemperature.setText(localWeatherData.getMaxTemperature());
+		lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¡" + currentTempValue);
+        lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hpa");
+        lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
+        lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
+        lblMinTemperature.setText(localWeatherData.getMinTemperature()+ "¡" + currentTempValue); 
+        lblMaxTemperature.setText(localWeatherData.getMaxTemperature()+ "¡" + currentTempValue);
         lblSunrise.setText("Sunrise: " + localWeatherData.getTimeSunrise());
         lblSunset.setText("Sunset: " + localWeatherData.getTimeSunset()); 
-        
-        ///////////////////////////////////////////////////////////////////////////////////////
-        //Translate into NE-SW arrows?
-        lblWindDirection.setText("Wind Direction: " + localWeatherData.getWindDirection());
-        ///////////////////////////////////////////////////////////////////////////////////////
-        
-
-        ///////////////////////////////////////////////////////////////////////////////////////
-        //Translate sky condition into Image
-        lblSkyCondition.setText("Sky Condition: " + localWeatherData.getSkyCondition());
-        ///////////////////////////////////////////////////////////////////////////////////////
+        lblSkyCondition.setText(localWeatherData.getSkyCondition().toUpperCase());
        
+        /*
+         * Add Icon display here
+         */
     }
     
     public String getCityName() {

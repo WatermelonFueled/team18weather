@@ -142,6 +142,7 @@ public class SelectionPage extends JPanel {
 					dataRequester.requestLong(cityId);
 					localWeatherView.setCityName(cityName);
 					localWeatherView.setLabels();
+					
 				}
 			}
 		});

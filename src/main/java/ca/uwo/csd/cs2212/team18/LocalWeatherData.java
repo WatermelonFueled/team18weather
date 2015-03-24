@@ -67,7 +67,7 @@ public class LocalWeatherData {
 	}
 
 	public void setWindDirection(String windDirection) {
-		int degree = Integer.parseInt(windDirection);
+		double degree = Double.parseDouble(windDirection);
 		String directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"};
 	    this.windDirection = directions[ (int)Math.round((  ((double)degree % 360) / 45)) ];
 	}

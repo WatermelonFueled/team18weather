@@ -1,19 +1,34 @@
 package ca.uwo.csd.cs2212.team18;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This part written by Samirah
+ */
 public class ShortTermData{
-    private String[] temperature;
-    private String[] skyCondition;
     
-    ShortTermData(){
-        temperature = new String[9];
-        skyCondition = new String[9];
+    private List<LocalWeatherData> data;
+    
+    public ShortTermData(){
+        data = new ArrayList<LocalWeatherData>();
+    }
+    
+    /**
+     * add an item to list
+     * @param weatherData 
+     */
+    public void addShortTermData(LocalWeatherData weatherData){
+        data.add(weatherData);
+    }
+    
+    /**
+     * clear data
+     */
+    public void clear(){
+        data.clear();
     }
 
-    public String[] getTemperature() {
-        return temperature;
+    public List<LocalWeatherData> getData() {
+        return data;
     }
-
-    public String[] getSkyCondition() {
-        return skyCondition;
-    }   
-}

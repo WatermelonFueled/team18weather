@@ -23,13 +23,15 @@ public class SelectionPage extends JPanel {
 	private static final long serialVersionUID = -5681712855274371085L;
 	private DataRequester dataRequester;
 	private LocalWeatherView localWeatherView;
-
+        private ShortTermView shortTermView;
 	/**
 	 * Creates a new SelectionPage and initializes the user interface. Window is
 	 * not visible by default.
 	 */
-	public SelectionPage(LocalWeatherView localWeatherView, DataRequester dataRequester) {
+	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView,
+                DataRequester dataRequester) {
 		this.localWeatherView = localWeatherView;
+                this.shortTermView = shortTermView;
 		this.dataRequester = dataRequester;
 		this.initUI(); 
 	}
@@ -142,6 +144,8 @@ public class SelectionPage extends JPanel {
 					dataRequester.requestLong(cityId);
 					localWeatherView.setCityName(cityName);
 					localWeatherView.setLabels();
+                                        
+                                        shortTermView.display();
 					
 				}
 			}

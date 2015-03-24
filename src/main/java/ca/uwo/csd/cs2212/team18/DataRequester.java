@@ -19,7 +19,7 @@ import org.json.simple.parser.ParseException;
  * This class handles all communication with the online weather services
  * (OpenWeatherMap.org or MarsWeather.com) to request and receive data
  * as needed
- * @author David Park
+ * @author David Park, updated by Samirah
  */
 public class DataRequester {
     private LocalWeatherData localData;
@@ -54,7 +54,7 @@ public class DataRequester {
     
     public void requestShort(String id){
         String requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + id;
-        
+        shortTermData.clear(); //delete old items
         JSONObject responseJSON = request(requestURL);
         if (responseJSON != null){
             parseShort(responseJSON);
@@ -157,17 +157,43 @@ public class DataRequester {
      */
     private void parseShort(JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
-        JSONObject weatherTimeslot;
-        String[] temperature = shortTermData.getTemperature();
-        String[] skyCondition = shortTermData.getSkyCondition();
+        JSONObject weatherTimeslot;        
         
-        for (int i=0; i<9; i++){
+        for (int i=0; i< list.size(); i++){
             weatherTimeslot = (JSONObject) list.get(i);
+            LocalWeatherData weatherData = new LocalWeatherData();
             
-            //set temperature in array
-            temperature[i] = ((JSONObject)weatherTimeslot.get("main")).get("temp").toString();
-            //set sky condition in  array
-            skyCondition[i] = ((JSONObject)((JSONArray)weatherTimeslot.get("weather")).get(0)).get("id").toString();
+            JSONObject responseMain = (JSONObject) weatherTimeslot.get("main");
+            JSONObject responseWind = (JSONObject) weatherTimeslot.get("wind");
+            JSONObject responseSys = (JSONObject) weatherTimeslot.get("sys");
+            JSONArray responseWeatherArr = (JSONArray) weatherTimeslot.get("weather");
+            JSONObject responseWeather = (JSONObject) responseWeatherArr.get(0);
+
+            // update values
+            weatherData.setTemperature(responseMain.get("temp").toString());
+            weatherData.setWindSpeed(responseWind.get("speed").toString());
+            weatherData.setWindDirection(responseWind.get("deg").toString());
+            weatherData.setAirPressure(responseMain.get("pressure").toString());
+            weatherData.setMinTemperature(responseMain.get("temp_min").toString());
+            weatherData.setMaxTemperature(responseMain.get("temp_max").toString());
+            weatherData.setHumidity(responseMain.get("humidity").toString());
+
+            /////
+            //Diana Testing icon and descriptions
+            weatherData.setSkyCondition(responseWeather.get("description").toString());
+            weatherData.setSkyIcon(responseWeather.get("icon").toString());
+            /////
+            if (responseSys.get("sunrise") != null){
+                String sunrise = responseSys.get("sunrise").toString();
+                weatherData.setTimeSunrise(convertUTCtoReadable(sunrise));
+            }
+            
+            if (responseSys.get("sunset") != null){
+                String sunset = responseSys.get("sunset").toString();   
+                weatherData.setTimeSunset(convertUTCtoReadable(sunset));
+            }
+            
+            shortTermData.addShortTermData(weatherData);
         }
     }
     

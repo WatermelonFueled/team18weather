@@ -114,7 +114,7 @@ public class SelectionPage extends JPanel {
 		GWButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (!(locList.contains(combo.getSelectedItem()))) {
+				if (!combo.getSelectedItem().toString().equalsIgnoreCase("mars") && !(locList.contains(combo.getSelectedItem()))) {
 					String err = "Error: Incorrect Location, Please Try Again";
 					lblText.setText(err);
 					//combo.setPopupVisible(true);
@@ -137,13 +137,19 @@ public class SelectionPage extends JPanel {
 					} catch (IOException f) {}
 
 					String city = combo.getSelectedItem().toString();
-					String cityName = city.substring(0, city.indexOf('['));
-					String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
+                                        String cityName;
+                                        if (city.equalsIgnoreCase("mars")){
+                                            cityName = "Mars";
+                                            dataRequester.requestMars();
+                                        }else{
+                                            cityName = city.substring(0, city.indexOf('['));
+                                            String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
 
-					//updates local, short term, long term data for selected city
-					dataRequester.requestLocal(cityId);
-					dataRequester.requestShort(cityId);
-					dataRequester.requestLong(cityId);
+                                            //updates local, short term, long term data for selected city
+                                            dataRequester.requestLocal(cityId);
+                                            dataRequester.requestShort(cityId);
+                                            dataRequester.requestLong(cityId);
+                                        }
 					localWeatherView.setCityName(cityName);
 					localWeatherView.setLabels();
                                         

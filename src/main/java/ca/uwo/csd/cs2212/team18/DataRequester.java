@@ -111,6 +111,14 @@ public class DataRequester {
         }
     }
     
+    public void requestMars(){
+        String requestURL = "http://marsweather.ingenology.com/v1/latest/?format=json";
+        JSONObject responseJSON = request(requestURL);
+        if (responseJSON != null){
+            parseMars(responseJSON);
+        }
+    }
+    
     /**
      * handles sending request and catching possible errors and makes
      * JSONObject of the response
@@ -263,6 +271,34 @@ public class DataRequester {
             //set sky condition in  array
             skyCondition[i] = ((JSONObject)((JSONArray)weatherDay.get("weather")).get(0)).get("id").toString();
         }
+    }
+    
+    private void parseMars(JSONObject response){
+        JSONObject report = (JSONObject) response.get("report");
+        
+        localData.setTemperature("NULL");
+        //localData.setWindSpeed(report.get("wind_speed").toString());
+        //localData.setWindDirection(report.get("wind_direction").toString());
+        localData.setAirPressure(report.get("pressure").toString());
+        switch (unit){
+            case CELCIUS:
+                localData.setMinTemperature(report.get("min_temp").toString());
+                localData.setMaxTemperature(report.get("max_temp").toString());
+                localData.setUnit('C');
+                break;
+            case FAHRENHEIT:
+                localData.setMinTemperature(report.get("min_temp_fahrenheit").toString());
+                localData.setMaxTemperature(report.get("max_temp_fahrenheit").toString());
+                localData.setUnit('F');
+                break;
+        }
+        //localData.setHumidity(report.get("abs_humidity").toString());
+        localData.setSkyCondition(report.get("atmo_opacity").toString());
+        localData.setSkyIcon("");
+        String sunrise = report.get("sunrise").toString();
+        String sunset = report.get("sunset").toString();
+        localData.setTimeSunrise(sunrise.substring(11,16)+" ("+sunrise.substring(5, 10)+")");
+        localData.setTimeSunset(sunset.substring(11,16)+" ("+sunset.substring(5, 10)+")");
     }
 
     /**

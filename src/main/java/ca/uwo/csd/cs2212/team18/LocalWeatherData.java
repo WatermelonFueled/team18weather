@@ -1,7 +1,6 @@
 package ca.uwo.csd.cs2212.team18; 
 /**
- *  
- *
+ * LocalWeatherData class: holds and returns values for the local weather view
  */
 public class LocalWeatherData {
 	
@@ -16,7 +15,7 @@ public class LocalWeatherData {
 	private String timeSunrise;
 	private String timeSunset;
 	private String skyIcon;
-	private char unit;
+	private char unit; //C or F
         
 	/**
 	 * constructor
@@ -181,11 +180,18 @@ public class LocalWeatherData {
 		return skyIcon;
 	}
 	
-        
+        /**
+         * Sets the temperature unit symbol
+         * @param unit 
+         */
 	public void setUnit(char unit){
             this.unit = unit;
         }		
 	
+        /**
+         * Returns the temperature unit symbol
+         * @return unit of temperature
+         */
         public char getUnit(){
             return unit;
         }

@@ -19,7 +19,6 @@ import org.json.simple.parser.ParseException;
  * This class handles all communication with the online weather services
  * (OpenWeatherMap.org or MarsWeather.com) to request and receive data
  * as needed
- * @author David Park, updated by Samirah
  */
 public class DataRequester {
     private LocalWeatherData localData;

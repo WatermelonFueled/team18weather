@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This part written by Samirah
+ * ShortTermData class: holds and returns weather values from every 3 hour
+ * incrememnt. Each increment has a LocalWeatherData object holding values
+ * for each.
  */
 public class ShortTermData{
     
     private List<LocalWeatherData> data;
-    private char unit;
+    private char unit; // C or F
     
     public ShortTermData(){
         data = new ArrayList<LocalWeatherData>();
@@ -34,10 +36,18 @@ public class ShortTermData{
         return data;
     }
     
+    /**
+     * Sets the temperature unit symbol
+     * @param unit 
+     */
     public void setUnit(char unit){
         this.unit = unit;
     }		
-
+    
+    /**
+     * Returns the temperature unit symbol
+     * @return unit of temperature
+     */
     public char getUnit(){
         return unit;
     }

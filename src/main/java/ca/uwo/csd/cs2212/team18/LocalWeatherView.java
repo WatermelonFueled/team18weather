@@ -247,7 +247,8 @@ public class LocalWeatherView extends JPanel {
     	String currentTempValue = "C";
     	
         lblCity.setText(cityName);
-		lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¡" + currentTempValue);
+	//lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¡" + currentTempValue);
+        lblTemperature.setText(localWeatherData.getTemperature() + "¡" + currentTempValue);
         lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hpa");
         lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
         lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());

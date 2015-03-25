@@ -36,8 +36,9 @@ public class TabbedViews extends JPanel{
         
         //selection tab
         tabbedPane.addTab("Short Term Forecast", shortTermView);
-        tabbedPane.setMnemonicAt(1,KeyEvent.VK_3);
+        tabbedPane.setMnemonicAt(2,KeyEvent.VK_3);
         
         add(tabbedPane);
     }
     
+}

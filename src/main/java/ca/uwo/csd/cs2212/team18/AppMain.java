@@ -31,12 +31,13 @@ public class AppMain{
         // views
         logger.info("Initializing views: local weather and selection/preferences");
         LocalWeatherView localView = new LocalWeatherView(localData);
-        SelectionPage selectionPage = new SelectionPage(localView, dataRequester);
+        ShortTermView shortView = new ShortTermView(shortTermData);
+        SelectionPage selectionPage = new SelectionPage(localView, shortView, dataRequester);
         logger.info("End of views");
 
         // place views into tabs
         logger.info("Putting views into tabs");
-        TabbedViews tabs = new TabbedViews(selectionPage, localView);
+        TabbedViews tabs = new TabbedViews(selectionPage, localView, shortView);
 
         //main window/frame
         logger.info("Initializing main JFrame with tabbed view");

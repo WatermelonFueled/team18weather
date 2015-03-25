@@ -32,3 +32,4 @@ public class ShortTermData{
     public List<LocalWeatherData> getData() {
         return data;
     }
+}

@@ -243,8 +243,8 @@ public class LocalWeatherView extends JPanel {
      * updates the text labels for various information
      */
     public void setLabels(){
-    	//Figure out how to determine whether C or F selected
-    	String currentTempValue = "C";
+    	//determine whether C or F selected
+    	char currentTempValue = localWeatherData.getUnit();
     	
         lblCity.setText(cityName);
 	//lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¡" + currentTempValue);

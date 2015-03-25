@@ -4,6 +4,7 @@ public class LongTermData{
     private String[] temperatureMin;
     private String[] temperatureMax;
     private String[] skyCondition;
+    private char unit;
     
     LongTermData(){
         temperatureMin = new String[7];
@@ -21,5 +22,13 @@ public class LongTermData{
 
     public String[] getSkyCondition() {
         return skyCondition;
-    }   
+    }
+    
+    public void setUnit(char unit){
+        this.unit = unit;
+    }		
+
+    public char getUnit(){
+        return unit;
+    }
 }

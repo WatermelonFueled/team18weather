@@ -9,6 +9,7 @@ import java.util.List;
 public class ShortTermData{
     
     private List<LocalWeatherData> data;
+    private char unit;
     
     public ShortTermData(){
         data = new ArrayList<LocalWeatherData>();
@@ -31,5 +32,13 @@ public class ShortTermData{
 
     public List<LocalWeatherData> getData() {
         return data;
+    }
+    
+    public void setUnit(char unit){
+        this.unit = unit;
+    }		
+
+    public char getUnit(){
+        return unit;
     }
 }

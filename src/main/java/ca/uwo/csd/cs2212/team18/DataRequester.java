@@ -27,6 +27,9 @@ public class DataRequester {
     private LongTermData longTermData;
     private JSONParser parser;
     
+    private enum Unit {CELCIUS, FAHRENHEIT};
+    Unit unit = Unit.CELCIUS;
+    
     /**
      * Constructor for DataRequester
      * @param localData LocalWeatherData object
@@ -44,7 +47,18 @@ public class DataRequester {
      * @param id city id as string
      */
     public void requestLocal(String id){
-        String requestURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=" + id;
+        String requestURL = null;
+        
+        switch (unit){
+            case CELCIUS:
+                requestURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=" + id;
+                localData.setUnit('C');
+                break;
+            case FAHRENHEIT:
+                requestURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&id=" + id;
+                localData.setUnit('F');
+                break;
+        }
         
         JSONObject responseJSON = request(requestURL);
         if (responseJSON != null){
@@ -53,7 +67,18 @@ public class DataRequester {
     }
     
     public void requestShort(String id){
-        String requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + id;
+        String requestURL = null;
+        
+        switch (unit){
+            case CELCIUS:
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + id;
+                shortTermData.setUnit('C');
+                break;
+            case FAHRENHEIT:
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&id=" + id;
+                shortTermData.setUnit('F');
+                break;
+        }
         shortTermData.clear(); //delete old items
         JSONObject responseJSON = request(requestURL);
         if (responseJSON != null){
@@ -62,8 +87,18 @@ public class DataRequester {
     }
     
     public void requestLong(String id){
-        String requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=" + id;
+        String requestURL = null;
         
+        switch (unit){
+            case CELCIUS:
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=" + id;
+                longTermData.setUnit('C');
+                break;
+            case FAHRENHEIT:
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=imperial&id=" + id;
+                longTermData.setUnit('F');
+                break;
+        }
         JSONObject responseJSON = request(requestURL);
         if (responseJSON != null){
             parseLong(responseJSON);
@@ -230,5 +265,27 @@ public class DataRequester {
         Date date = new Date(Long.parseLong(utc,10));
         SimpleDateFormat format = new SimpleDateFormat("h:mm a");
         return format.format(date);
-    }    
+    }   
+    
+    
+    public void setCelcius(){
+        unit = Unit.CELCIUS;
+    }
+    
+    public void setFahrenheit(){
+        unit = Unit.FAHRENHEIT;
+    }
+    
+    /*
+    public char getUnitSymbol(){
+        switch (unit){
+            case CELCIUS:
+                return 'C';
+            case FAHRENHEIT:
+                return 'F';
+            default:
+                return 'C';
+        }
+    }
+    */
 }

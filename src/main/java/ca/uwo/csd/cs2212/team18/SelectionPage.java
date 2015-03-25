@@ -122,8 +122,10 @@ public class SelectionPage extends JPanel {
 					String msg = "Selected: " + combo.getSelectedItem();
 					if (radFahrenheit.isSelected()) {
 						msg += " in Fahrenheit";
+                                                dataRequester.setFahrenheit();
 					} else {
 						msg += " in Celsius";
+                                                dataRequester.setCelcius();
 					}
 					lblText.setText(msg);
 					

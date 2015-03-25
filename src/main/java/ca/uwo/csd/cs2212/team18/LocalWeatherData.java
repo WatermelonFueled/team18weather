@@ -16,7 +16,8 @@ public class LocalWeatherData {
 	private String timeSunrise;
 	private String timeSunset;
 	private String skyIcon;
-	
+	private char unit;
+        
 	/**
 	 * constructor
 	 */
@@ -180,7 +181,13 @@ public class LocalWeatherData {
 		return skyIcon;
 	}
 	
-			
+        
+	public void setUnit(char unit){
+            this.unit = unit;
+        }		
 	
+        public char getUnit(){
+            return unit;
+        }
 
 }

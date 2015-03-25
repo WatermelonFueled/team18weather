@@ -42,13 +42,12 @@ public class DataRequester {
     }
 
     /**
-     * requestLocal method requests for the local forecast info and updates
+     * requests for the local forecast info and updates
      * the localData object with new values
-     * @param id city id as string
+     * @param id City id as string
      */
     public void requestLocal(String id){
         String requestURL = null;
-        
         switch (unit){
             case CELCIUS:
                 requestURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=" + id;
@@ -66,9 +65,13 @@ public class DataRequester {
         }
     }
     
+    /**
+     * requests for short term forecast info and updates
+     * the shortTermData object with new values
+     * @param id City id as string
+     */
     public void requestShort(String id){
         String requestURL = null;
-        
         switch (unit){
             case CELCIUS:
                 requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + id;
@@ -86,9 +89,13 @@ public class DataRequester {
         }
     }
     
+    /**
+     * requests for long term forecast info and updates
+     * the longTermData object with new values
+     * @param id City id as string
+     */
     public void requestLong(String id){
         String requestURL = null;
-        
         switch (unit){
             case CELCIUS:
                 requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=" + id;
@@ -105,6 +112,12 @@ public class DataRequester {
         }
     }
     
+    /**
+     * handles sending request and catching possible errors and makes
+     * JSONObject of the response
+     * @param request URL of request
+     * @return responseJSON The response from web service JSONObject
+     */
     private JSONObject request(String request){
         JSONObject responseJSON = null;
         try{
@@ -155,7 +168,7 @@ public class DataRequester {
     
     /**
      * parseLocal populates the fields of localData with new results
-     * @param response The JSONObject with response from OpenWeatherMap
+     * @param response The JSONObject with response from web service
      */
     private void parseLocal(JSONObject response){
         JSONObject responseMain = (JSONObject) response.get("main");
@@ -186,9 +199,8 @@ public class DataRequester {
     }
     
     /**
-     * 
-     * @param weatherData
-     * @param response 
+     * populates fields of shortTermData with new results
+     * @param response The JSONObject with response from web service
      */
     private void parseShort(JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
@@ -233,9 +245,8 @@ public class DataRequester {
     }
     
     /**
-     * 
-     * @param weatherData
-     * @param response 
+     * populates fields of longTermData with new results
+     * @param response The JSONObject with response from web service
      */
     private void parseLong(JSONObject response){
         JSONArray list = (JSONArray) response.get("list");
@@ -256,9 +267,9 @@ public class DataRequester {
     }
 
     /**
-     * 
-     * @param utc
-     * @return 
+     * converts UTC time value returned from api to human readable hh:mm am/pm
+     * @param utc 
+     * @return time in hh:mm am/pm
      */
     private String convertUTCtoReadable(String utc){
         utc = utc+"000";
@@ -267,25 +278,18 @@ public class DataRequester {
         return format.format(date);
     }   
     
-    
+    /**
+     * sets unit format to celcius
+     */
     public void setCelcius(){
         unit = Unit.CELCIUS;
     }
     
+    /**
+     * sets unit format to fahrenheit
+     */
     public void setFahrenheit(){
         unit = Unit.FAHRENHEIT;
     }
-    
-    /*
-    public char getUnitSymbol(){
-        switch (unit){
-            case CELCIUS:
-                return 'C';
-            case FAHRENHEIT:
-                return 'F';
-            default:
-                return 'C';
-        }
-    }
-    */
+
 }

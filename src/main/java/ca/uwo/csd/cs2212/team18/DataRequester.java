@@ -60,7 +60,7 @@ public class DataRequester {
         
         JSONObject responseJSON = request(requestURL);
         if (responseJSON != null){
-            parseLocal(responseJSON);
+            parseLocal(responseJSON,localData);
         }
     }
     
@@ -177,7 +177,7 @@ public class DataRequester {
      * parseLocal populates the fields of localData with new results
      * @param response The JSONObject with response from web service
      */
-    private void parseLocal(JSONObject response){
+    private void parseLocal(JSONObject response, LocalWeatherData localData){
         JSONObject responseMain = (JSONObject) response.get("main");
         JSONObject responseWind = (JSONObject) response.get("wind");
         JSONObject responseSys = (JSONObject) response.get("sys");
@@ -199,12 +199,17 @@ public class DataRequester {
         localData.setSkyIcon(responseWeather.get("icon").toString());
         /////
         
-        String sunrise = responseSys.get("sunrise").toString();
-        String sunset = responseSys.get("sunset").toString();
 		String timeUpdated = response.get("dt").toString();
-        localData.setTimeSunrise(convertUTCtoReadable(sunrise));
-        localData.setTimeSunset(convertUTCtoReadable(sunset));
 		localData.setTimeUpdated(convertUTCtoReadable(timeUpdated));
+		if (responseSys.get("sunrise") != null){
+			String sunrise = responseSys.get("sunrise").toString();
+			localData.setTimeSunrise(convertUTCtoReadable(sunrise));
+		}
+		
+		if (responseSys.get("sunset") != null){
+			String sunset = responseSys.get("sunset").toString();   
+			localData.setTimeSunset(convertUTCtoReadable(sunset));
+		}
     }
     
     /**
@@ -219,35 +224,7 @@ public class DataRequester {
             weatherTimeslot = (JSONObject) list.get(i);
             LocalWeatherData weatherData = new LocalWeatherData();
             
-            JSONObject responseMain = (JSONObject) weatherTimeslot.get("main");
-            JSONObject responseWind = (JSONObject) weatherTimeslot.get("wind");
-            JSONObject responseSys = (JSONObject) weatherTimeslot.get("sys");
-            JSONArray responseWeatherArr = (JSONArray) weatherTimeslot.get("weather");
-            JSONObject responseWeather = (JSONObject) responseWeatherArr.get(0);
-
-            // update values
-            weatherData.setTemperature(responseMain.get("temp").toString());
-            weatherData.setWindSpeed(responseWind.get("speed").toString());
-            weatherData.setWindDirection(responseWind.get("deg").toString());
-            weatherData.setAirPressure(responseMain.get("pressure").toString());
-            weatherData.setMinTemperature(responseMain.get("temp_min").toString());
-            weatherData.setMaxTemperature(responseMain.get("temp_max").toString());
-            weatherData.setHumidity(responseMain.get("humidity").toString());
-
-            /////
-            //Diana Testing icon and descriptions
-            weatherData.setSkyCondition(responseWeather.get("description").toString());
-            weatherData.setSkyIcon(responseWeather.get("icon").toString());
-            /////
-            if (responseSys.get("sunrise") != null){
-                String sunrise = responseSys.get("sunrise").toString();
-                weatherData.setTimeSunrise(convertUTCtoReadable(sunrise));
-            }
-            
-            if (responseSys.get("sunset") != null){
-                String sunset = responseSys.get("sunset").toString();   
-                weatherData.setTimeSunset(convertUTCtoReadable(sunset));
-            }
+			parseLocal(weatherTimeslot, weatherData);
             
             shortTermData.addShortTermData(weatherData);
         }
@@ -279,8 +256,8 @@ public class DataRequester {
         JSONObject report = (JSONObject) response.get("report");
         
         localData.setTemperature("NULL");
-        //localData.setWindSpeed(report.get("wind_speed").toString());
-        //localData.setWindDirection(report.get("wind_direction").toString());
+        localData.setWindSpeed(report.get("wind_speed").toString());
+        localData.setWindDirection(report.get("wind_direction").toString());
         localData.setAirPressure(report.get("pressure").toString());
         switch (unit){
             case CELCIUS:
@@ -294,7 +271,7 @@ public class DataRequester {
                 localData.setUnit('F');
                 break;
         }
-        //localData.setHumidity(report.get("abs_humidity").toString());
+        localData.setHumidity(report.get("abs_humidity").toString());
         localData.setSkyCondition(report.get("atmo_opacity").toString());
         localData.setSkyIcon("");
         String sunrise = report.get("sunrise").toString();

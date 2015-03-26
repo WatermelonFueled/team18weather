@@ -261,7 +261,7 @@ public class DataRequester {
 		} else {
 			localData.setWindSpeed(null);
 		}
-		if (report.get("wind_direction") != null || !report.get("wind_direction").toString().equals("--")){
+		if (report.get("wind_direction") != null && !report.get("wind_direction").toString().equals("--")){
 			localData.setWindDirection(report.get("wind_direction").toString());
 		} else {
 			localData.setWindDirection(null);

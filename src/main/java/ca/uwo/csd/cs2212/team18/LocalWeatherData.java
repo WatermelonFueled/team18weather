@@ -57,7 +57,11 @@ public class LocalWeatherData {
 	 * @return the windDirection
 	 */
 	public void setWindSpeed(String windSpeed) {
-		this.windSpeed = windSpeed;
+		if (windSpeed != null){
+			this.windSpeed = windSpeed;
+		} else {
+			this.windSpeed = "Not available";
+		}
 	}
 	
 	/**
@@ -68,9 +72,13 @@ public class LocalWeatherData {
 	}
 
 	public void setWindDirection(String windDirection) {
-		double degree = Double.parseDouble(windDirection);
-		String directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"};
-	    this.windDirection = directions[ (int)Math.round((  ((double)degree % 360) / 45)) ];
+		if (windDirection != null){
+			double degree = Double.parseDouble(windDirection);
+			String directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"};
+			this.windDirection = directions[ (int)Math.round((  ((double)degree % 360) / 45)) ];
+		} else {
+			this.windDirection = "Not available";
+		}
 	}
 
 	/**
@@ -98,7 +106,11 @@ public class LocalWeatherData {
 	 * @param humidity the humidity to set
 	 */
 	public void setHumidity(String humidity) {
-		this.humidity = humidity;
+		if (humidity != null){
+			this.humidity = humidity;
+		}else {
+			this.humidity = "Not available";
+		}
 	}
 
 	/**

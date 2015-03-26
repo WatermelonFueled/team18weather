@@ -255,9 +255,17 @@ public class DataRequester {
     private void parseMars(JSONObject response){
         JSONObject report = (JSONObject) response.get("report");
         
-        localData.setTemperature("NULL");
-        localData.setWindSpeed(report.get("wind_speed").toString());
-        localData.setWindDirection(report.get("wind_direction").toString());
+        localData.setTemperature("Not available");
+        if (report.get("wind_speed") != null){
+			localData.setWindSpeed(report.get("wind_speed").toString());
+		} else {
+			localData.setWindSpeed(null);
+		}
+		if (report.get("wind_direction") != null || !report.get("wind_direction").toString().equals("--")){
+			localData.setWindDirection(report.get("wind_direction").toString());
+		} else {
+			localData.setWindDirection(null);
+		}
         localData.setAirPressure(report.get("pressure").toString());
         switch (unit){
             case CELCIUS:
@@ -271,7 +279,11 @@ public class DataRequester {
                 localData.setUnit('F');
                 break;
         }
-        localData.setHumidity(report.get("abs_humidity").toString());
+		if (report.get("abs_humidity") != null){
+			localData.setHumidity(report.get("abs_humidity").toString());
+		} else {
+			localData.setHumidity(null);
+		}
         localData.setSkyCondition(report.get("atmo_opacity").toString());
         localData.setSkyIcon("");
         String sunrise = report.get("sunrise").toString();

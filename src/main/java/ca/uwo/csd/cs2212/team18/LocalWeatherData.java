@@ -15,6 +15,7 @@ public class LocalWeatherData {
 	private String timeSunrise;
 	private String timeSunset;
 	private String skyIcon;
+	private String timeUpdated;
 	private char unit; //C or F
         
 	/**
@@ -173,27 +174,36 @@ public class LocalWeatherData {
 	
 	public void setSkyIcon(String skyIconNum) {
 		this.skyIcon = skyIconNum;
-		
 	}
 	
 	public String getSkyIcon(){
 		return skyIcon;
 	}
 	
-        /**
-         * Sets the temperature unit symbol
-         * @param unit 
-         */
-	public void setUnit(char unit){
-            this.unit = unit;
-        }		
 	
-        /**
-         * Returns the temperature unit symbol
-         * @return unit of temperature
-         */
-        public char getUnit(){
-            return unit;
-        }
+	public String getTimeUpdated(){
+		return timeUpdated;
+	}
+	
+	public void setTimeUpdated(String timeUpdated){
+		this.timeUpdated = timeUpdated;
+	}
+	
+	/**
+	 * Sets the temperature unit symbol
+	 * @param unit 
+	 */
+	public void setUnit(char unit){
+		this.unit = unit;
+	}		
 
+	/**
+	 * Returns the temperature unit symbol
+	 * @return unit of temperature
+	 */
+	public char getUnit(){
+		return unit;
+	}
+
+	
 }

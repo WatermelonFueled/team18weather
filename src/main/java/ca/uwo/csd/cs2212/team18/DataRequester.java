@@ -201,8 +201,10 @@ public class DataRequester {
         
         String sunrise = responseSys.get("sunrise").toString();
         String sunset = responseSys.get("sunset").toString();
+		String timeUpdated = response.get("dt").toString();
         localData.setTimeSunrise(convertUTCtoReadable(sunrise));
         localData.setTimeSunset(convertUTCtoReadable(sunset));
+		localData.setTimeUpdated(convertUTCtoReadable(timeUpdated));
     }
     
     /**
@@ -297,8 +299,10 @@ public class DataRequester {
         localData.setSkyIcon("");
         String sunrise = report.get("sunrise").toString();
         String sunset = report.get("sunset").toString();
+		String lastUpdate = report.get("terrestrial_date").toString();
         localData.setTimeSunrise(sunrise.substring(11,16)+" ("+sunrise.substring(5, 10)+")");
         localData.setTimeSunset(sunset.substring(11,16)+" ("+sunset.substring(5, 10)+")");
+		localData.setTimeUpdated(lastUpdate);
     }
 
     /**

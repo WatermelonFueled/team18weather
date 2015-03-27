@@ -24,15 +24,15 @@ public class SelectionPage extends JPanel {
 	private static final long serialVersionUID = -5681712855274371085L;
 	private DataRequester dataRequester;
 	private LocalWeatherView localWeatherView;
-        private ShortTermView shortTermView;
+	private ShortTermView shortTermView;
 	/**
 	 * Creates a new SelectionPage and initializes the user interface. Window is
 	 * not visible by default.
 	 */
 	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView,
-                DataRequester dataRequester) {
+			DataRequester dataRequester) {
 		this.localWeatherView = localWeatherView;
-                this.shortTermView = shortTermView;
+		this.shortTermView = shortTermView;
 		this.dataRequester = dataRequester;
 		this.initUI(); 
 	}
@@ -123,127 +123,127 @@ public class SelectionPage extends JPanel {
 		paneNorth.add(lblHello);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(36)
-							.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(paneCenter, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(paneSouth, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addGap(36)
+										.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(paneCenter, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+												.addGroup(groupLayout.createSequentialGroup()
+														.addContainerGap()
+														.addComponent(paneSouth, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
+														.addContainerGap())
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(5)
-					.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(paneCenter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(paneSouth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(178))
-		);
+						.addGap(5)
+						.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(paneCenter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(paneSouth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(178))
+				);
 		GroupLayout gl_paneCenter = new GroupLayout(paneCenter);
 		gl_paneCenter.setHorizontalGroup(
-			gl_paneCenter.createParallelGroup(Alignment.LEADING)
+				gl_paneCenter.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_paneCenter.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(radFahrenheit)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(radCelsius)
-					.addGap(62))
-		);
-		gl_paneCenter.setVerticalGroup(
-			gl_paneCenter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_paneCenter.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_paneCenter.createParallelGroup(Alignment.BASELINE)
+						.addContainerGap()
 						.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(radFahrenheit)
-						.addComponent(radCelsius)))
-		);
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(radCelsius)
+						.addGap(62))
+				);
+		gl_paneCenter.setVerticalGroup(
+				gl_paneCenter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_paneCenter.createSequentialGroup()
+						.addGap(7)
+						.addGroup(gl_paneCenter.createParallelGroup(Alignment.BASELINE)
+								.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(radFahrenheit)
+								.addComponent(radCelsius)))
+				);
 		paneCenter.setLayout(gl_paneCenter);
 		JButton GWButton = new JButton("Get Weather");
-		
-				//Add action listener to button "Get Local Weather"
-				GWButton.addActionListener(new ActionListener() {
-		
-					public void actionPerformed(ActionEvent e) {
-						if (!combo.getSelectedItem().toString().equalsIgnoreCase("mars") && !(locList.contains(combo.getSelectedItem()))) {
-							String err = "Error: Incorrect Location, Please Try Again";
-							lblText.setText(err);
-							//combo.setPopupVisible(true);
-						} else {
-							String msg = "Selected: " + combo.getSelectedItem();
-							if (radFahrenheit.isSelected()) {
-								msg += " in Fahrenheit";
-		                                                dataRequester.setFahrenheit();
-							} else {
-								msg += " in Celsius";
-		                                                dataRequester.setCelcius();
-							}
-							lblText.setText(msg);
-							
-							// Print result to preferences file for secondary startup
-							try {
-								PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("preferences.txt", true)));
-								out.println(lblText.getText().toString());
-								out.close();
-							} catch (IOException f) {}
-		
-							String city = combo.getSelectedItem().toString();
-		                                        String cityName;
-		                                        if (city.equalsIgnoreCase("mars")){
-		                                            cityName = "Mars";
-		                                            dataRequester.requestMars();
-		                                        }else{
-		                                            cityName = city.substring(0, city.indexOf('['));
-		                                            String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
-		
-		                                            //updates local, short term, long term data for selected city
-		                                            dataRequester.requestLocal(cityId);
-		                                            dataRequester.requestShort(cityId);
-		                                            dataRequester.requestLong(cityId);
-		                                        }
-							localWeatherView.setCityName(cityName);
-							try {
-								localWeatherView.setLabels();
-							} catch (IOException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-		                                        
-		                                        shortTermView.display();
-							
-						}
+
+		//Add action listener to button "Get Local Weather"
+		GWButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				if (!(combo.getSelectedItem().toString().equalsIgnoreCase("Mars")) && !(locList.contains(combo.getSelectedItem()))) {
+					String err = "Error: Incorrect Location, Please Try Again";
+					lblText.setText(err);
+					//combo.setPopupVisible(true);
+				} else {
+					String msg = "Selected: " + combo.getSelectedItem();
+					if (radFahrenheit.isSelected()) {
+						msg += " in Fahrenheit";
+						dataRequester.setFahrenheit();
+					} else {
+						msg += " in Celsius";
+						dataRequester.setCelcius();
 					}
-				});
+					lblText.setText(msg);
+
+					// Print result to preferences file for secondary startup
+					try {
+						PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("preferences.txt", true)));
+						out.println(lblText.getText().toString());
+						out.close();
+					} catch (IOException f) {}
+
+					String city = combo.getSelectedItem().toString();
+					String cityName;
+					if (city.equalsIgnoreCase("mars")){
+						cityName = "Mars";
+						dataRequester.requestMars();
+					}else{
+						cityName = city.substring(0, city.indexOf('['));
+						String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
+
+						//updates local, short term, long term data for selected city
+						dataRequester.requestLocal(cityId);
+						dataRequester.requestShort(cityId);
+						dataRequester.requestLong(cityId);
+					}
+					localWeatherView.setCityName(cityName);
+					try {
+						localWeatherView.setLabels();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					shortTermView.display();
+
+				}
+			}
+		});
 		GroupLayout gl_paneSouth = new GroupLayout(paneSouth);
 		gl_paneSouth.setHorizontalGroup(
-			gl_paneSouth.createParallelGroup(Alignment.LEADING)
+				gl_paneSouth.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_paneSouth.createSequentialGroup()
-					.addGap(7)
-					.addComponent(lblText, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(GWButton)
-					.addContainerGap())
-		);
+						.addGap(7)
+						.addComponent(lblText, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(GWButton)
+						.addContainerGap())
+				);
 		gl_paneSouth.setVerticalGroup(
-			gl_paneSouth.createParallelGroup(Alignment.TRAILING)
+				gl_paneSouth.createParallelGroup(Alignment.TRAILING)
 				.addGroup(Alignment.LEADING, gl_paneSouth.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_paneSouth.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblText, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-						.addComponent(GWButton, Alignment.LEADING))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(gl_paneSouth.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblText, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+								.addComponent(GWButton, Alignment.LEADING))
+								.addContainerGap())
+				);
 		paneSouth.setLayout(gl_paneSouth);
 		setLayout(groupLayout);
 	}

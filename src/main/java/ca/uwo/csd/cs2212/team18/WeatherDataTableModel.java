@@ -63,7 +63,6 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
      * get number of columns
      * @return  number of columns
      */
-    @Override
     public int getColumnCount() {
         return columnNames.length;
     }

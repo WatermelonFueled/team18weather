@@ -44,6 +44,8 @@ public class LocalWeatherView extends JPanel {
      * @throws IOException 
      */
     public LocalWeatherView(LocalWeatherData localWeatherData) throws IOException {
+    	setBackground(Color.WHITE);
+    	this.setSize(600, 450);
         this.localWeatherData = localWeatherData;
         this.initUI();
     }
@@ -58,29 +60,32 @@ public class LocalWeatherView extends JPanel {
         initLabels();
         
         topPanel = new JPanel();
-        topPanel.setBackground(Color.WHITE);
+        topPanel.setBackground(SystemColor.textHighlight);
         
         lblWeatherUpdate = new JLabel("Weather Update");
-        lblWeatherUpdate.setFont(new Font("Monaco", Font.BOLD, 16));
+        lblWeatherUpdate.setFont(new Font("Myanmar MN", Font.BOLD, 16));
         
         lblWeatherReportFor = new JLabel("Weather report for: ");
-        lblWeatherReportFor.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblWeatherReportFor.setFont(new Font("Myanmar MN", Font.PLAIN, 13));
         lblCity = new JLabel("No city",JLabel.CENTER);
-        lblCity.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblCity.setFont(new Font("Myanmar MN", Font.PLAIN, 13));
         
         lblCity.setForeground(labelColor);
         
-        //top left icon
-        URL url = new URL("http://files.softicons.com/download/toolbar-icons/mono-reflection-yellow-icons-by-double-j-design/png/64/weather-sun.png");
-        Image image = ImageIO.read(url);
-        lblIcon = new JLabel(new ImageIcon(image));
+        //Team Logo
+        URL urlLogo = new URL("http://www.18assetmanagement.com/sites/all/themes/custom/am18/logo.png");
+        Image imageLogo = ImageIO.read(urlLogo);
+        Image newimgLogo = imageLogo.getScaledInstance(160, 60,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way 
+        lblIcon = new JLabel(new ImageIcon(newimgLogo));
+        lblIcon.setHorizontalAlignment(SwingConstants.LEFT);
         
         GroupLayout gl_topPanel = new GroupLayout(topPanel);
         gl_topPanel.setHorizontalGroup(
         	gl_topPanel.createParallelGroup(Alignment.TRAILING)
         		.addGroup(gl_topPanel.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+        			.addGap(26)
         			.addGroup(gl_topPanel.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_topPanel.createSequentialGroup()
         					.addGap(34)
@@ -96,39 +101,40 @@ public class LocalWeatherView extends JPanel {
         	gl_topPanel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_topPanel.createSequentialGroup()
         			.addGap(6)
+        			.addComponent(lblWeatherUpdate)
+        			.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         			.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-        				.addGroup(gl_topPanel.createSequentialGroup()
-        					.addPreferredGap(ComponentPlacement.RELATED)
-        					.addComponent(lblWeatherUpdate)
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(lblWeatherReportFor)
-        						.addComponent(lblCity))
-        					.addGap(52))))
+        				.addComponent(lblWeatherReportFor)
+        				.addComponent(lblCity))
+        			.addGap(52))
+        		.addGroup(gl_topPanel.createSequentialGroup()
+        			.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         topPanel.setLayout(gl_topPanel);
         
         rightPanel = new JPanel();
+        rightPanel.setBackground(Color.WHITE);
         
         leftPanel = new JPanel();
+        leftPanel.setBackground(Color.WHITE);
         
-        lblWeatherIcon = new JLabel("Weather Icon");
-        lblWeatherIcon.setHorizontalAlignment(SwingConstants.CENTER);
-        lblTemperature = new JLabel("<<TEMP>>",JLabel.CENTER);
-        lblTemperature.setFont(new Font("Monaco", Font.BOLD, 21));
+        lblWeatherIcon = new JLabel("");
+        lblWeatherIcon.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblTemperature = new JLabel("N/A",JLabel.CENTER);
+        lblTemperature.setFont(new Font("Myanmar MN", Font.BOLD, 60));
         lblTemperature.setForeground(labelColor);
-        lblMaxTemperature = new JLabel("High:",JLabel.CENTER);
-        lblMaxTemperature.setFont(new Font("Monaco", Font.BOLD, 13));
+        lblMaxTemperature = new JLabel("High: N/A",JLabel.CENTER);
+        lblMaxTemperature.setFont(new Font("Myanmar MN", Font.BOLD, 16));
         lblMaxTemperature.setForeground(Color.RED);
-        lblMinTemperature = new JLabel("Low:",JLabel.CENTER);
-        lblMinTemperature.setFont(new Font("Monaco", Font.BOLD, 13));
+        lblMinTemperature = new JLabel("Low: N/A",JLabel.CENTER);
+        lblMinTemperature.setFont(new Font("Myanmar MN", Font.BOLD, 16));
         lblMinTemperature.setForeground(Color.BLUE);
-        lblSunrise = new JLabel("Sunrise: ",SwingConstants.LEFT);
-        lblSunrise.setFont(new Font("Monaco", Font.PLAIN, 11));
+        lblSunrise = new JLabel("Sunrise: N/A",SwingConstants.LEFT);
+        lblSunrise.setFont(new Font("Myanmar MN", Font.PLAIN, 11));
         lblSunrise.setForeground(labelColor);
-        lblSunset = new JLabel("Sunset: ",SwingConstants.LEFT);
-        lblSunset.setFont(new Font("Monaco", Font.PLAIN, 11));
+        lblSunset = new JLabel("Sunset: N/A",SwingConstants.LEFT);
+        lblSunset.setFont(new Font("Myanmar MN", Font.PLAIN, 11));
         lblSunset.setForeground(labelColor); 
         GroupLayout gl_leftPanel = new GroupLayout(leftPanel);
         gl_leftPanel.setHorizontalGroup(
@@ -136,28 +142,26 @@ public class LocalWeatherView extends JPanel {
         		.addGroup(gl_leftPanel.createSequentialGroup()
         			.addContainerGap()
         			.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblTemperature, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-        				.addComponent(lblWeatherIcon, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+        				.addComponent(lblWeatherIcon, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
         				.addGroup(Alignment.TRAILING, gl_leftPanel.createSequentialGroup()
         					.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
         						.addComponent(lblMaxTemperature, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(lblSunrise, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(lblSunrise, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
         					.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
-        						.addGroup(gl_leftPanel.createSequentialGroup()
-        							.addGap(34)
-        							.addComponent(lblMinTemperature, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(gl_leftPanel.createSequentialGroup()
-        							.addPreferredGap(ComponentPlacement.RELATED)
-        							.addComponent(lblSunset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+        						.addComponent(lblMinTemperature, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblSunset, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)))
+        				.addComponent(lblTemperature, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
         			.addContainerGap())
         );
         gl_leftPanel.setVerticalGroup(
         	gl_leftPanel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_leftPanel.createSequentialGroup()
-        			.addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
-        			.addComponent(lblTemperature)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addContainerGap()
+        			.addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(lblTemperature, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+        			.addGap(24)
         			.addGroup(gl_leftPanel.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblMaxTemperature)
         				.addComponent(lblMinTemperature))
@@ -165,20 +169,20 @@ public class LocalWeatherView extends JPanel {
         			.addGroup(gl_leftPanel.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblSunrise)
         				.addComponent(lblSunset))
-        			.addContainerGap(33, Short.MAX_VALUE))
+        			.addContainerGap(100, Short.MAX_VALUE))
         );
         leftPanel.setLayout(gl_leftPanel);
-        lblHumidity = new JLabel("Humidity: ",SwingConstants.LEADING);
-        lblHumidity.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblHumidity = new JLabel("Humidity: N/A",SwingConstants.LEADING);
+        lblHumidity.setFont(new Font("Myanmar MN", Font.PLAIN, 16));
         lblHumidity.setForeground(labelColor);
-        lblSkyCondition = new JLabel("Sky Condition: ",JLabel.CENTER);
-        lblSkyCondition.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+        lblSkyCondition = new JLabel("Sky Condition: N/A",JLabel.CENTER);
+        lblSkyCondition.setFont(new Font("Myanmar MN", Font.PLAIN, 18));
         lblSkyCondition.setForeground(labelColor);
-        lblAirPressure = new JLabel("Air Pressure: ",SwingConstants.LEADING);
-        lblAirPressure.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblAirPressure = new JLabel("Air Pressure: N/A",SwingConstants.LEADING);
+        lblAirPressure.setFont(new Font("Myanmar MN", Font.PLAIN, 16));
         lblAirPressure.setForeground(labelColor);
-        lblWind = new JLabel("Wind: ",SwingConstants.LEADING);
-        lblWind.setFont(new Font("Monaco", Font.PLAIN, 13));
+        lblWind = new JLabel("Wind: N/A",SwingConstants.LEADING);
+        lblWind.setFont(new Font("Myanmar MN", Font.PLAIN, 16));
         lblWind.setForeground(labelColor);
         GroupLayout gl_rightPanel = new GroupLayout(rightPanel);
         gl_rightPanel.setHorizontalGroup(
@@ -210,24 +214,23 @@ public class LocalWeatherView extends JPanel {
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addGap(6)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addGroup(groupLayout.createSequentialGroup()
+        					.addContainerGap()
         					.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
         					.addGap(42)
-        					.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        			.addGap(150))
+        					.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 601, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap(139, Short.MAX_VALUE))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
-        			.addGap(6)
-        			.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
         			.addGap(18)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
         			.addContainerGap())
         );
         setLayout(groupLayout);
@@ -241,19 +244,20 @@ public class LocalWeatherView extends JPanel {
     
     /**
      * updates the text labels for various information
+     * @throws IOException 
      */
-    public void setLabels(){
+    public void setLabels() throws IOException{
     	//determine whether C or F selected
     	char currentTempValue = localWeatherData.getUnit();
     	
         lblCity.setText(cityName);
-	//lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¡" + currentTempValue);
-        lblTemperature.setText(localWeatherData.getTemperature() + "¡" + currentTempValue);
+        lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¼" + currentTempValue);
+        //lblTemperature.setText(localWeatherData.getTemperature() + "¼" + currentTempValue);
         lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hpa");
         lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
         lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
-        lblMinTemperature.setText(localWeatherData.getMinTemperature()+ "¡" + currentTempValue); 
-        lblMaxTemperature.setText(localWeatherData.getMaxTemperature()+ "¡" + currentTempValue);
+        lblMinTemperature.setText(localWeatherData.getMinTemperature().substring(0, 4) + "¼" + currentTempValue); 
+        lblMaxTemperature.setText(localWeatherData.getMaxTemperature().substring(0, 4) + "¼" + currentTempValue);
         lblSunrise.setText("Sunrise: " + localWeatherData.getTimeSunrise());
         lblSunset.setText("Sunset: " + localWeatherData.getTimeSunset()); 
         lblSkyCondition.setText(localWeatherData.getSkyCondition().toUpperCase());
@@ -261,6 +265,15 @@ public class LocalWeatherView extends JPanel {
         /*
          * Add Icon display here
          */
+        String icon = localWeatherData.getSkyIcon();
+        String urlIcon = "http://openweathermap.org/img/w/"+ icon + ".png";
+        URL urlSkyIcon = new URL(urlIcon);
+        ImageIcon imageIcon = new ImageIcon(urlSkyIcon);
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(90, 90,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg);  // transform it back
+        
+        lblWeatherIcon.setIcon(imageIcon);  
     }
     
     public String getCityName() {

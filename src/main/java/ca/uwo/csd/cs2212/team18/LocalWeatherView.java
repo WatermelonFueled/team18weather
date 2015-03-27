@@ -251,13 +251,18 @@ public class LocalWeatherView extends JPanel {
     	char currentTempValue = localWeatherData.getUnit();
     	
         lblCity.setText(cityName);
-        lblTemperature.setText(localWeatherData.getTemperature().substring(0, 4) + "¼" + currentTempValue);
-        //lblTemperature.setText(localWeatherData.getTemperature() + "¼" + currentTempValue);
+        
+        //Get substring of temps to remove decimal numbers
+        String currentTemp = localWeatherData.getTemperature().substring(0, localWeatherData.getTemperature().indexOf('.'));
+        String minTemp = localWeatherData.getMinTemperature().substring(0, localWeatherData.getMinTemperature().indexOf('.'));
+        String maxTemp = localWeatherData.getMaxTemperature().substring(0, localWeatherData.getMaxTemperature().indexOf('.'));
+       
+        lblTemperature.setText(currentTemp + "¼" + currentTempValue);
         lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hpa");
         lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
         lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
-        lblMinTemperature.setText(localWeatherData.getMinTemperature().substring(0, 4) + "¼" + currentTempValue); 
-        lblMaxTemperature.setText(localWeatherData.getMaxTemperature().substring(0, 4) + "¼" + currentTempValue);
+        lblMinTemperature.setText(minTemp + "¼" + currentTempValue); 
+        lblMaxTemperature.setText(maxTemp + "¼" + currentTempValue);
         lblSunrise.setText("Sunrise: " + localWeatherData.getTimeSunrise());
         lblSunset.setText("Sunset: " + localWeatherData.getTimeSunset()); 
         lblSkyCondition.setText(localWeatherData.getSkyCondition().toUpperCase());

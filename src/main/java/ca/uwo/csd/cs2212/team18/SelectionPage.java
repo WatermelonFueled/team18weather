@@ -176,7 +176,7 @@ public class SelectionPage extends JPanel {
 		GWButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				if (!(combo.getSelectedItem().toString().equalsIgnoreCase("Mars")) && !(locList.contains(combo.getSelectedItem()))) {
+				if (!(combo.getSelectedItem().toString().equalsIgnoreCase("mars")) && !(locList.contains(combo.getSelectedItem()))) {
 					String err = "Error: Incorrect Location, Please Try Again";
 					lblText.setText(err);
 					//combo.setPopupVisible(true);

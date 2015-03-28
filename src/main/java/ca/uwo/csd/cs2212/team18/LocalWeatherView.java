@@ -311,7 +311,7 @@ public class LocalWeatherView extends JPanel {
 		String na = "Not available";
 
 		//Check if temp values exist and display accordingly
-		if(!(currentTemp == na)){
+		if(!(currentTemp.equals(na))){
 			if(currentTemp.contains(".")) {
 				String newcurrentTemp = localWeatherData.getTemperature().substring(0, localWeatherData.getTemperature().indexOf('.'));
 				lblTemperature.setText(newcurrentTemp + "¼" + currentTempValue);
@@ -319,7 +319,7 @@ public class LocalWeatherView extends JPanel {
 			else lblTemperature.setText(currentTemp + "¼" + currentTempValue);
 		}
 
-		if(!(minTemp == na)) { 
+		if(!(minTemp.equals(na))) { 
 			if(minTemp.contains(".")) {
 				String newMinTemp = localWeatherData.getMinTemperature().substring(0, localWeatherData.getMinTemperature().indexOf('.'));
 				lblMinTemperature.setText(newMinTemp + "¼" + currentTempValue);
@@ -327,7 +327,7 @@ public class LocalWeatherView extends JPanel {
 			else lblMinTemperature.setText(minTemp + "¼" + currentTempValue);
 		}
 
-		if(!(maxTemp == na)) {
+		if(!(maxTemp.equals(na))) {
 			if(maxTemp.contains(".")) {
 				String newMaxTemp = localWeatherData.getMaxTemperature().substring(0, localWeatherData.getMaxTemperature().indexOf('.'));
 				lblMaxTemperature.setText(newMaxTemp + "¼" + currentTempValue);
@@ -336,13 +336,13 @@ public class LocalWeatherView extends JPanel {
 		}
 
 		//Check if other values exist, and display accordingly 
-		if(!(airPressure == na)) 
+		if(!(airPressure.equals(na))) 
 			lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hPa");
 		
-		if(!(humidity == na)) 
+		if(!(humidity.equals(na))) 
 			lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
 
-		if(!(wind == na)) 
+		if(!(wind.equals(na))) 
 			lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
 		
 		

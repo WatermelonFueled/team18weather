@@ -3,35 +3,25 @@ package ca.uwo.csd.cs2212.team18;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 /**
  * This part is written by Samirah
  */
-public class ShortTermView extends javax.swing.JPanel {
+public class ShortTermView extends JPanel {
 
-     /**
-     * table model
-     */
     private WeatherDataTableModel weatherTableModel;
-    
-    /**
-     * list of data
-     */
     private List<LocalWeatherData> items;
-    
-    /**
-     * table
-     */
     private JTable weatherTable;
-    
-    /**
-     * a reference to LocalWeatherData object
-     */
     private ShortTermData shortTermData;
+
     /**
      * Creates new form ShortTermView
+     * @param shortTermData
      */
     public ShortTermView(ShortTermData shortTermData) {
         initComponents();
@@ -42,10 +32,10 @@ public class ShortTermView extends javax.swing.JPanel {
         weatherTable = new JTable(weatherTableModel);
         
         // For use with mouse listener and events on table when clicked
-        weatherTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        weatherTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         //add table to scroll pane
-        JScrollPane jScrollPane= new javax.swing.JScrollPane();
+        JScrollPane jScrollPane= new JScrollPane();
         jScrollPane.setViewportView(weatherTable);
         
         //set layout

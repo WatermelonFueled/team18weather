@@ -21,21 +21,21 @@ public class LongTermData{
     }
 
     /**
-     * @return minimum temperature array
+     * @return temperatureMin minimum temperature array
      */
     public String[] getTemperatureMin() {
         return temperatureMin;
     }
     
     /**
-     * @return maximum temperature array
+     * @return temperatureMax maximum temperature array
      */
     public String[] getTemperatureMax() {
         return temperatureMax;
     }
 
     /**
-     * @return sky condition array
+     * @return skyCondition sky condition array
      */
     public String[] getSkyCondition() {
         return skyCondition;

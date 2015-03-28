@@ -16,20 +16,12 @@ import javax.swing.table.AbstractTableModel;
  */
 public class WeatherDataTableModel extends AbstractTableModel implements ChangeListener {
 
-    /**
-     * columns
-     */
     private String[] columnNames = {"Temperature", "WindSpeed", 
         "Wind Direction", "Air Pressure", "Humidity", "Min Temp", "Max Temp"};
-
-    /**
-     * list of items
-     */
     private List<LocalWeatherData> items = new ArrayList<LocalWeatherData>();
     
     /**
      * constructor
-     * @param items 
      */
     public WeatherDataTableModel() {
        
@@ -52,7 +44,8 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * get column name
-     * @return 
+     * @param col
+     * @return columnNames
      */
     @Override
     public String getColumnName(int col) {
@@ -70,7 +63,6 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * add a row
-     *
      * @param a
      */
     public void add(LocalWeatherData a) {
@@ -83,7 +75,6 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * get number of rows
-     *
      * @return number of rows
      */
     public int getRowCount() {
@@ -92,7 +83,8 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * get value at cell of table
-     *
+     * @param row
+     * @param col
      * @return value at cell
      */
     public Object getValueAt(int row, int col) {

@@ -36,8 +36,6 @@ public class TabbedViews extends JPanel{
         tabbedPane.addTab("Preferences", selectionView);
         tabbedPane.setMnemonicAt(2,KeyEvent.VK_3);
         
-        
-        
         add(tabbedPane);
     }
     

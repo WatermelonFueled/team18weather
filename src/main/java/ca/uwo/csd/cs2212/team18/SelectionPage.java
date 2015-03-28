@@ -25,9 +25,13 @@ public class SelectionPage extends JPanel {
 	private DataRequester dataRequester;
 	private LocalWeatherView localWeatherView;
 	private ShortTermView shortTermView;
+	
 	/**
 	 * Creates a new SelectionPage and initializes the user interface. Window is
 	 * not visible by default.
+	 * @param localWeatherView
+	 * @param shortTermView
+	 * @param dataRequester
 	 */
 	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView,
 			DataRequester dataRequester) {
@@ -118,58 +122,6 @@ public class SelectionPage extends JPanel {
 		JPanel paneCenter = new JPanel();
 		JPanel paneSouth = new JPanel();
 
-		//Top pane
-		paneNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
-		paneNorth.add(lblHello);
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addGap(36)
-										.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-												.addContainerGap()
-												.addComponent(paneCenter, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addContainerGap()
-														.addComponent(paneSouth, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
-														.addContainerGap())
-				);
-		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(5)
-						.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(paneCenter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(paneSouth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGap(178))
-				);
-		GroupLayout gl_paneCenter = new GroupLayout(paneCenter);
-		gl_paneCenter.setHorizontalGroup(
-				gl_paneCenter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_paneCenter.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(radFahrenheit)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(radCelsius)
-						.addGap(62))
-				);
-		gl_paneCenter.setVerticalGroup(
-				gl_paneCenter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_paneCenter.createSequentialGroup()
-						.addGap(7)
-						.addGroup(gl_paneCenter.createParallelGroup(Alignment.BASELINE)
-								.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(radFahrenheit)
-								.addComponent(radCelsius)))
-				);
-		paneCenter.setLayout(gl_paneCenter);
 		JButton GWButton = new JButton("Get Weather");
 
 		//Add action listener to button "Get Local Weather"
@@ -225,6 +177,60 @@ public class SelectionPage extends JPanel {
 				}
 			}
 		});
+		
+		//Layout for window
+		paneNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
+		paneNorth.add(lblHello);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addGap(36)
+										.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(paneCenter, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+												.addGroup(groupLayout.createSequentialGroup()
+														.addContainerGap()
+														.addComponent(paneSouth, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)))
+														.addContainerGap())
+				);
+		groupLayout.setVerticalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addGap(5)
+						.addComponent(paneNorth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(paneCenter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(paneSouth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(178))
+				);
+		GroupLayout gl_paneCenter = new GroupLayout(paneCenter);
+		gl_paneCenter.setHorizontalGroup(
+				gl_paneCenter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_paneCenter.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(radFahrenheit)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(radCelsius)
+						.addGap(62))
+				);
+		gl_paneCenter.setVerticalGroup(
+				gl_paneCenter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_paneCenter.createSequentialGroup()
+						.addGap(7)
+						.addGroup(gl_paneCenter.createParallelGroup(Alignment.BASELINE)
+								.addComponent(combo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(radFahrenheit)
+								.addComponent(radCelsius)))
+				);
+		paneCenter.setLayout(gl_paneCenter);		
+		
 		GroupLayout gl_paneSouth = new GroupLayout(paneSouth);
 		gl_paneSouth.setHorizontalGroup(
 				gl_paneSouth.createParallelGroup(Alignment.LEADING)
@@ -249,9 +255,10 @@ public class SelectionPage extends JPanel {
 	}
 
 	/**
-	 * reads from city list and places information in the Array List
-	 * @param locList to populate with city info
-	 * @throws FileNotFoundException 
+	 * Reads from city list and places information in the Array List
+	 * @param locList populates with city info
+	 * @throws FileNotFoundException
+	 * @throws IOException
 	 */
 	private void locationList(ArrayList<String> locList) throws FileNotFoundException, IOException{
 		//Get file from resources folder
@@ -264,6 +271,4 @@ public class SelectionPage extends JPanel {
 		}
 		reader.close();
 	}
-
-
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * ShortTermData class: holds and returns weather values from every 3 hour
- * incrememnt. Each increment has a LocalWeatherData object holding values
+ * increment. Each increment has a LocalWeatherData object holding values
  * for each.
  */
 public class ShortTermData{

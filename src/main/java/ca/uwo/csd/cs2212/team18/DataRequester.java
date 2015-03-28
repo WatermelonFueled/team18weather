@@ -111,6 +111,10 @@ public class DataRequester {
         }
     }
     
+    /**
+     * requests for mars info and updates
+     * the localWeatherData object with new values
+     */
     public void requestMars(){
         String requestURL = "http://marsweather.ingenology.com/v1/latest/?format=json";
         JSONObject responseJSON = request(requestURL);
@@ -192,12 +196,8 @@ public class DataRequester {
         localData.setMinTemperature(responseMain.get("temp_min").toString());
         localData.setMaxTemperature(responseMain.get("temp_max").toString());
         localData.setHumidity(responseMain.get("humidity").toString());
-        
-        /////
-        //Diana Testing icon and descriptions
         localData.setSkyCondition(responseWeather.get("description").toString());
         localData.setSkyIcon(responseWeather.get("icon").toString());
-        /////
         
 		String timeUpdated = response.get("dt").toString();
 		localData.setTimeUpdated(convertUTCtoReadable(timeUpdated));
@@ -252,6 +252,10 @@ public class DataRequester {
         }
     }
     
+    /**
+     * populates fields of localWeatherData with new results
+     * @param response The JSONObject with response from web service
+     */
     private void parseMars(JSONObject response){
         JSONObject report = (JSONObject) response.get("report");
         
@@ -307,7 +311,7 @@ public class DataRequester {
     }   
     
     /**
-     * sets unit format to celcius
+     * sets unit format to celsius
      */
     public void setCelcius(){
         unit = Unit.CELCIUS;

@@ -65,9 +65,6 @@ public class LocalWeatherView extends JPanel {
 	 */
 	private void initUI() throws IOException {
 
-		initLabels();
-
-		
 		topPanel = new JPanel();
 		topPanel.setBackground(SystemColor.textHighlight);
 
@@ -295,12 +292,6 @@ public class LocalWeatherView extends JPanel {
 	}
 
 	/**
-	 * Initializes the data labels and sets their colour
-	 */
-	private void initLabels(){
-	}
-
-	/**
 	 * updates the text labels for various information
 	 * @throws IOException 
 	 */
@@ -380,10 +371,18 @@ public class LocalWeatherView extends JPanel {
 		lblTime.setText(timeStamp);
 	}
 
+	/**
+	 * Gets the name of the city for local weather view
+	 * @return cityName
+	 */
 	public String getCityName() {
 		return cityName;
 	}
 
+	/**
+	 * Sets the name of the city for local weather view
+	 * @param cityName
+	 */
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}

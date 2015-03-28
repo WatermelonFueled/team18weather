@@ -24,6 +24,7 @@ public class DataRequester {
     private LocalWeatherData localData;
     private ShortTermData shortTermData;
     private LongTermData longTermData;
+    private String cityId;
     private JSONParser parser;
     
     private enum Unit {CELCIUS, FAHRENHEIT};
@@ -40,20 +41,37 @@ public class DataRequester {
         parser = new JSONParser();
     }
 
+    public void update(){
+        if (cityId != null){
+            if (cityId.equalsIgnoreCase("mars")){
+                requestMars();
+            } else {
+                requestLocal();
+                requestShort();
+                requestLong();
+            }
+        }
+    }
+    
+    public void update(String id){
+        cityId = id;
+        this.update();
+    }
+    
     /**
      * requests for the local forecast info and updates
      * the localData object with new values
      * @param id City id as string
      */
-    public void requestLocal(String id){
+    private void requestLocal(){
         String requestURL = null;
         switch (unit){
             case CELCIUS:
-                requestURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=" + id;
+                requestURL = "http://api.openweathermap.org/data/2.5/weather?units=metric&id=" + cityId;
                 localData.setUnit('C');
                 break;
             case FAHRENHEIT:
-                requestURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&id=" + id;
+                requestURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&id=" + cityId;
                 localData.setUnit('F');
                 break;
         }
@@ -69,15 +87,15 @@ public class DataRequester {
      * the shortTermData object with new values
      * @param id City id as string
      */
-    public void requestShort(String id){
+    private void requestShort(){
         String requestURL = null;
         switch (unit){
             case CELCIUS:
-                requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + id;
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=metric&id=" + cityId;
                 shortTermData.setUnit('C');
                 break;
             case FAHRENHEIT:
-                requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&id=" + id;
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast?units=imperial&id=" + cityId;
                 shortTermData.setUnit('F');
                 break;
         }
@@ -93,15 +111,15 @@ public class DataRequester {
      * the longTermData object with new values
      * @param id City id as string
      */
-    public void requestLong(String id){
+    private void requestLong(){
         String requestURL = null;
         switch (unit){
             case CELCIUS:
-                requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=" + id;
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=metric&id=" + cityId;
                 longTermData.setUnit('C');
                 break;
             case FAHRENHEIT:
-                requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=imperial&id=" + id;
+                requestURL = "http://api.openweathermap.org/data/2.5/forecast/daily?cnt=7&units=imperial&id=" + cityId;
                 longTermData.setUnit('F');
                 break;
         }
@@ -115,7 +133,7 @@ public class DataRequester {
      * requests for mars info and updates
      * the localWeatherData object with new values
      */
-    public void requestMars(){
+    private void requestMars(){
         String requestURL = "http://marsweather.ingenology.com/v1/latest/?format=json";
         JSONObject responseJSON = request(requestURL);
         if (responseJSON != null){
@@ -199,17 +217,17 @@ public class DataRequester {
         localData.setSkyCondition(responseWeather.get("description").toString());
         localData.setSkyIcon(responseWeather.get("icon").toString());
         
-		String timeUpdated = response.get("dt").toString();
-		localData.setTimeUpdated(convertUTCtoReadable(timeUpdated));
-		if (responseSys.get("sunrise") != null){
-			String sunrise = responseSys.get("sunrise").toString();
-			localData.setTimeSunrise(convertUTCtoReadable(sunrise));
-		}
-		
-		if (responseSys.get("sunset") != null){
-			String sunset = responseSys.get("sunset").toString();   
-			localData.setTimeSunset(convertUTCtoReadable(sunset));
-		}
+        String timeUpdated = response.get("dt").toString();
+        localData.setTimeUpdated(convertUTCtoReadable(timeUpdated));
+        if (responseSys.get("sunrise") != null){
+                String sunrise = responseSys.get("sunrise").toString();
+                localData.setTimeSunrise(convertUTCtoReadable(sunrise));
+        }
+
+        if (responseSys.get("sunset") != null){
+                String sunset = responseSys.get("sunset").toString();   
+                localData.setTimeSunset(convertUTCtoReadable(sunset));
+        }
     }
     
     /**
@@ -224,7 +242,7 @@ public class DataRequester {
             weatherTimeslot = (JSONObject) list.get(i);
             LocalWeatherData weatherData = new LocalWeatherData();
             
-			parseLocal(weatherTimeslot, weatherData);
+            parseLocal(weatherTimeslot, weatherData);
             
             shortTermData.addShortTermData(weatherData);
         }
@@ -292,10 +310,10 @@ public class DataRequester {
         localData.setSkyIcon("");
         String sunrise = report.get("sunrise").toString();
         String sunset = report.get("sunset").toString();
-		String lastUpdate = report.get("terrestrial_date").toString();
+	String lastUpdate = report.get("terrestrial_date").toString();
         localData.setTimeSunrise(sunrise.substring(11,16)+" ("+sunrise.substring(5, 10)+")");
         localData.setTimeSunset(sunset.substring(11,16)+" ("+sunset.substring(5, 10)+")");
-		localData.setTimeUpdated(lastUpdate);
+        localData.setTimeUpdated(lastUpdate);
     }
 
     /**

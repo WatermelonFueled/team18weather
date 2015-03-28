@@ -152,18 +152,15 @@ public class SelectionPage extends JPanel {
 
 					String city = combo.getSelectedItem().toString();
 					String cityName;
+                                        String cityId;
 					if (city.equalsIgnoreCase("mars")){
 						cityName = "Mars";
-						dataRequester.requestMars();
+                                                cityId = "Mars";
 					}else{
 						cityName = city.substring(0, city.indexOf('['));
-						String cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
-
-						//updates local, short term, long term data for selected city
-						dataRequester.requestLocal(cityId);
-						dataRequester.requestShort(cityId);
-						dataRequester.requestLong(cityId);
+						cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
 					}
+                                        dataRequester.update(cityId);
 					localWeatherView.setCityName(cityName);
 					try {
 						localWeatherView.setLabels();

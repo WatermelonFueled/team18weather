@@ -130,22 +130,22 @@ public class LocalWeatherView extends JPanel {
 		lblSunset.setForeground(labelColor); 
 		GroupLayout gl_leftPanel = new GroupLayout(leftPanel);
 		gl_leftPanel.setHorizontalGroup(
-				gl_leftPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_leftPanel.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_leftPanel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblTemperature, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-								.addGroup(gl_leftPanel.createSequentialGroup()
-										.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblMaxTemperature, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblSunrise, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
-												.addGap(0)
-												.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblSunset, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblMinTemperature, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))))
-														.addContainerGap())
-				);
+                    gl_leftPanel.createParallelGroup(Alignment.LEADING)
+			.addGroup(gl_leftPanel.createSequentialGroup()
+                            .addContainerGap()
+				.addGroup(gl_leftPanel.createParallelGroup(Alignment.TRAILING)
+                                    .addComponent(lblWeatherIcon, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblTemperature, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addGroup(gl_leftPanel.createSequentialGroup()
+				.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+                                    .addComponent(lblMaxTemperature, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSunrise, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0)
+				.addGroup(gl_leftPanel.createParallelGroup(Alignment.LEADING)
+                                    .addComponent(lblSunset, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblMinTemperature, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))))
+                                    .addContainerGap())
+		);
 		gl_leftPanel.setVerticalGroup(
 				gl_leftPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_leftPanel.createSequentialGroup()
@@ -366,7 +366,7 @@ public class LocalWeatherView extends JPanel {
 		
 		//Update time label
 		String dateStamp = new SimpleDateFormat("MMMM dd, yyyy").format(Calendar.getInstance().getTime());
-		String timeStamp = new SimpleDateFormat("hh:mm:ss a").format(Calendar.getInstance().getTime());
+                String timeStamp = new SimpleDateFormat("h:mm a").format(Calendar.getInstance().getTime());
 		lblDate.setText(dateStamp);
 		lblTime.setText(timeStamp);
 	}

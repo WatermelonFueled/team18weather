@@ -1,8 +1,12 @@
 package ca.uwo.csd.cs2212.team18;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -37,6 +41,10 @@ public class LocalWeatherView extends JPanel {
 	private JLabel lblIcon;
 	private JPanel rightPanel;
 	private JPanel leftPanel;
+	private JButton btnRefresh = new JButton("Refresh");
+	private JLabel lblTime;
+	private JLabel lblDate;
+	private JLabel lblUpdate;
 
 	/**
 	 * Constructor for LocalWeatherView
@@ -59,18 +67,39 @@ public class LocalWeatherView extends JPanel {
 
 		initLabels();
 
+		
 		topPanel = new JPanel();
 		topPanel.setBackground(SystemColor.textHighlight);
 
 		lblWeatherUpdate = new JLabel("Weather Update");
-		lblWeatherUpdate.setFont(new Font("Myanmar MN", Font.BOLD, 16));
+		lblWeatherUpdate.setFont(new Font("Myanmar MN", Font.BOLD, 20));
 
 		lblWeatherReportFor = new JLabel("Weather report for: ");
 		lblWeatherReportFor.setFont(new Font("Myanmar MN", Font.PLAIN, 13));
+		
 		lblCity = new JLabel("No city",JLabel.CENTER);
 		lblCity.setFont(new Font("Myanmar MN", Font.PLAIN, 13));
-
 		lblCity.setForeground(labelColor);
+		
+		lblTime = new JLabel("");
+		lblTime.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblTime.setFont(new Font("Myanmar MN", Font.BOLD, 14));
+		
+		lblDate = new JLabel("Never");
+		lblDate.setFont(new Font("Myanmar MN", Font.BOLD, 14));
+		
+		//Refresh button action
+		btnRefresh.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				try {
+					setLabels();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 
 		//Team Logo
 		URL urlLogo = new URL("http://www.18assetmanagement.com/sites/all/themes/custom/am18/logo.png");
@@ -78,40 +107,6 @@ public class LocalWeatherView extends JPanel {
 		Image newimgLogo = imageLogo.getScaledInstance(160, 60,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way 
 		lblIcon = new JLabel(new ImageIcon(newimgLogo));
 		lblIcon.setHorizontalAlignment(SwingConstants.LEFT);
-
-		GroupLayout gl_topPanel = new GroupLayout(topPanel);
-		gl_topPanel.setHorizontalGroup(
-				gl_topPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_topPanel.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-						.addGap(26)
-						.addGroup(gl_topPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_topPanel.createSequentialGroup()
-										.addGap(34)
-										.addComponent(lblWeatherReportFor)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(lblCity))
-										.addGroup(gl_topPanel.createSequentialGroup()
-												.addGap(18)
-												.addComponent(lblWeatherUpdate)))
-												.addGap(127))
-				);
-		gl_topPanel.setVerticalGroup(
-				gl_topPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_topPanel.createSequentialGroup()
-						.addGap(6)
-						.addComponent(lblWeatherUpdate)
-						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblWeatherReportFor)
-								.addComponent(lblCity))
-								.addGap(52))
-								.addGroup(gl_topPanel.createSequentialGroup()
-										.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				);
-		topPanel.setLayout(gl_topPanel);
 
 		rightPanel = new JPanel();
 		rightPanel.setBackground(Color.WHITE);
@@ -210,29 +205,92 @@ public class LocalWeatherView extends JPanel {
 						.addContainerGap(59, Short.MAX_VALUE))
 				);
 		rightPanel.setLayout(gl_rightPanel);
+		
+		
+		btnRefresh.setBackground(Color.WHITE);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(0, 0, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(leftPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-										.addGap(42)
-										.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-										.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 601, GroupLayout.PREFERRED_SIZE))
-										.addContainerGap(139, Short.MAX_VALUE))
-				);
+									.addGap(42)
+									.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnRefresh)
+									.addGap(21))))
+						.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 601, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
-								.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
-								.addContainerGap())
-				);
+					.addComponent(topPanel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(rightPanel, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+							.addComponent(btnRefresh))
+						.addComponent(leftPanel, GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		
+		lblUpdate = new JLabel("Last Update:");
+		GroupLayout gl_topPanel = new GroupLayout(topPanel);
+		gl_topPanel.setHorizontalGroup(
+			gl_topPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_topPanel.createSequentialGroup()
+					.addGap(6)
+					.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_topPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_topPanel.createSequentialGroup()
+							.addGap(44)
+							.addComponent(lblWeatherUpdate)
+							.addGap(12))
+						.addGroup(Alignment.TRAILING, gl_topPanel.createSequentialGroup()
+							.addGap(47)
+							.addComponent(lblWeatherReportFor)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCity, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addPreferredGap(ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+					.addGroup(gl_topPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_topPanel.createSequentialGroup()
+							.addComponent(lblUpdate)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblDate, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE))
+					.addGap(31))
+		);
+		gl_topPanel.setVerticalGroup(
+			gl_topPanel.createParallelGroup(Alignment.LEADING)
+				.addComponent(lblIcon, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_topPanel.createSequentialGroup()
+					.addGap(6)
+					.addComponent(lblWeatherUpdate)
+					.addGap(25))
+				.addGroup(gl_topPanel.createParallelGroup(Alignment.LEADING)
+					.addGroup(Alignment.TRAILING, gl_topPanel.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblUpdate)
+							.addComponent(lblDate))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(lblTime, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+						.addGap(21))
+					.addGroup(gl_topPanel.createSequentialGroup()
+						.addGap(35)
+						.addGroup(gl_topPanel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblWeatherReportFor)
+							.addComponent(lblCity))))
+		);
+		topPanel.setLayout(gl_topPanel);
 		setLayout(groupLayout);
 	}
 
@@ -252,15 +310,17 @@ public class LocalWeatherView extends JPanel {
 
 		lblCity.setText(cityName);
 
-		//Get substring of temps to remove decimal numbers, only if temp exists and has decimals
+		//Get String of all values for value checks
 		String currentTemp = localWeatherData.getTemperature();
 		String minTemp = localWeatherData.getMinTemperature();
 		String maxTemp = localWeatherData.getMaxTemperature();
+		String airPressure = localWeatherData.getAirPressure();
+		String humidity = localWeatherData.getHumidity();
+		String wind = localWeatherData.getWindSpeed();
 		String na = "Not available";
 
-		if(currentTemp == na)
-			lblTemperature.setText("N/A");
-		else {
+		//Check if temp values exist and display accordingly
+		if(!(currentTemp == na)){
 			if(currentTemp.contains(".")) {
 				String newcurrentTemp = localWeatherData.getTemperature().substring(0, localWeatherData.getTemperature().indexOf('.'));
 				lblTemperature.setText(newcurrentTemp + "¼" + currentTempValue);
@@ -268,9 +328,7 @@ public class LocalWeatherView extends JPanel {
 			else lblTemperature.setText(currentTemp + "¼" + currentTempValue);
 		}
 
-		if(minTemp == na) 
-			lblMinTemperature.setText("N/A");
-		else {
+		if(!(minTemp == na)) { 
 			if(minTemp.contains(".")) {
 				String newMinTemp = localWeatherData.getMinTemperature().substring(0, localWeatherData.getMinTemperature().indexOf('.'));
 				lblMinTemperature.setText(newMinTemp + "¼" + currentTempValue);
@@ -278,9 +336,7 @@ public class LocalWeatherView extends JPanel {
 			else lblMinTemperature.setText(minTemp + "¼" + currentTempValue);
 		}
 
-		if(maxTemp == na) 
-			lblMaxTemperature.setText("N/A");
-		else {
+		if(!(maxTemp == na)) {
 			if(maxTemp.contains(".")) {
 				String newMaxTemp = localWeatherData.getMaxTemperature().substring(0, localWeatherData.getMaxTemperature().indexOf('.'));
 				lblMaxTemperature.setText(newMaxTemp + "¼" + currentTempValue);
@@ -288,11 +344,17 @@ public class LocalWeatherView extends JPanel {
 			else lblMaxTemperature.setText(maxTemp + "¼" + currentTempValue);
 		}
 
+		//Check if other values exist, and display accordingly 
+		if(!(airPressure == na)) 
+			lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hPa");
+		
+		if(!(humidity == na)) 
+			lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
 
-		lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hpa");
-		lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
-		lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
-
+		if(!(wind == na)) 
+			lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
+		
+		
 		lblSunrise.setText("Sunrise: " + localWeatherData.getTimeSunrise());
 		lblSunset.setText("Sunset: " + localWeatherData.getTimeSunset()); 
 		lblSkyCondition.setText(localWeatherData.getSkyCondition().toUpperCase());
@@ -310,6 +372,12 @@ public class LocalWeatherView extends JPanel {
 		imageIcon = new ImageIcon(newimg);  // transform it back
 
 		lblWeatherIcon.setIcon(imageIcon);  
+		
+		//Update time label
+		String dateStamp = new SimpleDateFormat("MMMM dd, yyyy").format(Calendar.getInstance().getTime());
+		String timeStamp = new SimpleDateFormat("hh:mm:ss a").format(Calendar.getInstance().getTime());
+		lblDate.setText(dateStamp);
+		lblTime.setText(timeStamp);
 	}
 
 	public String getCityName() {
@@ -319,5 +387,4 @@ public class LocalWeatherView extends JPanel {
 	public void setCityName(String cityName) {
 		this.cityName = cityName;
 	}
-
 }

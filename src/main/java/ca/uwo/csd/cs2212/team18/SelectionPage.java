@@ -25,7 +25,7 @@ public class SelectionPage extends JPanel {
 	private DataRequester dataRequester;
 	private LocalWeatherView localWeatherView;
 	private ShortTermView shortTermView;
-	
+
 	/**
 	 * Creates a new SelectionPage and initializes the user interface. Window is
 	 * not visible by default.
@@ -152,35 +152,53 @@ public class SelectionPage extends JPanel {
 
 					String city = combo.getSelectedItem().toString();
 					String cityName;
-                                        String cityId;
+					String cityId;
 					if (city.equalsIgnoreCase("mars")){
 						cityName = "Mars";
-                                                cityId = "Mars";
+						cityId = "Mars";
 					}else{
 						cityName = city.substring(0, city.indexOf('['));
 						cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
 					}
-                                        dataRequester.update(cityId);
-					localWeatherView.setCityName(cityName);
-					try {
-						localWeatherView.setLabels();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					
+					if(cityId.equals("Mars")) {
+						dataRequester.update(cityId);
+						localWeatherView.setCityName(cityName);
+						try {
+							localWeatherView.setLabels();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						shortTermView.clear();
 					}
-
-					shortTermView.display();
-
+					else{
+						dataRequester.update(cityId);
+						localWeatherView.setCityName(cityName);
+						try {
+							localWeatherView.setLabels();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						shortTermView.display();
+					}
+					
+					
+				
+					lblText.setText("Weather Fetched");
 				}
 			}
 		});
-		
+
 		//Layout for window
 		paneNorth.setLayout(new FlowLayout(FlowLayout.LEFT));
 		paneNorth.add(lblHello);
+
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -203,7 +221,7 @@ public class SelectionPage extends JPanel {
 						.addComponent(paneCenter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addComponent(paneSouth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGap(178))
+						.addGap(181))
 				);
 		GroupLayout gl_paneCenter = new GroupLayout(paneCenter);
 		gl_paneCenter.setHorizontalGroup(
@@ -227,7 +245,7 @@ public class SelectionPage extends JPanel {
 								.addComponent(radCelsius)))
 				);
 		paneCenter.setLayout(gl_paneCenter);		
-		
+
 		GroupLayout gl_paneSouth = new GroupLayout(paneSouth);
 		gl_paneSouth.setHorizontalGroup(
 				gl_paneSouth.createParallelGroup(Alignment.LEADING)

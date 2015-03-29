@@ -4,6 +4,7 @@ package ca.uwo.csd.cs2212.team18;
  */
 public class LocalWeatherData {
 	
+        private String time;
 	private String temperature;
 	private String windSpeed;
 	private String windDirection;
@@ -216,6 +217,14 @@ public class LocalWeatherData {
 	public char getUnit(){
 		return unit;
 	}
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
 
 	
 }

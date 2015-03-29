@@ -320,6 +320,7 @@ public class LocalWeatherView extends JPanel {
 			}
 			else lblTemperature.setText(currentTemp + "¼" + currentTempValue);
 		}
+		else lblTemperature.setText("N/A");
 
 		if(!(minTemp.equals(na))) { 
 			if(minTemp.contains(".")) {
@@ -328,6 +329,7 @@ public class LocalWeatherView extends JPanel {
 			}
 			else lblMinTemperature.setText(minTemp + "¼" + currentTempValue);
 		}
+		else lblMinTemperature.setText("N/A");
 
 		if(!(maxTemp.equals(na))) {
 			if(maxTemp.contains(".")) {
@@ -336,16 +338,20 @@ public class LocalWeatherView extends JPanel {
 			}
 			else lblMaxTemperature.setText(maxTemp + "¼" + currentTempValue);
 		}
+		else lblMinTemperature.setText("N/A");
 
 		//Check if other values exist, and display accordingly 
 		if(!(airPressure.equals(na))) 
 			lblAirPressure.setText("Air Pressure: " + localWeatherData.getAirPressure() + " hPa");
+		else lblAirPressure.setText("N/A");
 		
 		if(!(humidity.equals(na))) 
 			lblHumidity.setText("Humidity: " + localWeatherData.getHumidity() + "%");
+		else lblHumidity.setText("N/A");
 
 		if(!(wind.equals(na))) 
 			lblWind.setText("Wind Speed: " + localWeatherData.getWindSpeed() + " m/s " + localWeatherData.getWindDirection());
+		else lblWind.setText("N/A");
 		
 		
 		lblSunrise.setText("Sunrise: " + localWeatherData.getTimeSunrise());

@@ -1,7 +1,15 @@
 package ca.uwo.csd.cs2212.team18;
 
+import java.awt.Image;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -16,12 +24,20 @@ import javax.swing.table.AbstractTableModel;
  */
 public class WeatherDataTableModel extends AbstractTableModel implements ChangeListener {
 
-    private String[] columnNames = {"Temperature", "WindSpeed", 
-        "Wind Direction", "Air Pressure", "Humidity", "Min Temp", "Max Temp"};
+    /**
+     * columns
+     */
+    private String[] columnNames = {"Time", "Temperature", "Sky Condition", 
+        "", "Min Temp", "Max Temp"};
+
+    /**
+     * list of items
+     */
     private List<LocalWeatherData> items = new ArrayList<LocalWeatherData>();
     
     /**
      * constructor
+     * @param items 
      */
     public WeatherDataTableModel() {
        
@@ -44,8 +60,7 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * get column name
-     * @param col
-     * @return columnNames
+     * @return 
      */
     @Override
     public String getColumnName(int col) {
@@ -63,6 +78,7 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * add a row
+     *
      * @param a
      */
     public void add(LocalWeatherData a) {
@@ -75,6 +91,7 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * get number of rows
+     *
      * @return number of rows
      */
     public int getRowCount() {
@@ -83,35 +100,38 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 
     /**
      * get value at cell of table
-     * @param row
-     * @param col
+     *
      * @return value at cell
      */
     public Object getValueAt(int row, int col) {
         Object val = null;
         switch (col) {
             case 0:
-                val = items.get(row).getTemperature();
+                val = items.get(row).getTime();
                 break;
             case 1:
-                val = items.get(row).getWindSpeed();
+                val = items.get(row).getTemperature();
                 break;
             case 2:
-                val = items.get(row).getWindDirection();
+                val = items.get(row).getSkyCondition();
                 break;
             case 3:
-                val = items.get(row).getAirPressure();
+                
+                URL url;
+                try {
+                    url = new URL("http://openweathermap.org/img/w/" + items.get(row).getSkyIcon() + ".png");
+                    val = new ImageIcon(url);                    
+                } catch (Exception ex) {
+                    Logger.getLogger(WeatherDataTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                    val = "";
+                }
                 break;
             case 4:
-                val = items.get(row).getHumidity();
-                break;
-            case 5:
                 val = items.get(row).getMinTemperature();
                 break;
-            case 6:
+            case 5:
                 val = items.get(row).getMaxTemperature();
-                break;   
-             
+                break;             
         }
         return val;
     }

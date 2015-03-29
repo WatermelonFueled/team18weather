@@ -1,27 +1,39 @@
 package ca.uwo.csd.cs2212.team18;
 
 import java.awt.BorderLayout;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 
 /**
  * This part is written by Samirah
  */
-public class ShortTermView extends JPanel {
+public class ShortTermView extends javax.swing.JPanel {
 
+     /**
+     * table model
+     */
     private WeatherDataTableModel weatherTableModel;
+    
+    /**
+     * list of data
+     */
     private List<LocalWeatherData> items;
+    
+    /**
+     * table
+     */
     private JTable weatherTable;
+    
+    /**
+     * a reference to LocalWeatherData object
+     */
     private ShortTermData shortTermData;
-
     /**
      * Creates new form ShortTermView
-     * @param shortTermData
      */
     public ShortTermView(ShortTermData shortTermData) {
         initComponents();
@@ -29,13 +41,21 @@ public class ShortTermView extends JPanel {
         this.shortTermData = shortTermData;
         
         weatherTableModel = new WeatherDataTableModel();
-        weatherTable = new JTable(weatherTableModel);
+        weatherTable = new JTable(weatherTableModel){
+            
+            public Class getColumnClass(int column)
+            {
+                return getValueAt(0, column).getClass();
+            }
+        };
+        
+        weatherTable.setRowHeight(45);
         
         // For use with mouse listener and events on table when clicked
-        weatherTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        weatherTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
         //add table to scroll pane
-        JScrollPane jScrollPane= new JScrollPane();
+        JScrollPane jScrollPane= new javax.swing.JScrollPane();
         jScrollPane.setViewportView(weatherTable);
         
         //set layout
@@ -48,9 +68,20 @@ public class ShortTermView extends JPanel {
      */
     public void display(){
         weatherTableModel.clear();
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE HH:mm");
         for (int i = 0; i < 8 && i < shortTermData.getData().size(); i++) {
+            shortTermData.getData().get(i).setTime(sdf.format(cal.getTime()));
+            cal.add(Calendar.HOUR_OF_DAY, 3);
             weatherTableModel.add(shortTermData.getData().get(i));
         }
+    }
+    
+    /**
+     * Clear data, for when requesting Mars for example
+     */
+    public void clear(){
+    	weatherTableModel.clear();
     }
 
     /**

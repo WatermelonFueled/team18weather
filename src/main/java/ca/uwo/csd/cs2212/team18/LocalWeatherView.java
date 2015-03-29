@@ -95,7 +95,7 @@ public class LocalWeatherView extends JPanel {
                                     setLabels();    
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					//e1.printStackTrace();
 				}
 			}
 		});

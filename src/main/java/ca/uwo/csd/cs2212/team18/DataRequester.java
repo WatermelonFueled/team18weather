@@ -41,7 +41,7 @@ public class DataRequester {
         parser = new JSONParser();
     }
 
-    public void update(){
+    public void update() throws IOException{
         if (cityId != null){
             if (cityId.equalsIgnoreCase("mars")){
                 requestMars();
@@ -50,12 +50,18 @@ public class DataRequester {
                 requestShort();
                 requestLong();
             }
+        } else {
+            throw new IOException();
         }
     }
     
     public void update(String id){
         cityId = id;
-        this.update();
+        try {
+            this.update();
+        } catch (IOException ex) {
+            Logger.getLogger(DataRequester.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**

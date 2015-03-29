@@ -6,7 +6,12 @@ public class RefreshButton extends JButton {
     DataRequester dataRequester;
     
     public RefreshButton (DataRequester dataRequester){
+        super("Refresh");
         this.dataRequester = dataRequester;
+    }
+    
+    public void refresh(){
+        dataRequester.update();
     }
     
 }

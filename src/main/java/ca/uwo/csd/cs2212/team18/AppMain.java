@@ -77,9 +77,11 @@ public class AppMain{
 		DataRequester dataRequester = new DataRequester(localData,shortTermData,longTermData);
 		logger.info("End of weather data components");
 
+                RefreshButton refreshButton = new RefreshButton(dataRequester);
+                
 		// views
 		logger.info("Initializing views: local weather and selection/preferences");
-		LocalWeatherView localView = new LocalWeatherView(localData);
+		LocalWeatherView localView = new LocalWeatherView(localData, refreshButton);
 		ShortTermView shortView = new ShortTermView(shortTermData);
 		SelectionPage selectionPage = new SelectionPage(localView, shortView, dataRequester);
 		logger.info("End of views");

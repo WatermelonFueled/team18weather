@@ -41,7 +41,7 @@ public class LocalWeatherView extends JPanel {
 	private JLabel lblIcon;
 	private JPanel rightPanel;
 	private JPanel leftPanel;
-	private JButton btnRefresh = new JButton("Refresh");
+	private RefreshButton btnRefresh;
 	private JLabel lblTime;
 	private JLabel lblDate;
 	private JLabel lblUpdate;
@@ -51,11 +51,12 @@ public class LocalWeatherView extends JPanel {
 	 * @param localWeatherData 
 	 * @throws IOException 
 	 */
-	public LocalWeatherView(LocalWeatherData localWeatherData) throws IOException {
+	public LocalWeatherView(LocalWeatherData localWeatherData, RefreshButton btnRefresh) throws IOException {
 		setBackground(Color.WHITE);
 		this.setSize(600, 450);
 		this.localWeatherData = localWeatherData;
-		this.initUI();
+		this.btnRefresh = btnRefresh;
+                this.initUI();
 	}
 
 	/**
@@ -90,7 +91,8 @@ public class LocalWeatherView extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				try {
-					setLabels();
+                                    btnRefresh.refresh();	
+                                    setLabels();    
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

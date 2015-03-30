@@ -191,6 +191,7 @@ public class SelectionPage extends JPanel {
 							e1.printStackTrace();
 						}
 						shortTermView.clear();
+						lblText.setText("Weather Fetched");
 					}
 					else{
 						dataRequester.update(cityId);
@@ -202,12 +203,11 @@ public class SelectionPage extends JPanel {
 							e1.printStackTrace();
 						}
 						shortTermView.display();
+						lblText.setText("Weather Fetched");
 						longTermView.display();
 					}
 
-
-
-					lblText.setText("Weather Fetched");
+					
 				}
 			}
 		});

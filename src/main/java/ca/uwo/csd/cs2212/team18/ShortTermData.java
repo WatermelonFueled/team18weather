@@ -7,18 +7,22 @@ import java.util.List;
  * ShortTermData class: holds and returns weather values from every 3 hour
  * increment. Each increment has a LocalWeatherData object holding values
  * for each.
+ * @author Samirah
  */
 public class ShortTermData{
     
     private List<LocalWeatherData> data;
     private char unit; // C or F
     
+    /**
+     * Constructor for ShortTermData
+     */
     public ShortTermData(){
         data = new ArrayList<LocalWeatherData>();
     }
     
     /**
-     * add an item to list
+     * Add an item to list
      * @param weatherData 
      */
     public void addShortTermData(LocalWeatherData weatherData){
@@ -26,12 +30,16 @@ public class ShortTermData{
     }
     
     /**
-     * clear data
+     * Clear data
      */
     public void clear(){
         data.clear();
     }
 
+    /**
+     * Returns the list of local weather data object
+     * @return data
+     */
     public List<LocalWeatherData> getData() {
         return data;
     }

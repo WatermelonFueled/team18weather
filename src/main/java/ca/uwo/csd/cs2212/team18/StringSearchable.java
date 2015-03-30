@@ -5,6 +5,7 @@ import java.util.List;
 
 
 /**
+ * <h1> String Searchable </h1>
  * Implementation of the Searchable interface that searches a List of String objects. 
  * @author DianaGodoy
  *
@@ -33,7 +34,6 @@ public class StringSearchable implements Searchable<String,String>{
 	 * @return founds The Collection of Strings matching the search value.
 	 */
 	public Collection<String> search(String value) {
-		//value.toLowerCase();
 		List<String> founds = new ArrayList<String>();
 	
 		for ( String s : terms ){

@@ -2,24 +2,27 @@ package ca.uwo.csd.cs2212.team18;
 
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 
 /**
- * Creates the tabbed panel to switch between the various views
+ * <h1> Tabbed Views </h1>
+ * Class creates the tabbed panel to switch between the various views
  */
 public class TabbedViews extends JPanel{
+
+	private static final long serialVersionUID = -5885613404969139842L;
 
 	/**
 	 * Constructor for TabbedViews
 	 * @param selectionView
 	 * @param localView 
 	 * @param shortTermView 
+	 * @param longTermView
 	 */
 	public TabbedViews(SelectionPage selectionView, LocalWeatherView localView,
-			ShortTermView shortTermView){
+			ShortTermView shortTermView, LongTermView longTermView){
 		super(new GridLayout(1,1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -36,9 +39,9 @@ public class TabbedViews extends JPanel{
 		tabbedPane.addTab("Short Term Forecast", shortTermView);
 		tabbedPane.setMnemonicAt(2,KeyEvent.VK_3);
 
-
-
-
+		//long term forecast tab
+		tabbedPane.addTab("Long Term Forecast", longTermView);
+		tabbedPane.setMnemonicAt(3,KeyEvent.VK_4);
 
 		add(tabbedPane);
 	}

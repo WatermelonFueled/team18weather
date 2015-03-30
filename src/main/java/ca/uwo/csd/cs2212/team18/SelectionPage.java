@@ -27,6 +27,7 @@ public class SelectionPage extends JPanel {
 	private DataRequester dataRequester;
 	private LocalWeatherView localWeatherView;
 	private ShortTermView shortTermView;
+	private LongTermView longTermView;
 
 	/**
 	 * Creates a new SelectionPage and initializes the user interface. Window is
@@ -35,10 +36,11 @@ public class SelectionPage extends JPanel {
 	 * @param shortTermView
 	 * @param dataRequester
 	 */
-	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView,
+	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView, LongTermView longTermView,
 			DataRequester dataRequester) {
 		this.localWeatherView = localWeatherView;
 		this.shortTermView = shortTermView;
+		this.longTermView = longTermView;
 		this.dataRequester = dataRequester;
 		this.initUI(); 
 	}
@@ -200,6 +202,7 @@ public class SelectionPage extends JPanel {
 							e1.printStackTrace();
 						}
 						shortTermView.display();
+						longTermView.display();
 					}
 
 

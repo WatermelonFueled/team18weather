@@ -7,8 +7,9 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 /**
- * <h1> ShortTermView </h1>
+ * <h1> Short Term View </h1>
  * This class creates a pane for the short term view 
  * @author Samirah
  */

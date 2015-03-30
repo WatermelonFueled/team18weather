@@ -2,6 +2,7 @@ package ca.uwo.csd.cs2212.team18;
 import java.util.Collection;
 
 /**
+ * <h1> Searchable </h1>
  * Interface to search an underlying inventory of items and return a collection of found items. 
  * @param <E> The type of items to be found.
  * @param <V> The type of items to be searched

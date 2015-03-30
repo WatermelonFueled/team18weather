@@ -1,6 +1,11 @@
 package ca.uwo.csd.cs2212.team18; 
+
 /**
- * LocalWeatherData class: holds and returns values for the local weather view
+ * <h1> Data Requester </h1>
+ * 
+ * Class holds and returns values for the local weather view
+ * 
+ * @author DaParkVid
  */
 public class LocalWeatherData {
 
@@ -20,7 +25,7 @@ public class LocalWeatherData {
 	private char unit; //C or F
 
 	/**
-	 * constructor
+	 * Constructor
 	 */
 	LocalWeatherData() {
 		/*temperature = 0;
@@ -61,11 +66,9 @@ public class LocalWeatherData {
 	 * @param windSpeed
 	 */
 	public void setWindSpeed(String windSpeed) {
-		if (windSpeed != null){
+		if (windSpeed != null) 
 			this.windSpeed = windSpeed;
-		} else {
-			this.windSpeed = "Not available";
-		}
+		else this.windSpeed = "Not available";
 	}
 
 	/**
@@ -84,9 +87,8 @@ public class LocalWeatherData {
 			double degree = Double.parseDouble(windDirection);
 			String directions[] = {"N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"};
 			this.windDirection = directions[ (int)Math.round((  ((double)degree % 360) / 45)) ];
-		} else {
-			this.windDirection = "Not available";
-		}
+		} 
+		else this.windDirection = "Not available";
 	}
 
 	/**
@@ -114,11 +116,9 @@ public class LocalWeatherData {
 	 * @param humidity the humidity to set
 	 */
 	public void setHumidity(String humidity) {
-		if (humidity != null){
+		if (humidity != null)
 			this.humidity = humidity;
-		}else {
-			this.humidity = "Not available";
-		}
+		else this.humidity = "Not available";
 	}
 
 	/**
@@ -198,15 +198,24 @@ public class LocalWeatherData {
 		this.skyIcon = skyIconNum;
 	}
 
+	/**
+	 * @return the sky icon (eg. 10d)
+	 */
 	public String getSkyIcon(){
 		return skyIcon;
 	}
 
 
+	/**
+	 * @return the time updated
+	 */
 	public String getTimeUpdated(){
 		return timeUpdated;
 	}
 
+	/**
+	 * @param timeUpdated
+	 */
 	public void setTimeUpdated(String timeUpdated){
 		this.timeUpdated = timeUpdated;
 	}
@@ -227,13 +236,18 @@ public class LocalWeatherData {
 		return unit;
 	}
 
+	/**
+	 * @return the time
+	 */
 	public String getTime() {
 		return time;
 	}
 
+	/**
+	 * Sets the time specified
+	 * @param time
+	 */
 	public void setTime(String time) {
 		this.time = time;
 	}
-
-
 }

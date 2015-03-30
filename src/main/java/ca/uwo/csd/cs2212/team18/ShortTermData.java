@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ShortTermData class: holds and returns weather values from every 3 hour
+ * <h1> Short Term Data </h1>
+ * Class holds and returns weather values from every 3 hour
  * increment. Each increment has a LocalWeatherData object holding values
  * for each.
  * @author Samirah

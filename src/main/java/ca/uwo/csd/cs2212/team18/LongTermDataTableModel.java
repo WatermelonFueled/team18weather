@@ -45,8 +45,11 @@ public class LongTermDataTableModel extends AbstractTableModel implements Change
    * clear model
    */
   public void clear() {
+  	if(longTermData!=null)
+  	{
   	longTermData.clear();
       fireTableDataChanged();
+  	}
   }
 
   /**
@@ -75,7 +78,7 @@ public class LongTermDataTableModel extends AbstractTableModel implements Change
   public void setLongTermData(LongTermData ltdata) {
       if (ltdata != null) {
           this.longTermData = ltdata;
-          
+          fireTableDataChanged();
       }
   }
 

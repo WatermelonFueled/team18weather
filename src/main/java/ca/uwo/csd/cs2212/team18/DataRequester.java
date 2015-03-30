@@ -27,8 +27,8 @@ public class DataRequester {
     private String cityId;
     private JSONParser parser;
     
-    private enum Unit {CELCIUS, FAHRENHEIT};
-    Unit unit = Unit.CELCIUS;
+    public static enum Unit {CELCIUS, FAHRENHEIT};
+    public static Unit unit = Unit.CELCIUS;
     
     /**
      * Constructor for DataRequester

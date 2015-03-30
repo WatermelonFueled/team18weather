@@ -3,8 +3,8 @@ package ca.uwo.csd.cs2212.team18;
  * LocalWeatherData class: holds and returns values for the local weather view
  */
 public class LocalWeatherData {
-	
-        private String time;
+
+	private String time;
 	private String temperature;
 	private String windSpeed;
 	private String windDirection;
@@ -18,7 +18,7 @@ public class LocalWeatherData {
 	private String skyIcon;
 	private String timeUpdated;
 	private char unit; //C or F
-        
+
 	/**
 	 * constructor
 	 */
@@ -33,16 +33,19 @@ public class LocalWeatherData {
 		maxTemperature = 0;
 		timeSunrise = "00:00:00";
 		timeSunset = "00:00:00";
-		*/
+		 */
 	}
-	
+
 	/**
 	 * @return the temperature
 	 */
 	public String getTemperature() {
 		return temperature;
 	}
-	
+
+	/**
+	 * @param temperature
+	 */
 	public void setTemperature(String temperature) {
 		this.temperature = temperature;
 	}
@@ -53,9 +56,9 @@ public class LocalWeatherData {
 	public String getWindSpeed() {
 		return windSpeed;
 	}
-	
+
 	/**
-	 * @return the windDirection
+	 * @param windSpeed
 	 */
 	public void setWindSpeed(String windSpeed) {
 		if (windSpeed != null){
@@ -64,7 +67,7 @@ public class LocalWeatherData {
 			this.windSpeed = "Not available";
 		}
 	}
-	
+
 	/**
 	 * @return the windDirection
 	 */
@@ -72,6 +75,10 @@ public class LocalWeatherData {
 		return windDirection;
 	}
 
+	/**
+	 * Sets wind directions in compass terms
+	 * @param windDirection the wind direction in degrees
+	 */
 	public void setWindDirection(String windDirection) {
 		if (windDirection != null){
 			double degree = Double.parseDouble(windDirection);
@@ -184,24 +191,26 @@ public class LocalWeatherData {
 		this.timeSunset = timeSunset;
 	}
 
-	
+	/**
+	 * @param skyIconNum
+	 */
 	public void setSkyIcon(String skyIconNum) {
 		this.skyIcon = skyIconNum;
 	}
-	
+
 	public String getSkyIcon(){
 		return skyIcon;
 	}
-	
-	
+
+
 	public String getTimeUpdated(){
 		return timeUpdated;
 	}
-	
+
 	public void setTimeUpdated(String timeUpdated){
 		this.timeUpdated = timeUpdated;
 	}
-	
+
 	/**
 	 * Sets the temperature unit symbol
 	 * @param unit 
@@ -218,13 +227,13 @@ public class LocalWeatherData {
 		return unit;
 	}
 
-        public String getTime() {
-            return time;
-        }
+	public String getTime() {
+		return time;
+	}
 
-        public void setTime(String time) {
-            this.time = time;
-        }
+	public void setTime(String time) {
+		this.time = time;
+	}
 
-	
+
 }

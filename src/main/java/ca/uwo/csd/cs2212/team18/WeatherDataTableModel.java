@@ -104,13 +104,13 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
      * @return value at cell
      */
     public Object getValueAt(int row, int col) {
-        Object val = null;
+    	Object val = null;
         switch (col) {
             case 0:
                 val = items.get(row).getTime();
                 break;
             case 1:
-                val = items.get(row).getTemperature();
+                val = items.get(row).getTemperature() + " ¼" + items.get(row).getUnit();
                 break;
             case 2:
                 val = items.get(row).getSkyCondition();
@@ -127,10 +127,10 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
                 }
                 break;
             case 4:
-                val = items.get(row).getMinTemperature();
+                val = items.get(row).getMinTemperature() + " ¼" + items.get(row).getUnit();
                 break;
             case 5:
-                val = items.get(row).getMaxTemperature();
+                val = items.get(row).getMaxTemperature() + " ¼" + items.get(row).getUnit();
                 break;             
         }
         return val;

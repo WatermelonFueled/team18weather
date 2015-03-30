@@ -8,6 +8,8 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 /**
  * <h1> Selection Page </h1>
@@ -47,15 +49,26 @@ public class SelectionPage extends JPanel {
 	 * appropriate panels and adds them to the current frame.
 	 */
 	private void initUI(){
+
 		//Get data for comboBox
 		final ArrayList<String> locList = new ArrayList<String>();
+
+		//Catch exceptions
 		try {
 			locationList(locList);
-		} catch (FileNotFoundException e){
+		} 
+		catch (FileNotFoundException e){
 			e.printStackTrace();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		//Search buttons and selected value text
+		JLabel lblHello = new JLabel("Choose your location...");
+		lblHello.setForeground(Color.BLACK);
+		final JLabel lblText = new JLabel();
+		lblText.setForeground(Color.BLACK);
 
 		//Radio Buttons
 		JRadioButton radCelsius;
@@ -71,16 +84,26 @@ public class SelectionPage extends JPanel {
 		grpTemp.add(radCelsius);
 		grpTemp.add(radFahrenheit);
 
-		//Search buttons and selected value text
-		JLabel lblHello = new JLabel("Choose your location...");
-		lblHello.setForeground(Color.BLACK);
-		final JLabel lblText = new JLabel();
-		lblText.setForeground(Color.BLACK);
-
 		//Auto Complete Combo Box
 		StringSearchable searchable = new StringSearchable(locList);
 		final AutoCompleteJComboBox combo = new AutoCompleteJComboBox(searchable);
 		combo.setEditable(true);
+
+		//Change listener for when switching between radio buttons
+		radCelsius.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				String msg = "Selected: " + combo.getSelectedItem() + " in Celsius";
+				lblText.setText(msg);
+			}
+		});
+
+		//Change listener for when switching between radio buttons
+		radFahrenheit.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				String msg = "Selected: " + combo.getSelectedItem() + " in Fahrenheit";
+				lblText.setText(msg);
+			}
+		});
 
 		//KeyListener for when hitting enter in window
 		KeyListener eListener = new KeyListener() {
@@ -90,26 +113,21 @@ public class SelectionPage extends JPanel {
 					if (!(locList.contains(combo.getSelectedItem()))) {
 						String err = "Error: Incorrect Location, Please Try Again";
 						lblText.setText(err);
-					} else {
+					} 
+					else {
 						String msg = "Selected: " + combo.getSelectedItem();
-						if (radFahrenheit.isSelected()) {
-							msg += " in Fahrenheit";
-						} else {
-							msg += " in Celsius";
-						}
+						if (radFahrenheit.isSelected())	msg += " in Fahrenheit";
+						else msg += " in Celsius";
 						lblText.setText(msg);
 					}
 				}
 			}
-
-			public void keyTyped(KeyEvent arg0) {
-			}
-
-			public void keyPressed(KeyEvent e) {
-			}
+			public void keyTyped(KeyEvent arg0) {}
+			public void keyPressed(KeyEvent e) {}
 		};
 
-		//If hit enter select entered values and display them
+
+		//Action listeners for window
 		radCelsius.addKeyListener(eListener);
 		radFahrenheit.addKeyListener(eListener);
 		combo.getEditor().getEditorComponent().addKeyListener(eListener);
@@ -160,7 +178,7 @@ public class SelectionPage extends JPanel {
 						cityName = city.substring(0, city.indexOf('['));
 						cityId = city.substring(city.indexOf('[')+1, city.indexOf(']'));
 					}
-					
+
 					if(cityId.equals("Mars")) {
 						dataRequester.update(cityId);
 						localWeatherView.setCityName(cityName);
@@ -183,9 +201,9 @@ public class SelectionPage extends JPanel {
 						}
 						shortTermView.display();
 					}
-					
-					
-				
+
+
+
 					lblText.setText("Weather Fetched");
 				}
 			}

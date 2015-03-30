@@ -15,17 +15,13 @@ import org.apache.logging.log4j.Logger;
  */
 public class AppMain{
 
-	private static final long serialVersionUID = -5681712855274371085L;
-	private static DataRequester dataRequester;
-	private static LocalWeatherView localWeatherView;
-	private static ShortTermView shortTermView;
 	static Logger logger = LogManager.getLogger(AppMain.class.getName());
 
-	/**
+	/*
 	 * Checks if there is a previous preference on file and auto-populate info
 	 * @throws IOException
 	 * @throws FileNotFoundException
-	 
+
 	private static void checkPreferences() throws IOException, FileNotFoundException{
 		//Check preferences file
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("preferences.txt");
@@ -77,8 +73,8 @@ public class AppMain{
 		DataRequester dataRequester = new DataRequester(localData,shortTermData,longTermData);
 		logger.info("End of weather data components");
 
-                RefreshButton refreshButton = new RefreshButton(dataRequester);
-                
+		RefreshButton refreshButton = new RefreshButton(dataRequester);
+
 		// views
 		logger.info("Initializing views: local weather and selection/preferences");
 		LocalWeatherView localView = new LocalWeatherView(localData, refreshButton);

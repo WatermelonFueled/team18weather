@@ -8,18 +8,18 @@ package ca.uwo.csd.cs2212.team18;
  * @author DaParkVid
  */
 public class LongTermData {
-	 private String[] temperatureMin;
-	    private String[] temperatureMax;
-	    private String[] skyCondition;
+	 private String[] temperatureMin = {"N/A","N/A","N/A","N/A","N/A","N/A","N/A"};
+	    private String[] temperatureMax = {"N/A","N/A","N/A","N/A","N/A","N/A","N/A"};
+	    private String[] skyCondition = {"N/A","N/A","N/A","N/A","N/A","N/A","N/A"};
 	    private char unit;
 	    
 	    /**
 	     * constructor creates the string arrays for values; length 7 (days)
 	     */
 	    LongTermData(){
-	        temperatureMin = new String[7];
-	        temperatureMax = new String[7];
-	        skyCondition = new String[7];
+	        //temperatureMin = new String[7];
+	        //temperatureMax = new String[7];
+	        //skyCondition = new String[7];
 	    }
 
 	    /**

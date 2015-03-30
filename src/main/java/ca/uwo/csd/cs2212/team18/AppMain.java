@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 /**
  * <h1> App Main </h1>
  * Main class for team 18 weather app; Initializes all necessary components
- * @author DaParkVid
  */
 public class AppMain{
 

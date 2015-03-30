@@ -75,7 +75,6 @@ public class ShortTermView extends javax.swing.JPanel {
 			cal.add(Calendar.HOUR_OF_DAY, 3);
 			weatherTableModel.add(shortTermData.getData().get(i));
 		}
-		System.out.println(shortTermData.getUnit());
 	}
 
 	/**

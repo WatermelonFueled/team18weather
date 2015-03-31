@@ -36,10 +36,9 @@ public class DataRequester {
 	 * Constructor for DataRequester
 	 * @param localData LocalWeatherData object
 	 */
-	DataRequester(LocalWeatherData localData, ShortTermData shortTermData, LongTermData longTermData){
+	DataRequester(LocalWeatherData localData, ShortTermData shortTermData){
 		this.localData = localData;
 		this.shortTermData = shortTermData;
-		this.longTermData = longTermData;
 		parser = new JSONParser();
 	}
 
@@ -54,7 +53,6 @@ public class DataRequester {
 			} else {
 				requestLocal();
 				requestShort();
-				requestLong();
 			}
 		} else {
 			throw new IOException();

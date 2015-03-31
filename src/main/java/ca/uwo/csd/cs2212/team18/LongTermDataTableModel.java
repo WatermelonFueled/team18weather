@@ -30,8 +30,7 @@ public class LongTermDataTableModel extends AbstractTableModel implements Change
       Calendar date = Calendar.getInstance();
       for(int i = 0; i < 7; i++){
       	wkdays[i] = format.format(date.getTime());
-        date.add(Calendar.DATE  , 1);
-        System.out.println(wkdays[i]);               
+        date.add(Calendar.DATE  , 1);             
       }
   }
 

@@ -19,10 +19,9 @@ public class TabbedViews extends JPanel{
 	 * @param selectionView
 	 * @param localView 
 	 * @param shortTermView 
-	 * @param longTermView
 	 */
 	public TabbedViews(SelectionPage selectionView, LocalWeatherView localView,
-			ShortTermView shortTermView, LongTermView longTermView){
+			ShortTermView shortTermView){
 		super(new GridLayout(1,1));
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -38,10 +37,6 @@ public class TabbedViews extends JPanel{
 		//short term forecast tab
 		tabbedPane.addTab("Short Term Forecast", shortTermView);
 		tabbedPane.setMnemonicAt(2,KeyEvent.VK_3);
-
-		//long term forecast tab
-		tabbedPane.addTab("Long Term Forecast", longTermView);
-		tabbedPane.setMnemonicAt(3,KeyEvent.VK_4);
 
 		add(tabbedPane);
 	}

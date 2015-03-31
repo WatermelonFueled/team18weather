@@ -36,11 +36,9 @@ public class SelectionPage extends JPanel {
 	 * @param shortTermView
 	 * @param dataRequester
 	 */
-	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView, LongTermView longTermView,
-			DataRequester dataRequester) {
+	public SelectionPage(LocalWeatherView localWeatherView, ShortTermView shortTermView, DataRequester dataRequester) {
 		this.localWeatherView = localWeatherView;
 		this.shortTermView = shortTermView;
-		this.longTermView = longTermView;
 		this.dataRequester = dataRequester;
 		this.initUI(); 
 	}
@@ -204,7 +202,6 @@ public class SelectionPage extends JPanel {
 						}
 						shortTermView.display();
 						lblText.setText("Weather Fetched");
-						longTermView.display();
 					}
 
 					

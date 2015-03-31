@@ -27,8 +27,7 @@ public class AppMain{
 		logger.info("Initializing weather data components");
 		LocalWeatherData localData = new LocalWeatherData();
 		ShortTermData shortTermData = new ShortTermData();
-		LongTermData longTermData = new LongTermData();
-		DataRequester dataRequester = new DataRequester(localData,shortTermData,longTermData);
+		DataRequester dataRequester = new DataRequester(localData,shortTermData);
 		logger.info("End of weather data components");
 
 		RefreshButton refreshButton = new RefreshButton(dataRequester);
@@ -37,13 +36,12 @@ public class AppMain{
 		logger.info("Initializing weather views/tabs");
 		LocalWeatherView localView = new LocalWeatherView(localData, refreshButton);
 		ShortTermView shortView = new ShortTermView(shortTermData);
-		LongTermView longView = new LongTermView(longTermData);
-		SelectionPage selectionPage = new SelectionPage(localView, shortView, longView, dataRequester);
+		SelectionPage selectionPage = new SelectionPage(localView, shortView, dataRequester);
 		logger.info("End of views");
 
 		// place views into tabs
 		logger.info("Putting views into tabs");
-		TabbedViews tabs = new TabbedViews(selectionPage, localView, shortView, longView);
+		TabbedViews tabs = new TabbedViews(selectionPage, localView, shortView);
 
 		//main window/frame
 		logger.info("Initializing main JFrame with tabbed view");

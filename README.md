@@ -3,7 +3,7 @@
 Team 18 Weather App displays current and upcoming weather information for a user selected location.
 
 It connects with [OpenWeatherMap's API](https://openweathermap.org) to retrieve current, short-term (3h intervals), and 7 day weather forecasts. The response from the API (in JSON) is parsed using [JSON.simple](https://code.google.com/p/json-simple/).
-Likewise, it connects with [Mars Atmospheric Aggregation System API](http://marsweather.ingenology.com) to retrieve the most recent weather update from the [Curiosity Rover](http://mars.nasa.gov/msl/) on Mars.
+Likewise, it connects with [Mars Atmospheric Aggregation System API](http://marsweather.ingenology.com) to retrieve the most recent weather update from the [Curiosity Rover](http://mars.nasa.gov/msl/) on Mars. [Apache Log4j 2](https://logging.apache.org/log4j/2.x/) was used for logging.
 
 ## Installation
 

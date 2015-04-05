@@ -24,6 +24,8 @@ $ mvn compile
 $ mvn package
 ```
 
+*You will require [Apache Maven](https://maven.apache.org/download.cgi)
+
 ## Usage
 
 [Watch our demonstration video!](https://www.youtube.com/watch?v=JdziXdv03YQ)

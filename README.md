@@ -9,20 +9,20 @@ Likewise, it connects with [Mars Atmospheric Aggregation System API](http://mars
 
 Download our application JAR file. Then use the following line to run the app:
 
-'''
+```
 $ java -jar team18-WeatherApp-1.0-SNAPSHOT-jar-with-dependencies.jar
-'''
+```
 
 ## Build
 
 To build:
 
-'''
+```
 $ git clone git@github.com:UWO-2212-W2015/team18.git
 $ cd team18
 $ mvn compile
 $ mvn package
-'''
+```
 
 ## Usage
 

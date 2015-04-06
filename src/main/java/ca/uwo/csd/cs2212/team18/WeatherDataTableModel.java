@@ -94,7 +94,7 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 			val = items.get(row).getTime();
 			break;
 		case 1:
-			val = items.get(row).getTemperature() + " ¼" + ((DataRequester.unit == DataRequester.Unit.CELCIUS)?"C":"F");
+			val = items.get(row).getTemperature() + "\u00b0" + ((DataRequester.unit == DataRequester.Unit.CELCIUS)?"C":"F");
 			break;
 		case 2:
 			val = items.get(row).getSkyCondition();
@@ -110,10 +110,10 @@ public class WeatherDataTableModel extends AbstractTableModel implements ChangeL
 			}
 			break;
 		case 4:
-			val = items.get(row).getMinTemperature()+ " ¼" + ((DataRequester.unit == DataRequester.Unit.CELCIUS)?"C":"F");
+			val = items.get(row).getMinTemperature()+ "\u00b0" + ((DataRequester.unit == DataRequester.Unit.CELCIUS)?"C":"F");
 			break;
 		case 5:
-			val = items.get(row).getMaxTemperature() + " ¼" + ((DataRequester.unit == DataRequester.Unit.CELCIUS)?"C":"F");
+			val = items.get(row).getMaxTemperature() + "\u00b0" + ((DataRequester.unit == DataRequester.Unit.CELCIUS)?"C":"F");
 			break;             
 		}
 		return val;

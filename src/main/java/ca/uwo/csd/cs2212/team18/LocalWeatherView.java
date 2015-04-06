@@ -1,6 +1,9 @@
 package ca.uwo.csd.cs2212.team18;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -9,9 +12,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 /**
  * <h1> Local Weather View </h1>
@@ -329,27 +336,27 @@ public class LocalWeatherView extends JPanel {
 		if(!(currentTemp.equals(na))){
 			if(currentTemp.contains(".")) {
 				String newcurrentTemp = localWeatherData.getTemperature().substring(0, localWeatherData.getTemperature().indexOf('.'));
-				lblTemperature.setText(newcurrentTemp + "¼" + currentTempValue);
+				lblTemperature.setText(newcurrentTemp + "\u00b0" + currentTempValue);
 			}
-			else lblTemperature.setText(currentTemp + "¼" + currentTempValue);
+			else lblTemperature.setText(currentTemp + "\u00b0" + currentTempValue);
 		}
 		else lblTemperature.setText("N/A");
 
 		if(!(minTemp.equals(na))) { 
 			if(minTemp.contains(".")) {
 				String newMinTemp = localWeatherData.getMinTemperature().substring(0, localWeatherData.getMinTemperature().indexOf('.'));
-				lblMinTemperature.setText(newMinTemp + "¼" + currentTempValue);
+				lblMinTemperature.setText(newMinTemp + "\u00b0" + currentTempValue);
 			}
-			else lblMinTemperature.setText(minTemp + "¼" + currentTempValue);
+			else lblMinTemperature.setText(minTemp + "\u00b0" + currentTempValue);
 		}
 		else lblMinTemperature.setText("N/A");
 
 		if(!(maxTemp.equals(na))) {
 			if(maxTemp.contains(".")) {
 				String newMaxTemp = localWeatherData.getMaxTemperature().substring(0, localWeatherData.getMaxTemperature().indexOf('.'));
-				lblMaxTemperature.setText(newMaxTemp + "¼" + currentTempValue);
+				lblMaxTemperature.setText(newMaxTemp + "\u00b0" + currentTempValue);
 			}
-			else lblMaxTemperature.setText(maxTemp + "¼" + currentTempValue);
+			else lblMaxTemperature.setText(maxTemp + "\u00b0" + currentTempValue);
 		}
 		else lblMinTemperature.setText("N/A");
 

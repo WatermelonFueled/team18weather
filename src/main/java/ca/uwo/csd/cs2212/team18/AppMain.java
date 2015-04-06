@@ -1,8 +1,10 @@
 package ca.uwo.csd.cs2212.team18;
 
-import java.awt.*;
-import java.io.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.io.IOException;
+
+import javax.swing.JFrame;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

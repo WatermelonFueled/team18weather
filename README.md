@@ -31,3 +31,5 @@ $ mvn package
 [Watch our demonstration video!](https://www.youtube.com/watch?v=JdziXdv03YQ)
 
 ## Documentation
+
+See our [Javadocs](https://github.com/UWO-2212-W2015/team18/tree/master/doc).
